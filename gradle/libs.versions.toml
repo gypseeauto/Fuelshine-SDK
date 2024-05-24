@@ -1,0 +1,30 @@
+[versions]
+agp = "8.3.2"
+gypseesdk = "v.1.0.0"
+gypseeSdkVersion = "1.0.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.11.0"
+constraintlayout = "2.1.4"
+multidex = "2.0.1"
+navigationFragment = "2.7.7"
+navigationUi = "2.7.7"
+
+[libraries]
+gypsee-sdk = { module = "com.github.gypseeauto:gypsee-sdk", version.ref = "gypseeSdkVersion" }
+gypseesdk = { module = "com.github.gypseeauto:gypseesdk", version.ref = "gypseesdk" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+
