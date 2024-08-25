@@ -12,6 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.gypsee.sdk.utils.Utils;
 import com.sdk.gypsee.sampleapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // Utils.registerNetworkCallback(getApplicationContext());
-
+        Utils.registerNetworkCallback(getApplicationContext());
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

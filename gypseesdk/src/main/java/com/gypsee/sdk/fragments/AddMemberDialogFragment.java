@@ -111,7 +111,7 @@ public class AddMemberDialogFragment extends DialogFragment {
 
 
     private void submitMember(){
-        FirebaseLogEvents.firebaseLogEvent("added_emergency_contact");
+        FirebaseLogEvents.firebaseLogEvent("added_emergency_contact",context);
 
         if (addMemberDialogBinding.memberName.getText().toString().trim().equals("")
         || addMemberDialogBinding.memberCity.getText().toString().trim().equals("")

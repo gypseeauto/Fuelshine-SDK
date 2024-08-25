@@ -96,7 +96,7 @@ public class DemoHomeFragement extends Fragment implements View.OnClickListener 
         implementclickListener();
         initNavigationViews();
         setUpHeaderView();
-        FirebaseLogEvents.firebaseLogEvent("viewed_product_demo");
+        FirebaseLogEvents.firebaseLogEvent("viewed_product_demo",context);
         //setDrivingMode(true);
 
         //registerForegroundServiceReceiver();

@@ -24,7 +24,7 @@ public class Emergencyactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.emergency_main);
-        FirebaseLogEvents.firebaseLogEvent("accessed_emergency_contact_card");
+        FirebaseLogEvents.firebaseLogEvent("accessed_emergency_contact_card",this);
         initViews();
     }
 

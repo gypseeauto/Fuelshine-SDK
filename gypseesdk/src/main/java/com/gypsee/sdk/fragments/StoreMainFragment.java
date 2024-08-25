@@ -74,7 +74,7 @@ public class StoreMainFragment extends Fragment {
         initStaticViews();
         //initViews();
         fetchAllCategories();
-        FirebaseLogEvents.firebaseLogEvent("accessed_store");
+        FirebaseLogEvents.firebaseLogEvent("accessed_store",context);
 
 
         return fragmentStoreMainBinding.getRoot();

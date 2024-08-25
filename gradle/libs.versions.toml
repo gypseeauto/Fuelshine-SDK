@@ -2,7 +2,7 @@
 agp = "8.3.2"
 firebaseBom = "33.1.2"
 gypseesdk = "v.1.0.0"
-gypseeSdkVersion = "1.0.0"
+gypseeSdkVersion = "1.0.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -20,8 +20,7 @@ firebaseCrashlyticsGradle = "3.0.2"
 
 [libraries]
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
-gypsee-sdk = { module = "com.github.gypseeauto:gypsee-sdk", version.ref = "gypseeSdkVersion" }
-gypseesdk = { module = "com.github.gypseeauto:gypseesdk", version.ref = "gypseesdk" }
+gypseesdk = { module = "com.github.gypseeauto:gypsee-sdk", version.ref = "gypseeSdkVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

@@ -274,7 +274,7 @@ public class SettingsFragment extends Fragment {
         settingsBinding.helpLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseLogEvents.firebaseLogEvent("accessed_technical_support");
+                FirebaseLogEvents.firebaseLogEvent("accessed_technical_support",getContext());
                         BluetoothHelperClass.showTripEndDialog(getContext(), getLayoutInflater(), "Dear Customer!", "You are about to write mail to Fuelshine customer support team. Within 48 hours, we will resolve your query.", responseFromServer, 2);
 //
             }

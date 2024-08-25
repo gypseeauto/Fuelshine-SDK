@@ -44,7 +44,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1234");
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "LoginEvent");
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        FirebaseAnalytics.getInstance(getApplicationContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     private void replaceLoginFragment() {

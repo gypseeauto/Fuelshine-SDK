@@ -66,7 +66,7 @@ public class SafetyCenterFragment extends Fragment {
 
         setupPagerIndidcatorDots();
         setUpViewPager();
-        FirebaseLogEvents.firebaseLogEvent("safety_center");
+        FirebaseLogEvents.firebaseLogEvent("safety_center",context);
 
 
 

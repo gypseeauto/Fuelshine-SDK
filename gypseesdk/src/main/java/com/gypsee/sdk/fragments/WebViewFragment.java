@@ -106,7 +106,7 @@ public class WebViewFragment extends Fragment {
         layoutWebViewBinding.generateReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseLogEvents.firebaseLogEvent("generated_driving_report");
+                FirebaseLogEvents.firebaseLogEvent("generated_driving_report",context);
                 if (startDate == null || endDate == null){
                     Toast.makeText(context, "Please select valid dates", Toast.LENGTH_SHORT).show();
                     return;
@@ -126,7 +126,7 @@ public class WebViewFragment extends Fragment {
         layoutWebViewBinding.exportPdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseLogEvents.firebaseLogEvent("exported_driving_report_pdf");
+                FirebaseLogEvents.firebaseLogEvent("exported_driving_report_pdf",context);
                 createWebPrintJob(layoutWebViewBinding.webView);
                 //createWebImage(layoutWebViewBinding.webView);
             }

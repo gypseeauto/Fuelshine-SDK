@@ -114,7 +114,7 @@ public class NewVehiclePerformanceFragment extends Fragment {
         // Inflate the layout for this fragment
 
 
-        FirebaseLogEvents.firebaseLogEvent("checked_car_health");
+        FirebaseLogEvents.firebaseLogEvent("checked_car_health",context);
         fragmentNewVehiclePerformanceBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_vehicle_performance, container, false);
         context = getContext();
 

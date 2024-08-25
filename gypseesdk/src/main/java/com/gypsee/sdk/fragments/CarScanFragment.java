@@ -204,7 +204,7 @@ public class CarScanFragment extends Fragment implements View.OnClickListener {
             isScanCar = true;
             isClearCode = false;
             Log.e(TAG, "Clicked on Read");
-            FirebaseLogEvents.firebaseLogEvent("scanning_car");
+            FirebaseLogEvents.firebaseLogEvent("scanning_car",context);
         } else if (id == R.id.clearTxt) {//Call clear code implementation
             isScanCar = false;
             isClearCode = true;

@@ -259,6 +259,9 @@
             tools:node="merge"
             android:foregroundServiceType="location"
             android:exported="false" />
+        <activity android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait"/>
+
         <service
             android:name=".services.TripForeGroundService"
             android:enabled="true"

@@ -90,7 +90,7 @@ public class ReferAndEarnFragment extends Fragment implements View.OnClickListen
             cm.setText(fragmentReferAndEarnBinding.referralCodeTv.getText().toString());
             Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.shareTxtv) {
-            FirebaseLogEvents.firebaseLogEvent("Shared_app");
+            FirebaseLogEvents.firebaseLogEvent("Shared_app",context);
             Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
             whatsappIntent.setType("text/plain");
             whatsappIntent.setPackage("com.whatsapp");

@@ -145,7 +145,7 @@ public class SelectDeviceFragment extends Fragment {
                 Log.e(TAG, "item list");
                 String deviceCat = ((TextView)view.findViewById(R.id.category_text)).getText().toString();
                 Log.e(TAG, deviceCat);
-                FirebaseLogEvents.firebaseLogEvent("adding_"+deviceCat.replace(" ","_"));
+                FirebaseLogEvents.firebaseLogEvent("adding_"+deviceCat.replace(" ","_"),context);
                 for (BluetoothDeviceModel model: itemList){
                     Log.e(TAG+getLine(), model.getBluetoothName());
                     Log.e(TAG+getLine(), model.getImageUrl());
