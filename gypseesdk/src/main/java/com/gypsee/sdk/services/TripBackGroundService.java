@@ -513,7 +513,6 @@ public class TripBackGroundService extends IntentService {
                             .setBigContentTitle("Fuelshine")) // Set the big title here
                     .build();
 
-
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                 startForeground(2, notification);
             } else {
