@@ -1,0 +1,8 @@
+# configuration file for building snapshots and releases with jitpack.io
+jdk:
+  - openjdk17
+before_install:
+  - ./scripts/prepareJitpackEnvironment.sh
+install:
+  - FILE="-Dfile=gypseesdk-release.aar"
+  - mvn install:install-file $FILE -DgroupId=com.github.gypseesdk.gypseeauto -DartifactId=Fuelshine-SDK -Dversion=1.0.0 -Dpackaging=aar -DgeneratePom=true
