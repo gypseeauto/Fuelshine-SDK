@@ -217,7 +217,7 @@ android {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = 'com.github.gypsee'
+            groupId = 'com.github.gypseesdk'
             artifactId = 'gypseesdk'
             version = '1.0.0'
 
