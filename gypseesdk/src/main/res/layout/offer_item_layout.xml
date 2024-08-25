@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="offer"
+            type="com.gypsee.sdk.models.OffersModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="7dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="7dp"
+            android:paddingBottom="7dp">
+
+            <ImageView
+                android:id="@+id/offerIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/ic_menu" />
+
+            <TextView
+                android:id="@+id/offerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_toEndOf="@+id/offerIcon"
+                android:text="@{offer.getTitle()}"
+                android:textColor="@color/text_black"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/offerDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/offerTitle"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@+id/offerIcon"
+                android:paddingTop="7dp"
+                android:text="@{offer.description}"
+                android:textColor="@color/text_black"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/offerDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/offerDesc"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_toEndOf="@+id/offerIcon"
+                android:text="@{offer.dateTime}"
+                android:textColor="@color/text_black"
+                android:textSize="12dp" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="25dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.BluetoothPermissionFragment">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:src="@drawable/bluetooth_drive_icon"
+        android:id="@+id/img"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt1"
+        app:layout_constraintTop_toBottomOf="@id/img"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/bluetooth"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt2"
+        app:layout_constraintTop_toBottomOf="@id/txt1"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/personalized_coaching_for_fuel_efficient_driving"
+        android:textSize="25sp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt3"
+        app:layout_constraintTop_toBottomOf="@id/txt2"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/connect_fuelshine_to_your_car_stereo_via_bluetooth_to_enable_real_time_hands_free_feedback_for_enhanced_safety_and_trip_records"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bluetoothPermissionBtn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/poppins"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/bottons"
+        android:text="@string/continue_btn" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

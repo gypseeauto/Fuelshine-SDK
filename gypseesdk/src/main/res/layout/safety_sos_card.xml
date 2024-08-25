@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/CustomCardView"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="12dp"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:layout_marginVertical="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/sos_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"
+
+            android:textAlignment="center"
+            android:textStyle="bold"
+
+            android:textColor="@color/text_black"
+            android:textSize="13dp"
+            android:text="SOS Title"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/sos_type"
+                android:layout_width="40dp"
+                android:layout_marginRight="4dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_sos_new"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sos_message"
+                android:layout_gravity="center"
+                android:textSize="11dp"
+                android:gravity="center"
+                android:maxLines="5"
+                android:textColor="@color/text_black"
+                android:ellipsize="end"
+                android:layout_weight="1"
+                android:text="In the case of accident, you should inform your loved ones."/>
+
+            <ImageView
+                android:id="@+id/info_image"
+                android:layout_width="40dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_sos_new"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

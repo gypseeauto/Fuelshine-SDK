@@ -1,0 +1,311 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+android {
+    namespace 'com.gypsee.sdk'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 27
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Inject the Maps API key into the manifest
+        manifestPlaceholders = [mapsApiKey: "AIzaSyD_vZO8BKvHbqAnPKFZ24DuqoDLf0RxTkg"]
+        vectorDrawables.useSupportLibrary = true
+        buildFeatures {
+            dataBinding = true // for data binding
+            viewBinding = true // for view binding
+        }
+        // Enabling multidex support.
+        multiDexEnabled true
+
+        def ACCESS_KEY = project.properties['ACCESS_KEY'] ?: "ACCESS_KEY"
+        def SECRET_KEY = project.properties['SECRET_KEY'] ?: "SECRET_KEY"
+        def MY_BUCKET = project.properties['MY_BUCKET'] ?: "MY_BUCKET"
+
+        def loginOtpSendUrl = project.properties['loginOtpSendUrl'] ?: "loginOtpSendUrl"
+        def mobileLoginAPi = project.properties['mobileLoginAPi'] ?: "mobileLoginAPi"
+        def mobileLoginv2APi = project.properties['mobileLoginv2APi'] ?: "mobileLoginv2APi"
+        def loginOtpVerificationUrl = project.properties['loginOtpVerificationUrl'] ?: "loginOtpVerificationUrl"
+        def registerApi = project.properties['registerApi'] ?: "registerApi"
+        def upload_address_url = project.properties['upload_address_url'] ?: "upload_address_url"
+        def getAppVersion_url = project.properties['getAppVersion_url'] ?: "getAppVersion_url"
+        def AddVehDetails_Url = project.properties['AddVehDetails_Url'] ?: "AddVehDetails_Url"
+        def UpdateVehDetails_Url = project.properties['UpdateVehDetails_Url'] ?: "UpdateVehDetails_Url"
+        def fetchVehicleMakesUrl = project.properties['fetchVehicleMakesUrl'] ?: "fetchVehicleMakesUrl"
+        def obdIssueUrl = project.properties['obdIssueUrl'] ?: "obdIssueUrl"
+        def Document_types = project.properties['Document_types'] ?: "Document_types"
+        def Fetch_UserDetils_url = project.properties['Fetch_UserDetils_url'] ?: "Fetch_UserDetils_url"
+        def User_Fcm_update_url = project.properties['User_Fcm_update_url'] ?: "User_Fcm_update_url"
+        def vehicles_url = project.properties['vehicles_url'] ?: "vehicles_url"
+        def tripstart_url = project.properties['tripstart_url'] ?: "tripstart_url"
+        def tripupdate_url = project.properties['tripupdate_url'] ?: "tripupdate_url"
+        def tripHistoryUrl = project.properties['tripHistoryUrl'] ?: "tripHistoryUrl"
+        def tripHistoryFileUrl = project.properties['tripHistoryFileUrl'] ?: "tripHistoryFileUrl"
+        def tripListUrl = project.properties['tripListUrl'] ?: "tripListUrl"
+        def tripEndurl = project.properties['tripEndurl'] ?: "tripEndurl"
+        def troubleCodeUpload_url = project.properties['troubleCodeUpload_url'] ?: "troubleCodeUpload_url"
+        def vehicleAlertClearUrl = project.properties['vehicleAlertClearUrl'] ?: "vehicleAlertClearUrl"
+        def vehicleAlertUrl = project.properties['vehicleAlertUrl'] ?: "vehicleAlertUrl"
+        def AddReferCode = project.properties['AddReferCode'] ?: "AddReferCode"
+        def base_url = project.properties['base_url'] ?: "base_url"
+        def addDrivingAlert = project.properties['addDrivingAlert'] ?: "addDrivingAlert"
+        def fetchDrivingAlertUrl = project.properties['fetchDrivingAlertUrl'] ?: "fetchDrivingAlertUrl"
+        def UpdateBasicVehDetails_Url = project.properties['UpdateBasicVehDetails_Url'] ?: "UpdateBasicVehDetails_Url"
+        def raiseTicket = project.properties['raiseTicket'] ?: "raiseTicket"
+        def carsSrervicesUrl = project.properties['carsSrervicesUrl'] ?: "carsSrervicesUrl"
+        def feedBackurl = project.properties['feedBackurl'] ?: "feedBackurl"
+        def generateServiceOrderId = project.properties['generateServiceOrderId'] ?: "generateServiceOrderId"
+        def OmegaonUPIOrderStatusUrl = project.properties['OmegaonUPIOrderStatusUrl'] ?: "OmegaonUPIOrderStatusUrl"
+        def gpsTripDistance = project.properties['gpsTripDistance'] ?: "gpsTripDistance"
+        def drivingAnalyticsUrl = project.properties['drivingAnalyticsUrl'] ?: "drivingAnalyticsUrl"
+        def WeeklyDrivingReporturl = project.properties['WeeklyDrivingReporturl'] ?: "WeeklyDrivingReporturl"
+        def SingleTripDetailsAPI = project.properties['SingleTripDetailsAPI'] ?: "SingleTripDetailsAPI"
+        def getDrivingtoolsAPI = project.properties['getDrivingtoolsAPI'] ?: "getDrivingtoolsAPI"
+        def fetchTripLatLong = project.properties['fetchTripLatLong'] ?: "fetchTripLatLong"
+        def deleteCarUrl = project.properties['deleteCarUrl'] ?: "deleteCarUrl"
+        def verifyCouponUrl = project.properties['verifyCouponUrl'] ?: "verifyCouponUrl"
+        def onboardFcmTokenUrl = project.properties['onboardFcmTokenUrl'] ?: "onboardFcmTokenUrl"
+        def zoopVehicleSearchAPI = project.properties['zoopVehicleSearchAPI'] ?: "zoopVehicleSearchAPI"
+        def zoopAddVehicleAPI = project.properties['zoopAddVehicleAPI'] ?: "zoopAddVehicleAPI"
+        def addOdb = project.properties['addObd'] ?: "addObd"
+        def getObdDevices = project.properties['getObdDevices'] ?: "getObdDevices"
+        def fetchVehicleAlertsByTripId = project.properties['fetchVehicleAlertsByTripId'] ?: "fetchVehicleAlertsByTripId"
+        def fetchVehicleHealthData = project.properties['fetchVehicleHealthData'] ?: "fetchVehicleHealthData"
+        def exitTrainingMode = project.properties['exitTrainingMode'] ?: "exitTrainingMode"
+        def getUserRegisteredDevices = project.properties['getUserRegisteredDevices'] ?: "getUserRegisteredDevices"
+        def getDeviceCategories = project.properties['getDeviceCategories'] ?: "getDeviceCategories"
+        def registerNewDevice = project.properties['registerNewDevice'] ?: "registerNewDevice"
+        def updateRegisteredDevices = project.properties['updateRegisteredDevices'] ?: "updateRegisteredDevices"
+        def emergencyAddContact = project.properties['emergencyAddContact'] ?: "emergencyAddContact"
+        def fetchEmergencyContacts = project.properties['fetchEmergencyContacts'] ?: "fetchEmergencyContacts"
+        def sosTrigger = project.properties['sosTrigger'] ?: "sosTrigger"
+        def geofenceTrigger = project.properties['geofenceTrigger'] ?: "geofenceTrigger"
+        def updateTripConnectedDevices = project.properties['updateTripConnectedDevices'] ?: "updateTripConnectedDevices"
+        def storeBaseURL = project.properties['storeBaseURL'] ?: "storeBaseURL"
+        def storeFetchCatalog = project.properties['storeFetchCatalog'] ?: "storeFetchCatalog"
+        def storeFetchProduct = project.properties['storeFetchProduct'] ?: "storeFetchProduct"
+        def storeCreateOrder = project.properties['storeCreateOrder'] ?: "storeCreateOrder"
+        def storeOrderStatus = project.properties['storeOrderStatus'] ?: "storeOrderStatus"
+        def storeOrderDetails = project.properties['storeOrderDetails'] ?: "storeOrderDetails"
+        def storeActivatedCards = project.properties['storeActivatedCards'] ?: "storeActivatedCards"
+        def storeFetchUserOrders = project.properties['storeFetchUserOrders'] ?: "storeFetchUserOrders"
+        def storeCheckActivateCard = project.properties['storeCheckActivateCard'] ?: "storeCheckActivateCard"
+        def subscriptionAdd = project.properties['subscriptionAdd'] ?: "subscriptionAdd"
+        def drivingReport = project.properties['drivingReport'] ?: "drivingReport"
+        def privacyPolicyUrl = project.properties['privacyPolicyUrl'] ?: "privacyPolicyUrl"
+        def vehicleEcoSpeedApi = project.properties['vehicleEcoSpeedApi'] ?: "vehicleEcoSpeedApi"
+        def mobileDeviceUpdateApi = project.properties['mobileDeviceUpdateApi'] ?: "mobileDeviceUpdateApi"
+        def gameLevel = project.properties['gameLevel'] ?: "gameLevel"
+        def fuelSavings = project.properties['fuelSavings'] ?: "fuelSavings"
+        def wallet = project.properties['wallet'] ?: "wallet"
+        def performance = project.properties['performance'] ?: "performance"
+        def fuelPrice = project.properties['fuelPrice'] ?: "fuelPrice"
+
+
+        resValue "string", "ACCESS_KEY", ACCESS_KEY
+        resValue "string", "SECRET_KEY", SECRET_KEY
+        resValue "string", "MY_BUCKET", MY_BUCKET
+
+        resValue "string", "loginOtpSendUrl", loginOtpSendUrl
+        resValue "string", "mobileLoginAPi", mobileLoginAPi
+        resValue "string", "mobileLoginv2APi", mobileLoginv2APi
+        resValue "string", "loginOtpVerificationUrl", loginOtpVerificationUrl
+        resValue "string", "registerApi", registerApi
+        resValue "string", "upload_address_url", upload_address_url
+        resValue "string", "getAppVersion_url", getAppVersion_url
+        resValue "string", "AddVehDetails_Url", AddVehDetails_Url
+        resValue "string", "UpdateVehDetails_Url", UpdateVehDetails_Url
+        resValue "string", "fetchVehicleMakesUrl", fetchVehicleMakesUrl
+        resValue "string", "obdIssueUrl", obdIssueUrl
+        resValue "string", "Document_types", Document_types
+        resValue "string", "Fetch_UserDetils_url", Fetch_UserDetils_url
+        resValue "string", "User_Fcm_update_url", User_Fcm_update_url
+        resValue "string", "vehicles_url", vehicles_url
+        resValue "string", "tripstart_url", tripstart_url
+        resValue "string", "tripupdate_url", tripupdate_url
+        resValue "string", "tripHistoryUrl", tripHistoryUrl
+        resValue "string", "tripHistoryFileUrl", tripHistoryFileUrl
+        resValue "string", "tripListUrl", tripListUrl
+        resValue "string", "tripEndurl", tripEndurl
+        resValue "string", "troubleCodeUpload_url", troubleCodeUpload_url
+        resValue "string", "vehicleAlertClearUrl", vehicleAlertClearUrl
+        resValue "string", "vehicleAlertUrl", vehicleAlertUrl
+        resValue "string", "AddReferCode", AddReferCode
+        resValue "string", "base_url", base_url
+        resValue "string", "addDrivingAlerturl", addDrivingAlert
+        resValue "string", "fetchDrivingAlertUrl", fetchDrivingAlertUrl
+        resValue "string", "UpdateBasicVehDetails_Url", UpdateBasicVehDetails_Url
+        resValue "string", "raiseTicket", raiseTicket
+        resValue "string", "carsSrervicesUrl", carsSrervicesUrl
+        resValue "string", "feedBackurl", feedBackurl
+        resValue "string", "generateServiceOrderId", generateServiceOrderId
+        resValue "string", "OmegaonUPIOrderStatusUrl", OmegaonUPIOrderStatusUrl
+        resValue "string", "gpsTripDistance", gpsTripDistance
+        resValue "string", "drivingAnalyticsUrl", drivingAnalyticsUrl
+        resValue "string", "WeeklyDrivingReporturl", WeeklyDrivingReporturl
+        resValue "string", "SingleTripDetailsAPI", SingleTripDetailsAPI
+        resValue "string", "getDrivingtoolsAPI", getDrivingtoolsAPI
+        resValue "string", "fetchTripLatLong", fetchTripLatLong
+        resValue "string", "deleteCarUrl", deleteCarUrl
+        resValue "string", "verifyCouponUrl", verifyCouponUrl
+        resValue "string", "onboardFcmTokenUrl", onboardFcmTokenUrl
+        resValue "string", "zoopVehicleSearchAPI", zoopVehicleSearchAPI
+        resValue "string", "zoopAddVehicleAPI", zoopAddVehicleAPI
+        resValue "string", "addObd", addOdb
+        resValue "string", "getObdDevices", getObdDevices
+        resValue "string", "fetchVehicleAlertsByTripId", fetchVehicleAlertsByTripId
+        resValue "string", "fetchVehicleHealthData", fetchVehicleHealthData
+        resValue "string", "exitTrainingMode", exitTrainingMode
+        resValue "string", "getUserRegisteredDevices", getUserRegisteredDevices
+        resValue "string", "getDeviceCategories", getDeviceCategories
+        resValue "string", "registerNewDevice", registerNewDevice
+        resValue "string", "updateRegisteredDevices", updateRegisteredDevices
+        resValue "string", "emergencyAddContact", emergencyAddContact
+        resValue "string", "fetchEmergencyContacts", fetchEmergencyContacts
+        resValue "string", "sosTrigger", sosTrigger
+        resValue "string", "geofenceTrigger", geofenceTrigger
+        resValue "string", "updateTripConnectedDevices", updateTripConnectedDevices
+        resValue "string", "storeBaseURL", storeBaseURL
+        resValue "string", "storeFetchCatalog", storeFetchCatalog
+        resValue "string", "storeFetchProduct", storeFetchProduct
+        resValue "string", "storeCreateOrder", storeCreateOrder
+        resValue "string", "storeOrderStatus", storeOrderStatus
+        resValue "string", "storeOrderDetails", storeOrderDetails
+        resValue "string", "storeActivatedCards", storeActivatedCards
+        resValue "string", "storeFetchUserOrders", storeFetchUserOrders
+        resValue "string", "storeCheckActivateCard", storeCheckActivateCard
+        resValue "string", "subscriptionFetch", subscriptionFetch
+        resValue "string", "subscriptionAdd", subscriptionAdd
+        resValue "string", "drivingReport", drivingReport
+        resValue "string", "privacyPolicyUrl", privacyPolicyUrl
+        resValue "string", "vehicleEcoSpeedApi", vehicleEcoSpeedApi
+        resValue "string", "mobileDeviceUpdateApi", mobileDeviceUpdateApi
+        resValue "string", "gameLevel", gameLevel
+        resValue "string", "fuelSavings", fuelSavings
+        resValue "string", "wallet", wallet
+        resValue "string", "performance", performance
+        resValue "string", "fuelPrice", fuelPrice
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint {
+        checkReleaseBuilds false
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
+
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.gypsee'
+            artifactId = 'gypseesdk'
+            version = '1.0.0'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'org.jetbrains:annotations:23.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+
+    implementation 'com.github.pires:obd-java-api:1.0'
+
+    implementation 'joda-time:joda-time:2.9.9'
+//    implementation 'com.google.android.gms:play-services:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
+
+    // lib for SMS verification (Phone Auth)
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.2'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.7.7'
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+
+    // Add the Firebase SDK for Crashlytics.
+    // Import the BoM for the Firebase platform
+    implementation platform(libs.firebase.bom)
+
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging'
+
+    implementation 'com.opencsv:opencsv:4.6'
+    implementation 'com.github.vihtarb:tooltip:0.2.0'
+    implementation 'com.github.tsuryo:Swipeable-RecyclerView:1.1'
+
+
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.16'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.mixpanel.android:mixpanel-android:5.9.6'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.google.firebase:firebase-inappmessaging-display'
+
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+
+    //for workmanager
+    implementation ("androidx.work:work-runtime:2.9.0")
+
+    // for room database
+    implementation 'androidx.room:room-runtime:2.6.1'
+    annotationProcessor 'androidx.room:room-compiler:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    android:layout_height="90dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/CustomCardView"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="12dp"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="12dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/person_image"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/user_background"
+        android:padding="8dp"
+        android:src="@drawable/ic_person_one" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Name (Relation)"
+            android:textAlignment="textStart"
+            android:textColor="@color/text_black"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/member_details"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="4dp"
+            android:layout_weight="4"
+            android:gravity="start"
+            android:maxLines="5"
+            android:text="987654321 \nBangalore"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey_light"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/deleteMemberIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+
+</LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/toolBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@{title}"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/right_text"
+                android:drawableLeft="@drawable/ic_bag_new"
+                android:layout_alignParentRight="true"
+                android:visibility="visible"
+                android:text="My orders"
+                android:layout_marginRight="16dp"
+                android:textSize="12dp"
+                />
+
+
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+</layout>
+

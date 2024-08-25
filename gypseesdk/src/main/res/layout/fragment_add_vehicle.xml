@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="vinNumber"
+            type="String" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rootsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_save"
+            android:layout_below="@+id/toolBarLayout"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolBarLayout"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Smart Document Manager"
+                    android:textColor="@color/text_black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/vehDocRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:visibility="gone" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="gone"
+                    android:id="@+id/vinTIL">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/info_icon"
+                        android:drawablePadding="5dp"
+                        android:hint="Vehicle Identification Number"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:id="@+id/vinNumberTxt"/>
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tv_vehicle_reg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/info_icon"
+                        android:drawablePadding="5dp"
+                        android:hint="Vehicle Registration Number *"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:textSize="12dp" />
+
+                    <Button
+                        android:id="@+id/placeholder1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tv_purchase_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="Purchase Date *"
+                        android:singleLine="true"
+                        android:textSize="12dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/brandName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:hint="Select Vehicle Brand *"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textSize="12dp" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tv_vehicle_model"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/info_icon"
+                        android:drawablePadding="5dp"
+                        android:hint="Type Vehicle Model *"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textSize="12dp" />
+
+                    <Button
+                        android:id="@+id/placeholder3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/odoMeterReading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/info_icon"
+                        android:drawablePadding="5dp"
+                        android:hint="Total KMs Driven By Vehicle *"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberSigned"
+                        android:maxLength="7"
+                        android:singleLine="true"
+                        android:textSize="12dp" />
+
+                    <Button
+                        android:id="@+id/placeholder4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <View
+                    android:id="@+id/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/serviceReminderLayout"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/text_black" />
+
+                <LinearLayout
+                    android:id="@+id/serviceReminderLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Smart Reminder"
+                        android:textColor="@color/text_black"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/codeClearedDistance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="12dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/smartServiceRemTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:drawableEnd="@drawable/info_icon"
+                            android:gravity="center"
+                            android:text="Service Reminder in KMS"
+                            android:textColor="@color/text_black"
+                            android:textSize="12dp" />
+
+                        <Button
+                            android:id="@+id/placeholder5"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_below="@+id/smartServiceRemTv"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="12dp"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/serviceReminderkm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="7"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="12dp" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/servieReminderDueDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:hint="Next Service Date"
+                            android:singleLine="true"
+                            android:textSize="12dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/serviceReminderLayout"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/text_black" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Pollution Reminder"
+                        android:textColor="@color/text_black"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/pollutionRenewDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:focusable="false"
+                            android:hint="Valid Till Date"
+                            android:imeOptions="actionDone"
+                            android:inputType="date"
+                            android:singleLine="true"
+                            android:textSize="12dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/text_black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:text="Insurance Reminder"
+                        android:textColor="@color/text_black"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/insuranceRenewDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:focusable="false"
+                            android:hint="Valid Till Date"
+                            android:imeOptions="actionDone"
+                            android:inputType="date"
+                            android:singleLine="true"
+                            android:textSize="12dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/rsaLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Activate RSA"
+                        android:textColor="@color/text_black"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/couponCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:hint="Enter coupon code"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapCharacters"
+                            android:singleLine="true"
+                            android:textSize="12dp"
+                            android:visibility="gone" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/theme_blue"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Save"
+            android:textColor="#FFFFFF"
+            android:textSize="13dp"
+
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:background="#aaffffff"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

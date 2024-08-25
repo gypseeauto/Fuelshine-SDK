@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable/card_gas.xml -->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="174dp"
+    android:height="174dp"
+    android:viewportWidth="164"
+    android:viewportHeight="164"
+    >
+    <group>
+        <clip-path
+            android:pathData="M8 0H156C160.418 0 164 3.58172 164 8V156C164 160.418 160.418 164 156 164H8C3.58172 164 0 160.418 0 156V8C0 3.58172 3.58172 0 8 0Z"
+            />
+        <path
+            android:pathData="M0 0V164H164V0"
+            android:fillColor="#F6F6F7"
+            />
+        <path
+            android:pathData="M8 0H156C160.418 0 164 3.58172 164 8V156C164 160.418 160.418 164 156 164H8C3.58172 164 0 160.418 0 156V8C0 3.58172 3.58172 0 8 0Z"
+            android:strokeWidth="2"
+            android:strokeColor="#BAC3CA"
+            />
+    </group>
+</vector>

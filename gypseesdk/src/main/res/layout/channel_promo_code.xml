@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="7dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Channel Promocode"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/descriptionTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleTv"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="12dp"
+                android:text="Enter your service manager code to help him serve you better."
+                android:textColor="@color/text_black"
+                android:textSize="12dp" />
+
+            <EditText
+                android:id="@+id/referralCodeEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descriptionTV"
+                android:layout_margin="7dp"
+                android:background="@drawable/white_curvedcorners_bg"
+                android:hint="Enter Channel Promocode"
+                android:imeOptions="actionDone"
+                android:inputType="textCapCharacters"
+                android:maxLength="10"
+                android:padding="7dp"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_black"
+                android:textSize="12dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/referralCodeEt"
+                android:orientation="horizontal"
+                android:id="@+id/bottomLinearLayout"
+                >
+
+
+                <TextView
+                    android:id="@+id/negativeBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lineView"
+                    android:layout_toStartOf="@+id/lineView2"
+                    android:layout_weight="1"
+                    android:background="@color/theme_blue"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Cancel"
+                    android:textColor="@color/white"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/lineView2"
+                    android:layout_width="1dp"
+                    android:layout_height="37dp"
+                    android:layout_below="@+id/lineView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/positioveBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lineView"
+                    android:layout_toEndOf="@+id/lineView2"
+                    android:layout_weight="1"
+                    android:background="@color/theme_blue"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/referralCodeEt"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    android:clickable="true"
+    android:focusable="true">
+
+    <View
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="#585858" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/backBtn"
+        android:layout_margin="5dp"
+        android:padding="15dp"
+        android:src="@drawable/back_button" />
+
+    <TextView
+        android:id="@+id/dropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:visibility="invisible"
+        android:drawableEnd="@drawable/ic_arrow_drop_down_white_24dp"
+        android:text="Weekly"
+        android:textColor="#ffffff"
+        android:textSize="13dp" />
+
+    <LinearLayout
+        android:id="@+id/kms"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dropDown"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+
+            android:text="9.0 "
+            android:textColor="#ffffff"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_report_problem_black_24dp"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/trip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kms"
+        android:layout_centerHorizontal="true"
+
+        android:text="Alerts"
+        android:textColor="#ffffff"
+        android:textSize="15dp" />
+
+    <View
+        android:id="@+id/geryBar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/rootLayout"
+        android:background="#CACACA" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/geryBar"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_trip_list"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:text="No Alerts found"
+
+            android:textColor="#27ae60"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

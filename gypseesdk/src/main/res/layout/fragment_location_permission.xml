@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="25dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.LocationPermissionFragment">
+
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt1"
+                app:layout_constraintTop_toBottomOf="@id/txt1"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="@string/location_access_title"
+                android:textSize="25sp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/colorPrimaryDark"
+                />
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt2"
+                android:layout_below="@id/txt1"
+                app:layout_constraintTop_toBottomOf="@id/txt2"
+                android:layout_marginTop="30dp"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/fuelshine_only_works_correctly_if_fuelshine_can_access_your_location_quot_all_the_time_quot"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/colorPrimaryDark"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_below="@id/txt2"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/permission_location_icon"
+                android:id="@+id/locationlActImg"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/locationPermissionBtn"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:fontFamily="@font/poppins"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@drawable/bottons"
+                android:text="@string/continue_btn" />
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

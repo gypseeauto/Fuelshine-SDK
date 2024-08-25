@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/scanCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="7dp"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="#333333"
+                    android:textSize="12dp"
+                    android:id="@+id/carScanTxt"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#D3D3D3" />
+
+                <TextView
+                    android:id="@+id/scanButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Tap here to know your car health"
+                    android:textColor="@color/text_black"
+                    android:textSize="13dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/scanLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/circleProgress"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    app:indicatorColor="@color/colorPrimaryDark"
+                    app:trackColor="@color/light_grey"
+                    app:trackCornerRadius="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_scanning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:text="Scanning..."
+                    android:textColor="#7f7f7f"
+                    android:textSize="12dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_scanning_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/scanLayout"
+                android:layout_marginStart="20dp"
+
+                android:textColor="#7f7f7f"
+                android:textSize="11dp"
+                tools:text="Scanning 11 of 100%" />
+
+            <TextView
+                android:id="@+id/tv_problem_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_scanning_number"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+
+                android:textColor="#FF1F1F"
+                android:textSize="11dp"
+                tools:text="2 Problems found" />
+
+            <View
+                android:id="@+id/dividerLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_problem_text"
+                android:layout_marginTop="15dp"
+                android:background="#808080" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No trouble code found"
+                android:textColor="#27ae60"
+                android:textSize="20dp"
+                android:visibility="gone"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

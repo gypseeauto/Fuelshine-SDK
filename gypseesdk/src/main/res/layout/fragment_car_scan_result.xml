@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_grey"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        tools:context=".fragments.CarScanFragment">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="SCAN RESULT"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical"
+            tools:context=".fragments.CarScanFragment">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/errorTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:background="@color/red"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:text="Dialgnostic Report"
+                    android:textColor="@color/theme_blue"
+                    android:textSize="13dp" />
+
+                <include layout="@layout/fault_code_description_row_layout"
+                    android:id="@+id/diagnosticReportLayout"/>
+
+
+                <!--
+                                Here, I need to include the same layout as that of the row layout in recyeclerview
+                -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:text="Confirmed"
+                    android:textAllCaps="true"
+                    android:textColor="@color/theme_blue"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/confirmedTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/theme_blue_curved_corner_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Clean"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/confirmedTroubleCodeRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/fault_code_description_row_layout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:text="Pending"
+                    android:textAllCaps="true"
+                    android:textColor="@color/theme_blue"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/pendingTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/theme_blue_curved_corner_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Clean"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pendingTroubleCodeRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/fault_code_description_row_layout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:text="Permanent"
+                    android:textAllCaps="true"
+                    android:textColor="@color/theme_blue"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/permanentTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/theme_blue_curved_corner_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Clean"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/perrmanentTroubleCodeRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/fault_code_description_row_layout" />
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+</layout>

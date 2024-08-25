@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        tools:context=".fragments.NotificationOffersFragment">
+
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="85dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitXY"
+            android:src="@drawable/triangle_shape" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp">
+
+            <TextView
+                android:id="@+id/notificationLabel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:padding="17dp"
+                android:text="1 Notification(s)"
+                android:textColor="@color/text_black"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+
+        <com.tsuryo.swipeablerv.SwipeableRecyclerView
+            android:id="@+id/offersRecycleriew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:leftBgColor="@color/red"
+            app:leftImage="@drawable/delete_image"
+            app:leftText="Clear"
+            app:textColor="@android:color/white"
+            app:textSize="20sp" />
+
+        <!-- TODO: Update blank fragment layout -->
+
+
+    </LinearLayout>
+</layout>

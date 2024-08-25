@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable/money.xml -->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="335dp"
+    android:height="120dp"
+    android:viewportWidth="335"
+    android:viewportHeight="120"
+    >
+    <group>
+        <clip-path
+            android:pathData="M8 0H327C331.418 0 335 3.58172 335 8V112C335 116.418 331.418 120 327 120H8C3.58172 120 0 116.418 0 112V8C0 3.58172 3.58172 0 8 0Z"
+            />
+        <path
+            android:pathData="M0 0V120H335V0"
+            android:fillColor="#A7E8E0"
+            />
+        <path
+            android:pathData="M8 0H327C331.418 0 335 3.58172 335 8V112C335 116.418 331.418 120 327 120H8C3.58172 120 0 116.418 0 112V8C0 3.58172 3.58172 0 8 0Z"
+            android:strokeWidth="2"
+            android:strokeColor="#192E44"
+            />
+    </group>
+</vector>

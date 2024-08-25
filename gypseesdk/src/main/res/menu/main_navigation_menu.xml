@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_vehicles"
+        android:title="@string/my_cars" />
+
+    <item
+        android:id="@+id/nav_buy_iot"
+        android:title="@string/buy_iot"
+        android:visible="false"/>
+    <item
+        android:id="@+id/nav_offers"
+        android:title="@string/offers"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/nav_subscribe"
+        android:title="Subscribe Now"
+        />
+
+    <item
+        android:id="@+id/referral_code"
+        android:title="@string/referral_code" />
+    <item
+        android:id="@+id/channel_referral_code"
+        android:title="@string/channel_promo_code" />
+
+    <item
+        android:id="@+id/partner_login"
+        android:title="Partner Login"/>
+
+    <item
+        android:id="@+id/nav_raiseTicket"
+        android:title="@string/raise_ticket" />
+
+
+    <item
+        android:id="@+id/technicalSupport"
+        android:title="Technical Support" />
+
+    <item
+        android:id="@+id/nav_emContact"
+        android:title="@string/emergency_contact"
+        android:visible="false"/>
+    <item
+        android:id="@+id/nav_statting"
+        android:title="@string/settings" />
+
+    <item
+        android:id="@+id/nav_intro"
+        android:title="@string/app_intro" />
+
+
+
+
+</menu>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gold_color"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:contentPaddingTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/imageLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_bg" />
+
+                    <TextView
+                        android:id="@+id/profileUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profileImage"
+                        android:layout_marginTop="3dp"
+                        android:text="Bhaskar reddy"
+                        android:textColor="@color/text_black"
+                        android:textSize="10dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/safeTripCountTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/coin_image"
+                    android:text="NA"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/text_black"
+                    android:textSize="29dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/coins_text"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/safeTripCountTv"
+                    android:layout_toEndOf="@+id/imageLayout"
+                    android:text="Coins for Safe Km's"
+                    android:textColor="@color/text_black"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:id="@+id/coin_image"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_coin_front"
+                    android:layout_alignParentTop="true"
+                    android:layout_above="@id/coins_text"
+                    android:layout_toEndOf="@id/imageLayout"
+                    />
+
+                <View
+                    android:id="@+id/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/imageLayout"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@color/divider_grey" />
+
+                <LinearLayout
+                    android:id="@+id/bottomViewLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lineView"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.05"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/totalTripCountTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/text_black"
+                            android:textSize="11dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="Total Trips"
+                            android:textColor="@color/text_black"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.90"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/kmDrivenTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0 km"
+                            android:textColor="@color/text_black"
+                            android:textSize="11dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="Distance Driven"
+                            android:textColor="@color/text_black"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.05"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/drivingTimTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0 Hrs"
+                            android:textColor="@color/text_black"
+                            android:textSize="11dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="Driving time"
+                            android:textColor="@color/text_black"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

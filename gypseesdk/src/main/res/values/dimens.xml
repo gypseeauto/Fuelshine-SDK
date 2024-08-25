@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="spacing">5dp</dimen>
+    <dimen name="profile_header_height">140dp</dimen>
+    <dimen name="pay_button_size">40dp</dimen>
+    <dimen name="circle_radius">35dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">30dp</dimen>
+    <dimen name="photos_list_spacing">7dp</dimen>
+    <dimen name="_26sdp">26dp</dimen>
+    <dimen name="_42sdp">42dp</dimen>
+
+</resources>

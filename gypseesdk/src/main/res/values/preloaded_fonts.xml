@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/</item>
+        <item>@font/amiko_semibold</item>
+        <item>@font/anton</item>
+        <item>@font/benchnine_bold</item>
+        <item>@font/didact_gothic</item>
+        <item>@font/homenaje</item>
+        <item>@font/lato</item>
+        <item>@font/lato_bold</item>
+        <item>@font/lato_light</item>
+        <item>@font/open_sans</item>
+        <item>@font/palanquin_dark_semibold</item>
+        <item>@font/poppins</item>
+        <item>@font/poppins_bold</item>
+        <item>@font/poppins_extrabold</item>
+        <item>@font/poppins_semibold</item>
+        <item>@font/pt_sans_narrow_bold</item>
+        <item>@font/rum_raisin</item>
+        <item>@font/yanone_kaffeesatz</item>
+    </array>
+</resources>

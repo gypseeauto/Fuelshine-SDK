@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="920.000000dp"
+    android:height="834.000000dp"
+    android:viewportWidth="920.000000"
+    android:viewportHeight="834.000000">
+
+    <group
+        android:translateY="834.000000"
+        android:scaleX="0.100000"
+        android:scaleY="-0.100000">
+        <path
+            android:fillColor="#000000"
+            android:strokeWidth="4"
+            android:pathData="M1900 7925 c-353 -60 -637 -324 -726 -672 l-24 -96 0 -608 0 -609 180 0 180 0 0 450 c0 464 7 584 41 729 55 237 195 371 439 421 138 29 356 40 778 40 l372 0 0 180 0 180 -582 -1 c-425 -1 -603 -5 -658 -14z" />
+        <path
+            android:fillColor="#000000"
+            android:strokeWidth="4"
+            android:pathData="M6050 7760 l0 -180 373 0 c597 0 797 -20 952 -94 101 -49 171 -119 219 -219 76 -158 96 -353 96 -950 l0 -377 178 2 177 3 0 610 c0 598 0 612 -22 693 -88 331 -327 572 -658 664 -78 22 -95 22 -697 26 l-618 3 0 -181z" />
+        <path
+            android:fillColor="#000000"
+            android:strokeWidth="4"
+            android:pathData="M700 4648 c-132 -67 -132 -249 0 -315 l44 -23 3852 0 c2698 0 3861 3 3881 11 34 13 80 55 99 91 8 15 14 50 14 78 0 28 -6 63 -14 78 -19 36 -65 78 -99 91 -20 8 -1183 11 -3881 11 l-3852 0 -44 -22z" />
+        <path
+            android:fillColor="#000000"
+            android:strokeWidth="4"
+            android:pathData="M1150 2431 l0 -608 24 -96 c81 -320 335 -575 656 -659 83 -21 103 -22 698 -25 l612 -4 0 181 0 180 -372 0 c-434 1 -638 11 -769 40 -228 49 -369 168 -433 366 -44 137 -48 188 -53 722 l-5 512 -179 0 -179 0 0 -609z" />
+        <path
+            android:fillColor="#000000"
+            android:strokeWidth="4"
+            android:pathData="M7687 2553 c-6 -527 -13 -612 -62 -759 -48 -144 -131 -239 -259 -300 -155 -74 -359 -94 -943 -94 l-373 0 0 -180 0 -181 613 4 c677 4 672 3 828 71 114 49 180 91 265 170 124 114 206 247 261 423 l28 88 3 623 3 622 -179 0 -179 0 -6 -487z" />
+    </group>
+</vector>

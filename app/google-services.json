@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "930731945545",
+    "project_id": "sampleapp-901ac",
+    "storage_bucket": "sampleapp-901ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930731945545:android:f4676a419e8950dce29998",
+        "android_client_info": {
+          "package_name": "com.sdk.gypsee.sampleapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2ouw1NzE7pIVgZHHYwBFoFYwfzgqmg1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

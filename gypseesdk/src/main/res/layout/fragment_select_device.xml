@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolBarLayout"
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scanning_help"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="TextView"
+        android:maxLines="2"
+        android:padding="10dp"
+        android:background="@drawable/underline"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarLayout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanning_help">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/device_category_recyclerview"
+            android:layout_width="90dp"
+            android:padding="8dp"
+            tools:itemCount="6"
+            android:background="@drawable/right_line"
+            tools:listitem="@layout/device_category_item"
+            android:layout_height="match_parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/device_item_recyclerview"
+            android:layout_width="match_parent"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="30dp"
+            tools:itemCount="4"
+            tools:listitem="@layout/select_device_list_item"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

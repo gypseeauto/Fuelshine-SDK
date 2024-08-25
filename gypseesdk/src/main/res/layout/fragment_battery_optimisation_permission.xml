@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_margin="25dp"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".fragments.BatteryOptimisationPermissionFragment">
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="370dp"
+    android:src="@drawable/battery_optimisation_permission_icon"
+    android:id="@+id/permissionImg"
+    app:layout_constraintTop_toTopOf="parent"
+
+    />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/txt1"
+    app:layout_constraintTop_toBottomOf="@id/permissionImg"
+    android:layout_marginTop="15dp"
+    app:layout_constraintStart_toStartOf="parent"
+    android:text="@string/trip_tracking_setup"
+    android:textSize="15sp"
+    android:fontFamily="@font/poppins"
+    android:textColor="@color/colorPrimaryDark"
+    />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/txt2"
+    app:layout_constraintTop_toBottomOf="@id/txt1"
+    android:layout_marginTop="10dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:text="@string/keep_your_trips_free_from_interruptions"
+    android:textSize="25sp"
+    android:fontFamily="@font/poppins_bold"
+    android:textColor="@color/colorPrimaryDark"
+    />
+
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/txt3"
+    app:layout_constraintTop_toBottomOf="@id/txt2"
+    android:layout_marginTop="10dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:text="@string/android_s_battery_optimization_might_stop_us_from_logging_your_trips"
+    android:textSize="15sp"
+    android:fontFamily="@font/poppins"
+    android:textColor="@color/colorPrimaryDark"
+    />
+
+
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/batteryOptimisationPermissionBtn"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:fontFamily="@font/poppins"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="20dp"
+    android:textColor="@color/colorPrimaryDark"
+    android:background="@drawable/bottons"
+    android:text="Disable battery optimisation" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

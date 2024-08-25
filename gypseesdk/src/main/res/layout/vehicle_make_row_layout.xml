@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="brandName"
+            type="String" />
+
+        <variable
+            name="firstLetter"
+            type="String" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/imagesLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/brandImage"
+                />
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="@dimen/pay_button_size"
+                android:layout_height="@dimen/pay_button_size"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/circle_bg"
+                android:gravity="center"
+                android:text="@{firstLetter}"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:maxLength="1"
+                android:visibility="gone"
+
+                />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/mobile_operator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imagesLayout"
+            android:text="@{brandName}"
+            android:textColor="@color/text_black"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/lineDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/imagesLayout"
+            android:background="@color/background_grey" />
+    </RelativeLayout>
+</layout>

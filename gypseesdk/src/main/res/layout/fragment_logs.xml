@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="@color/background_grey"
+    tools:context=".fragments.LogsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="75dp"
+        android:layout_height="30dp"
+        android:id="@+id/back_button_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        >
+        <ImageView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/backImg"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/fs_green_back_img"
+            android:clipToOutline="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="21sp"
+            />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:id="@+id/clearBtn"
+        android:fontFamily="@font/poppins"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginEnd="12dp"
+        android:text="@string/clear"
+        android:layout_marginTop="10dp"
+        />
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="10dp"
+      android:layout_marginStart="12dp"
+      android:layout_marginEnd="12dp"
+      android:id="@+id/scrlView"
+      >
+      <!-- TODO: Update blank fragment layout -->
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/logs"
+          android:layout_marginTop="10dp"
+          />
+  </ScrollView>
+
+</LinearLayout>

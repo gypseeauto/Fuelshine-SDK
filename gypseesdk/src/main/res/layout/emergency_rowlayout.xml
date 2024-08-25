@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <data>
+
+        <variable
+            name="Title"
+            type="String" />
+
+        <variable
+            name="number"
+            type="String" />
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        tools:context=".MainActivity">
+
+
+        <TextView
+            android:id="@+id/emergencyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/emergencyIcon"
+            android:text="@{Title}"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/emergencyIcon"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/icon_ambulance" />
+
+        <TextView
+            android:id="@+id/emergencyNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emergencyTitle"
+            android:layout_toEndOf="@+id/emergencyIcon"
+            android:text="@{number}"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:textStyle="bold"
+
+            />
+    </RelativeLayout>
+</layout>

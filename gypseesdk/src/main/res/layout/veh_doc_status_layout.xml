@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vehicleStatusLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/rcTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageLayout"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:id="@+id/imageLayout">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/rcImage"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_camera"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/docStatusImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|end|bottom"
+            android:elevation="1dp"
+            android:src="@drawable/ic_approved"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="1dp"
+            app:civ_circle_background_color="@color/white" />
+
+
+    </FrameLayout>
+</RelativeLayout>

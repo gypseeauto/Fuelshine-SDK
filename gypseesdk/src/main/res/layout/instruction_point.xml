@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/instruction_number"
+        android:layout_width="24dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/bullet_number_backgrount"
+        android:textSize="14dp"
+        android:layout_height="24dp"/>
+    <TextView
+        android:id="@+id/instruction_text"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_height="wrap_content"
+        android:text="Plug the charger in cigarette lighter port. LED Display will show BT, It means device is ready for bluetooth pairing."
+        android:textColor="@color/text_black"
+        android:textSize="11dp" />
+</LinearLayout>

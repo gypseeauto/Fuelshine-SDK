@@ -2,7 +2,6 @@ package com.sdk.gypsee.sampleapp;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,17 +16,17 @@ import com.sdk.gypsee.sampleapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import com.gypsee.sdk.gypseesdk.GypseeSdk;
 
-import in.gypsee.sdk.gypseesdk.GypseeSdk;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // Utils.registerNetworkCallback(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    <color name="colorPrimary">#EF820D</color>-->
+    <!--    <color name="colorPrimary">#EF820D</color>-->
+    <color name="colorPrimary">#82C341</color>
+    <!--    <color name="colorPrimaryDark">#BE5504</color>-->
+    <!--        <color name="colorPrimaryDark">#192E44</color>-->
+    <!--    <color name="colorPrimaryDark">#195754</color>-->
+    <color name="colorPrimaryDark">#192E44</color>
+    <color name="dark_blue">#192E44</color>
+
+    <color name="dark_grey">#707981</color>
+    <color name="light_grey">#BAC3CA</color>
+    <color name="performance_bg">#EBEBF2</color>
+
+    <color name="light_green">#4C7E19</color>
+    <color name="dark_bg">#0F292E</color>
+
+    <color name="drive_mode_color">#75FBFD</color>
+    <color name="drive_mode_bg">#043E3B</color>
+
+
+    <color name="orange_back">#f78d06</color>
+    <color name="historicalBack">#A7E8E0</color>
+    <color name="redBack">#FF4E6D</color>
+    <color name="view_bg">#D8DCE8</color>
+    <color name="transparent_bg">#3DFFFFFF</color>
+
+
+
+
+    <color name="whiteBack">#F6F6F7</color>
+
+    <color name="colorAccent">#192E44</color>
+
+    <color name="freeze_grey">#A7A9AC</color>
+    <color name="text_black">#1E1F26</color>
+
+    <!--    <color name="theme_blue">#1F3050</color>-->
+    <color name="theme_blue">#195754</color>
+
+    <color name="gold_color">#F9A602</color>
+    <color name="eco_color">#FC6600</color>
+    <color name="red">#BF0000</color>
+    <color name="green">#069C0B</color>
+    <color name="background_grey">#F3F3F3</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#808080</color>
+    <color name="black">#000000</color>
+    <color name="divider_grey">#dedede</color>
+    <!--    <color name="light_grey">#d1d3d4</color>-->
+    <color name="transparant_half">#4D000000</color>
+    <color name="disabled_text_white">#FDD38D</color>
+
+    <color name="grey_light">#8D8F91</color>
+    <color name="grey_darker">#111115</color>
+    <color name="grey_accent">#E8E8E8</color>
+    <color name="grey_lighter">#c2bebe</color>
+    <color name="blue_darker">#203051</color>
+
+    <!-- switch colors -->
+    <color name="unchecked_thumb">#8c8c8c</color>
+    <color name="checked_thumb">#FFFFFF</color>
+    <color name="unchecked_track">#cdcdcd</color>
+    <color name="checked_track">#82C341</color>
+
+
+
+</resources>

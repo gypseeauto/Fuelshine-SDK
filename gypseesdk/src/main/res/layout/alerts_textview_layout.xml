@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="alertsCount"
+            type="String" />
+
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/alerts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@{title}"
+            android:textColor="#ffffff"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/countTv"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="end|right"
+            android:background="@drawable/white_circle_drawable"
+            android:elevation="5dp"
+            android:gravity="center"
+            android:text="@{alertsCount}"
+            android:textColor="@color/white"
+            android:textSize="8dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+
+
+            />
+
+    </FrameLayout>
+</layout>

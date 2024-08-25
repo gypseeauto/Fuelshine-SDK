@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:id="@+id/order_item_card"
+    android:theme="@style/CustomCardView"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/card_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_image_placeholder_new"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_image"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:orientation="vertical"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="Product name"
+            android:maxLines="2"
+            android:textIsSelectable="true"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:id="@+id/product_name"
+            android:textColor="@color/text_black"
+            android:textSize="13dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: Processing"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:id="@+id/product_status"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/text_black"
+            android:textSize="10dp"
+            />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount: "
+                android:maxLines="10"
+                android:ellipsize="end"
+                android:layout_marginBottom="2dp"
+                android:textIsSelectable="true"
+                android:textColor="@color/text_black"
+                android:textSize="10dp"
+                android:visibility="visible"
+                android:id="@+id/order_amount"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Error Info"
+                android:maxLines="10"
+                android:ellipsize="end"
+                android:id="@+id/error_info"
+                android:visibility="gone"
+                android:textIsSelectable="true"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/text_black"
+                android:textSize="10dp"
+                />
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Card number: 123456"
+                android:maxLines="2"
+                android:textIsSelectable="true"
+                android:ellipsize="end"
+                android:id="@+id/card_number"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/text_black"
+                android:textSize="10dp"
+                />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:orientation="horizontal"
+                android:id="@+id/code_layout"
+                android:layout_marginBottom="2dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Code:"
+                    android:textSize="10dp"
+                    android:layout_marginRight="8dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/text_black"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6540010012055993"
+                    android:textSize="10dp"
+                    android:maxWidth="110dp"
+                    android:layout_marginEnd="4dp"
+                    android:textIsSelectable="true"
+                    android:background="@drawable/orange_plain_curved"
+                    android:paddingVertical="3dp"
+                    android:paddingHorizontal="6dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/coupon_code"
+                    />
+
+                <ImageView
+                    android:id="@+id/copy_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/copy_image"
+                    />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Card Pin: 12345"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:id="@+id/card_pin"
+                android:textIsSelectable="true"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/text_black"
+                android:textSize="10dp"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ref No: 12345"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:id="@+id/ref_no"
+                android:textIsSelectable="true"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/text_black"
+                android:textSize="10dp"
+                />
+
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exipry: 20-12-2022"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textIsSelectable="true"
+                android:textColor="@color/text_black"
+                android:textSize="10dp"
+                android:id="@+id/product_expiry"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Info: "
+                android:maxLines="10"
+                android:ellipsize="end"
+                android:textIsSelectable="true"
+                android:textColor="@color/text_black"
+                android:textSize="10dp"
+                android:visibility="gone"
+                android:id="@+id/card_pin_info"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to activate"
+                android:textSize="11dp"
+                android:maxWidth="110dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="4dp"
+                android:textIsSelectable="true"
+                android:background="@drawable/orange_plain_curved"
+                android:paddingVertical="3dp"
+                android:paddingHorizontal="6dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/tap_to_activate"
+                />
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

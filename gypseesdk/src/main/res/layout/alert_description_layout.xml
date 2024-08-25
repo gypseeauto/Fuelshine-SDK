@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="7dp">
+
+        <View
+            android:id="@+id/rectangleView"
+            android:layout_width="8dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center"
+             />
+
+        <TextView
+            android:id="@+id/alert_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginStart="3dp"
+            android:text="Today"
+            android:textColor="@color/white"
+            android:textSize="7dp" />
+    </LinearLayout>
+</layout>

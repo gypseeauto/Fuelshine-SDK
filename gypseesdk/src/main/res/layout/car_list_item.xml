@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="7dp"
+    app:cardCornerRadius="8dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="3dp">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/gold_color">-->
+
+
+<!--        <FrameLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_margin="15dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/deleteCarImg"-->
+<!--                android:layout_width="25dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:src="@drawable/delete_image"-->
+<!--                android:visibility="gone" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/deleteCarTv"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Deleting..."-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="12dp"-->
+<!--                android:visibility="gone" />-->
+
+<!--        </FrameLayout>-->
+
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/vehicleDetailsLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="15dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/carConnectedImage"-->
+<!--                android:layout_width="25dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_margin="7dp"-->
+<!--                android:background="@drawable/green_circle_drawable" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="7dp"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/brandname"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textAppearance="?attr/textAppearanceListItem"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="12dp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/vehModel"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textAppearance="?attr/textAppearanceListItem"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="12dp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/carRegNo"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textAppearance="?attr/textAppearanceListItem"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="12dp" />-->
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/viewCarDetails"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="end"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp"-->
+<!--                    android:text="View Car"-->
+<!--                    android:textAppearance="?attr/textAppearanceListItem"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="12dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:visibility="gone" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--            android:id="@+id/lineView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_below="@+id/vehicleDetailsLayout"-->
+<!--            android:background="@color/white" />-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/vinServiceLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/lineView"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="10dp">-->
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/vinNumber"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:textAppearance="?attr/textAppearanceListItem"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="10dp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/serviceReminderkm"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="end"-->
+<!--                android:textAppearance="?attr/textAppearanceListItem"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="10dp" />-->
+<!--        </LinearLayout>-->
+
+<!--    </RelativeLayout>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/crdView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_vehicle_bg"
+        android:padding="7dp"
+        >
+
+
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:id="@+id/brandname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toyota_fourtuner"
+            android:fontFamily="@font/poppins_semibold"
+            android:lineHeight="20sp"
+            android:textSize="13sp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/brandname"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="3dp"
+            android:id="@+id/vehModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/x4_diesel_a"
+            android:fontFamily="@font/poppins_semibold"
+            android:lineHeight="20sp"
+            android:textSize="13sp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/vehModel"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="3dp"
+            android:id="@+id/carRegNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ka51hf2854"
+            android:fontFamily="@font/poppins_semibold"
+            android:lineHeight="20sp"
+            android:textSize="13sp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+
+        <TextView
+            android:id="@+id/vinNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vin_1aijc5444r7252367"
+            android:fontFamily="@font/poppins_bold"
+            android:lineHeight="24sp"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintTop_toBottomOf="@id/carRegNo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/deleteCarImg"
+            android:src="@drawable/red_delete_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:clipToOutline="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="30dp"
+            />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+</androidx.cardview.widget.CardView>
+
+

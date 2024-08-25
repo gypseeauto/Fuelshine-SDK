@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context=".MainActivity">
+
+<!--        <ImageView-->
+<!--            android:id="@+id/intro_image"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="@dimen/_330sdp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:layout_marginBottom="80dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:src="@drawable/intro_connect_ble"-->
+<!--            />-->
+
+
+        <ImageView
+            android:layout_width="268dp"
+            android:layout_height="535.5dp"
+            android:elevation="4dp"
+            android:id="@+id/intro_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/intro_1"
+            />
+
+
+        <TextView
+            android:id="@+id/introTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connect"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_bold"
+            android:lineHeight="36sp"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/intro_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+<!--        <TextView-->
+<!--            android:id="@+id/introTitle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="30dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Connect"-->
+<!--            android:textSize="14dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/intro_image"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/introDescription"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="30dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Simply plug your Gypsee Drive into the OBD port of the car and it's done. Yeah! so simple, like putting a Pendrive into your laptop.  "-->
+<!--            android:textSize="11dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/introTitle"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            />-->
+
+        <TextView
+            android:id="@+id/introDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pair_the_fuelshine_app"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="21sp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/introTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+
+
+        <!--<androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="80dp"
+            app:cardBackgroundColor="#F3EAA2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/introImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="30dp" />
+
+                <TextView
+                    android:id="@+id/introTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Connect"
+                    android:textColor="#B58B0D"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/introDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:gravity="center"
+                    android:text="Simply plug your Gypsee Drive into the OBD port of the car and it's done. Yeah! so simple, like putting a Pendrive into your laptop.  "
+                    android:textSize="11dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>-->
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

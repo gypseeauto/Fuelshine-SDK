@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".fragments.PermissionActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/perm_frame_layout"
+            />
+
+
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_above="@+id/confirmBtn"-->
+<!--            android:layout_margin="10dp">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="FuelShine Requires the following \n permissions to continue"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:textColor="@color/text_black"-->
+<!--                    android:textSize="16dp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:fontFamily="@font/poppins"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:text="FuelShine Requires the following \n permissions to continue"-->
+<!--                    android:textColor="@color/text_black"-->
+<!--                    android:textSize="15dp" />-->
+
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grey" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:text="Required permissions"-->
+<!--                    android:fontFamily="@font/poppins"-->
+
+<!--                    android:textColor="@color/text_black"-->
+<!--                    android:textSize="16dp"-->
+<!--                    android:textStyle="bold" />-->
+
+
+
+<!--                <include-->
+<!--                    android:id="@+id/locationLayout"-->
+<!--                    layout="@layout/permissions_row_layout" />-->
+
+<!--                <include-->
+<!--                    android:id="@+id/storageLayout"-->
+<!--                    layout="@layout/permissions_row_layout" />-->
+
+<!--                <include-->
+<!--                    android:id="@+id/recognitionLayout"-->
+<!--                    layout="@layout/permissions_row_layout" />-->
+
+<!--&lt;!&ndash;                <include&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/accessibilityLayout"&ndash;&gt;-->
+<!--&lt;!&ndash;                    layout="@layout/permissions_row_layout" />&ndash;&gt;-->
+
+<!--                <include-->
+<!--                    android:id="@+id/queryAllPackagesLayout"-->
+<!--                    layout="@layout/permissions_row_layout" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:text="Optional permissions"-->
+<!--                    android:fontFamily="@font/poppins"-->
+<!--                    android:textColor="@color/text_black"-->
+<!--                    android:textSize="16dp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <include-->
+<!--                    android:id="@+id/cameraLayout"-->
+<!--                    layout="@layout/permissions_row_layout" />-->
+
+<!--                <include-->
+<!--                    android:id="@+id/contactPermissionLayout"-->
+<!--                    layout="@layout/permissions_row_layout" />-->
+
+
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grey" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:fontFamily="@font/poppins"-->
+<!--                    android:text="*Whenever we use the optional permissions, your permission is needed. However, other services will be available even if you don't permit.\n-->
+<!--  \n*Gypsee collects location data in background for driving record features."-->
+<!--                    android:textColor="@color/text_black"-->
+<!--                    android:textSize="12dp" />-->
+<!--            </LinearLayout>-->
+<!--        </ScrollView>-->
+
+        <!-- TODO: Update blank fragment layout -->
+<!--        <Button-->
+<!--            android:id="@+id/confirmBtn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:background="@color/theme_blue"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="12dp"-->
+<!--            android:text="Confirm"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="13dp"-->
+<!--            android:textStyle="bold" />-->
+
+
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/confirmBtn"-->
+<!--            android:layout_width="335dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/bottons"-->
+<!--            android:text="confirm"-->
+<!--            android:fontFamily="@font/poppins"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:layout_marginBottom="15dp"-->
+<!--            />-->
+
+    </RelativeLayout>
+
+
+</layout>

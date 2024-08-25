@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_drive">
+
+    <fragment
+        android:id="@+id/nav_drive"
+        android:name="com.gypsee.sdk.fragments.HomeFragment"
+        android:label="@string/drive"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_scancar"
+        android:name="com.gypsee.sdk.fragments.ScanningFragment"
+        android:label="@string/scan_car"
+        tools:layout="@layout/scanning_layout" />
+
+    <fragment
+        android:id="@+id/navigation_assistance"
+        android:name="com.gypsee.sdk.fragments.AssistanceFragment"
+        android:label="@string/assistance"
+        tools:layout="@layout/fragment_trips" />
+</navigation>

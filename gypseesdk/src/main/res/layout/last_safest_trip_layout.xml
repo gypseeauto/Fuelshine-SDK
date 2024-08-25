@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        app:cardBackgroundColor="@color/gold_color"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:id="@+id/singleViewLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tripTitleTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Trip Details"
+                        android:textColor="@color/white"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="vertical">
+
+                        <View
+                            android:id="@+id/circle1"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginTop="3dp"
+                            android:background="@drawable/shape_white_circle" />
+
+                        <TextView
+                            android:id="@+id/origin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginBottom="40dp"
+                            android:layout_toEndOf="@+id/circle1"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:text="Kormangala"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="9dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/borderView"
+                            android:layout_width="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/destination"
+                            android:layout_below="@+id/circle1"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="-5dp"
+                            android:layout_marginBottom="-5dp"
+                            android:background="@drawable/vertical_dotted_line" />
+
+                        <View
+                            android:id="@+id/circle2"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_below="@+id/origin"
+                            android:background="@drawable/shape_white_circle" />
+
+                        <TextView
+                            android:id="@+id/destination"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/origin"
+                            android:layout_marginStart="3dp"
+                            android:layout_toEndOf="@+id/circle2"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:text="HSR Layout"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="9dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/dateTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:paddingTop="7dp"
+                        android:text="Date"
+                        android:textColor="@color/white"
+                        android:textSize="7dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="0.45"
+                    android:orientation="vertical">
+
+                    <com.daimajia.numberprogressbar.NumberProgressBar
+                        android:id="@+id/overSpeedprogresss"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="7dp"
+                        custom:progress_current="80"
+                        custom:progress_max="100"
+                        custom:progress_reached_bar_height="10dp"
+                        custom:progress_reached_color="@color/white"
+                        custom:progress_text_color="#3498DB"
+                        custom:progress_text_offset="1dp"
+                        custom:progress_text_size="0sp"
+                        custom:progress_unreached_bar_height="10dp"
+                        custom:progress_unreached_color="@color/theme_blue" />
+
+                    <TextView
+                        android:id="@+id/overSpeedTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="OVERSPEED"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="7dp"
+                        android:textStyle="bold" />
+
+
+                    <com.daimajia.numberprogressbar.NumberProgressBar
+                        android:id="@+id/harshBreakingprogresss"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="7dp"
+                        custom:progress_current="80"
+                        custom:progress_max="100"
+                        custom:progress_reached_bar_height="10dp"
+                        custom:progress_reached_color="@color/white"
+                        custom:progress_text_color="#3498DB"
+                        custom:progress_text_offset="1dp"
+                        custom:progress_text_size="0sp"
+                        custom:progress_text_visibility="visible"
+                        custom:progress_unreached_bar_height="10dp"
+                        custom:progress_unreached_color="@color/theme_blue" />
+
+
+                    <TextView
+                        android:id="@+id/harshbreakingTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="HARSH BREAKING"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="7dp"
+                        android:textStyle="bold" />
+
+                    <com.daimajia.numberprogressbar.NumberProgressBar
+                        android:id="@+id/highRpmProgress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="7dp"
+                        custom:progress_current="80"
+                        custom:progress_max="100"
+                        custom:progress_reached_bar_height="10dp"
+                        custom:progress_reached_color="@color/white"
+                        custom:progress_text_color="#3498DB"
+                        custom:progress_text_offset="1dp"
+                        custom:progress_text_size="0sp"
+                        custom:progress_text_visibility="visible"
+                        custom:progress_unreached_bar_height="10dp"
+                        custom:progress_unreached_color="@color/theme_blue" />
+
+                    <TextView
+                        android:id="@+id/highRPMTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="HIGH RPM"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="7dp"
+                        android:textStyle="bold" />
+
+                    <com.daimajia.numberprogressbar.NumberProgressBar
+                        android:id="@+id/harshAccelarationprogresss"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        custom:progress_current="80"
+                        custom:progress_max="100"
+                        custom:progress_reached_bar_height="10dp"
+                        custom:progress_reached_color="@color/white"
+                        custom:progress_text_color="#3498DB"
+                        custom:progress_text_offset="1dp"
+                        custom:progress_text_size="0sp"
+                        custom:progress_text_visibility="visible"
+                        custom:progress_unreached_bar_height="10dp"
+                        custom:progress_unreached_color="@color/theme_blue" />
+
+                    <TextView
+                        android:id="@+id/harshAccelarationTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="HARSH ACCELARATION"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="7dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/lineView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/singleViewLL"
+                android:background="@color/white" />
+
+
+            <LinearLayout
+                android:id="@+id/bottomViewLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lineView"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tripDistanceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="11dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Distance"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tripDurationTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="0 mins"
+                        android:textColor="@color/white"
+                        android:textSize="11dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Duration"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/alertCountTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="0 "
+                        android:textColor="@color/white"
+                        android:textSize="11dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Driving Alerts"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
+

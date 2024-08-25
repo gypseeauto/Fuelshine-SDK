@@ -1,0 +1,1203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.General_RulesFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:id="@+id/back_button_layout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                >
+                <ImageView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/backImg"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/fs_green_back_img"
+                    android:clipToOutline="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/back"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back"
+                    android:layout_marginTop="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:layout_marginEnd="12dp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/my_vehicles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/general_rules"
+                android:fontFamily="@font/poppins_bold"
+                android:lineHeight="36sp"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center_horizontal|top"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/point_1_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/_1_the_driver_will_earn_money"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_1_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/for_their"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        android:layout_marginStart="3dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/point_1_bold1"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_1_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/safe_and_efficient_driving"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_1_bold1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_1_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/which_can"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        android:layout_marginStart="3dp"
+                        app:layout_constraintTop_toBottomOf="@id/point_1_bold1"
+                        app:layout_constraintStart_toEndOf="@id/point_1_bold2"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_1_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/be_used_in_the_gift_card_marketplace"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_1_bold2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_2_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_2_for_every_kilometer_driven_and"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_1_normal3"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_2_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/efficiently_meaning_without_incidents"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_normal1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_2_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/speeding_harsh_braking_harsh"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_normal2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_2_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accelaration_texting_amp_driving_the"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_bold1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_2_bold3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/driver_will_earn_money_based_on_their"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_bold2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_2_bold4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/level"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_bold3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_2_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kilometers_driven_safely_and"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        android:layout_marginStart="3dp"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_bold3"
+                        app:layout_constraintStart_toEndOf="@id/point_2_bold4"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_2_normal4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/efficiently_are_reffered_to_as"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_normal3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_2_bold6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/safe_km"
+                        android:textStyle="bold"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_2_bold4"
+                        app:layout_constraintStart_toEndOf="@id/point_2_normal4"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/performance_bg"
+                android:id="@+id/bg1"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    >
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_3_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/level_0"
+                        android:layout_marginTop="15dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_3_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/the_driver_has_not_yet"
+                        android:fontFamily="@font/poppins"
+                        android:layout_marginStart="5dp"
+                        android:lineHeight="36sp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toEndOf="@id/point_3_bold1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_3_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accumulated"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_3_bold1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_3_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_100_safe_kms"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/point_3_bold1"
+                        app:layout_constraintStart_toEndOf="@id/point_3_normal2"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_3_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/therfore"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        android:layout_marginStart="3dp"
+                        app:layout_constraintTop_toBottomOf="@id/point_3_normal1"
+                        app:layout_constraintStart_toEndOf="@id/point_3_bold2"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_3_normal4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/the_driver_does_not_have_the_right_to"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_3_normal3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_3_normal5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/earn_money_for_each_driver_kilometer"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_3_normal4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_4_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/level_1_rules"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toBottomOf="@id/point_3_normal5"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_4_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/the_driver_accumulated_at_least"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toEndOf="@id/point_4_bold1"
+                        app:layout_constraintTop_toBottomOf="@id/point_3_normal5"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_4_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_100_safe_kms"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="36sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_4_bold1"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_4_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/so_for_each_new"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        android:layout_marginStart="3dp"
+                        app:layout_constraintStart_toEndOf="@id/point_4_bold2"
+                        app:layout_constraintTop_toBottomOf="@id/point_4_normal1"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        app:layout_constraintTop_toBottomOf="@id/point_4_bold2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textStyle="bold"
+                        android:text="@string/safe_km"
+                        android:id="@+id/point_4_bold3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_4_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/travelled_they_will_earn"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="36sp"
+                        android:layout_marginStart="4dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_4_bold2"
+                        app:layout_constraintStart_toEndOf="@id/point_4_bold3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        android:layout_marginBottom="15dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_4_bol4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹ "
+                        android:fontFamily="@font/poppins_bold"
+                        android:textStyle="bold"
+                        android:lineHeight="36sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_4_bold2"
+                        app:layout_constraintStart_toEndOf="@id/point_4_normal3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/normalTxt"
+                android:layout_marginBottom="15dp"
+                >
+
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/normalTxt1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/once_100_safe_kms_are_reached_a_n_count_of_the_next_3_days_of_driving_n_is_conducted_to_determine_the_driver_s_level"
+                    android:fontFamily="@font/poppins"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
+
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/levels"
+                android:background="@color/performance_bg"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    >
+
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_5_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/level_2"
+                        android:layout_marginTop="15dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_5_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_the_driver_manages_to_have"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toEndOf="@id/point_5_bold1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_5_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/at_least_30_of_their_driven"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_bold1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_5_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kms_as"
+                        app:layout_goneMarginStart="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_5_normal2"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_bold1"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_5_bold3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/safe_kms"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_normal2"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_5_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/then_for_each_safe_km"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        android:layout_marginStart="3dp"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_normal2"
+                        app:layout_constraintStart_toEndOf="@id/point_5_bold3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/point_5_normal4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/traveled_they_will_earn"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_normal3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_5_bold4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text= "@string/rupees"
+                        app:layout_goneMarginStart="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_5_normal4"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_normal3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_6_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/level_3"
+                        android:layout_marginTop="15dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_bold4"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_6_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_the_driver_manages_to_have"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toEndOf="@id/point_6_bold1"
+                        app:layout_constraintTop_toBottomOf="@id/point_5_bold4"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_6_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/at_least_45_of_their_driven"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_bold1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_6_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kms_as"
+                        app:layout_goneMarginStart="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_6_normal2"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_bold1"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_6_bold3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/safe_kms"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_normal2"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_6_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/then_for_each_safe_km"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_normal2"
+                        app:layout_constraintStart_toEndOf="@id/point_6_bold3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/point_6_normal4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/traveled_they_will_earn"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_normal3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_6_bold4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text= "@string/level3rup"
+                        android:textStyle="bold"
+                        app:layout_goneMarginStart="3dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_6_normal4"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_normal3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_7_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center_horizontal|top"
+                        android:lineHeight="26sp"
+                        android:text="@string/level_4"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_bold4" />
+
+                    <TextView
+                        android:id="@+id/point_7_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_the_driver_manages_to_have"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toEndOf="@id/point_7_bold1"
+                        app:layout_constraintTop_toBottomOf="@id/point_6_bold4"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_7_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/at_least_60_of_their_driven"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_bold1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_7_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kms_as"
+                        app:layout_goneMarginStart="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_7_normal2"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_bold1"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_7_bold3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/safe_kms"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_normal2"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_7_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/then_for_each_safe_km"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_normal2"
+                        app:layout_constraintStart_toEndOf="@id/point_7_bold3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/point_7_normal4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/traveled_they_will_earn"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_normal3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_7_bold4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text= "@string/level4Rup"
+                        app:layout_goneMarginStart="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_7_normal4"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_normal3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+
+
+                    <TextView
+                        android:id="@+id/point_8_bold1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center_horizontal|top"
+                        android:lineHeight="26sp"
+                        android:text="@string/level_5"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_bold4" />
+
+                    <TextView
+                        android:id="@+id/point_8_normal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_the_driver_manages_to_have"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toEndOf="@id/point_8_bold1"
+                        app:layout_constraintTop_toBottomOf="@id/point_7_bold4"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_8_normal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/at_least_75_of_their_driven"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_8_bold1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_8_bold2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kms_as"
+                        app:layout_goneMarginStart="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_8_normal2"
+                        app:layout_constraintTop_toBottomOf="@id/point_8_bold1"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+                    <TextView
+                        android:id="@+id/point_8_bold3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/safe_kms"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_8_normal2"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/point_8_normal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/then_for_each_safe_km"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_8_normal2"
+                        app:layout_constraintStart_toEndOf="@id/point_8_bold3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/point_8_normal4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/traveled_they_will_earn"
+                        android:fontFamily="@font/poppins"
+                        android:lineHeight="26sp"
+                        app:layout_constraintTop_toBottomOf="@id/point_8_normal3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+                    <TextView
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/point_8_bold4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text= "@string/level5Rup"
+                        app:layout_goneMarginStart="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="26sp"
+                        app:layout_constraintStart_toEndOf="@id/point_8_normal4"
+                        app:layout_constraintTop_toBottomOf="@id/point_8_normal3"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/normalText"
+                android:layout_marginBottom="15dp"
+                >
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/normalTxt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/each_client_can_determine_the_amount_n_of_money_their_drivers_will_earn_for_each"
+                    android:fontFamily="@font/poppins"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+                <TextView
+                    android:id="@+id/normal_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SAFE KM"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
+                    android:lineHeight="26sp"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/normalTxt2"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+                <TextView
+                    app:layout_constraintStart_toEndOf="@+id/normal_bold"
+                    app:layout_constraintTop_toBottomOf="@+id/normalTxt2"
+                    android:id="@+id/normalTxt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driven_on_each_level"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="@font/poppins"
+                    android:textAlignment="textStart"
+                    android:layout_marginEnd="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+
+
+
+</LinearLayout>

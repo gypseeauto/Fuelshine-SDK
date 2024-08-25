@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:text="@string/set_location_to_allow_all_the_time" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/txt1"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="13sp"
+        android:text="@string/this_allows_fuelshine_to_tarck_your_trips_as_accurately_as_possible_even_when_your_screen_is_locked_or_while_you_re_using_other_apps" />
+
+    <TextView
+        android:id="@+id/button_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt2"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        android:text="@string/continue_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

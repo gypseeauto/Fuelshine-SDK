@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="7dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/alertImage"-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:src="@drawable/icon_trip" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/sourceDestinationTv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:textColor="@color/text_black"-->
+<!--                    android:textSize="10dp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tripDescriptionTv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Engine Runtime : 00:05:19,Max RPM:3450, Max Speed : 90"-->
+<!--                    android:textColor="@color/text_black"-->
+<!--                    android:textSize="8dp" />-->
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/divider_grey"-->
+<!--            android:id="@+id/lineView"/>-->
+<!--    </LinearLayout>-->
+    
+    
+    
+<!--    new layout-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/trip_box"
+        android:background="@drawable/card_trip"
+        android:padding="8dp"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:id="@+id/sourceDestinationTv"
+            android:layout_width="200dp"
+            android:maxLines="2"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:text="@string/cerrada_de_fresnos"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="13sp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+        <ImageView
+            android:id="@+id/group"
+            android:src="@drawable/group"
+            app:layout_constraintTop_toBottomOf="@id/sourceDestinationTv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="16dp"
+            android:layout_height="14dp"
+            />
+
+        <TextView
+            android:id="@+id/tripDescriptionTv"
+            android:layout_width="180dp"
+            android:maxLines="2"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:text="@string/cerrada_de_fresnos"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="20sp"
+            app:layout_constraintTop_toBottomOf="@id/sourceDestinationTv"
+            app:layout_constraintStart_toEndOf="@id/group"
+            android:textSize="13sp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tripDescriptionTv">
+
+
+                <ImageView
+                    android:id="@+id/calender_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/fs_calender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+
+                    />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="15sp"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/_09_feb"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/calender_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+                    />
+
+                <TextView
+                    android:id="@+id/trip_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="15sp"
+                    android:text="@string/_15_km"
+                    android:layout_marginTop="3dp"
+                    app:layout_constraintStart_toEndOf="@id/date"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="12sp"
+
+
+                    />
+
+                <ImageView
+                    android:id="@+id/vector"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/trip_right_arrow"
+                    android:layout_alignStart="@id/time"
+                    app:layout_constraintStart_toEndOf="@id/trip_distance"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center_vertical"
+                    android:lineHeight="15sp"
+                    app:layout_goneMarginStart="5dp"
+                    android:text="@string/_29_min"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/vector"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/data"-->
+<!--            android:layout_width="98dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:background="@drawable/data"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/right_arrow"-->
+<!--            android:layout_marginEnd="13dp"-->
+
+<!--             >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/fuel_icon"-->
+<!--                android:layout_width="16dp"-->
+<!--                android:layout_height="15.52dp"-->
+<!--                android:src="@drawable/white_fuel_icon"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/amount"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:textSize="13sp"-->
+<!--               android:gravity="center"-->
+<!--                android:layout_marginEnd="3dp"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:textColor="@color/colorPrimaryDark"-->
+<!--                android:text="+ $21.00"-->
+<!--                />-->
+
+
+
+
+
+<!--        </RelativeLayout>-->
+
+        <LinearLayout
+            android:id="@+id/data"
+            app:layout_constraintEnd_toStartOf="@id/right_arrow"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/data"
+            >
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/white_fuel_icon"
+                android:layout_marginStart="10dp"
+                android:id="@+id/fuel_icon"
+                android:layout_width="16dp"
+                android:layout_height="14dp"
+                />
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="2dp"
+                android:foregroundGravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
+                android:lineHeight="20sp"
+                android:text="@string/_0_00Rp"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+
+
+        <ImageView
+            android:id="@+id/right_arrow"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/octicon_chevron_right_arrow"
+            android:clipToOutline="true"
+            />
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>

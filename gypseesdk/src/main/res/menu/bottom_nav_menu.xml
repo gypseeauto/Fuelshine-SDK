@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <item-->
+<!--        android:id="@+id/nav_drive"-->
+<!--        android:icon="@drawable/drive_icon"-->
+<!--        android:title="@string/drive" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/navigate_icon"-->
+<!--        android:icon="@drawable/speech_icon"-->
+<!--        android:title="@string/navigate" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_scancar"-->
+<!--        android:icon="@drawable/ic_safety"-->
+<!--        android:title="Safety Center" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_assistance"-->
+<!--        android:icon="@drawable/ic_store_new"-->
+<!--        android:title="Store" />-->
+
+    <item
+        android:id="@+id/nav_drive"
+        android:icon="@drawable/bottom_nav_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigate_icon"
+        android:icon="@drawable/bottom_nav_performance"
+        android:title="Performance" />
+
+    <item
+        android:id="@+id/navigation_scancar"
+        android:icon="@drawable/bottom_nav_wallet"
+        android:title="My Wallet" />
+
+    <item
+        android:id="@+id/navigation_assistance"
+        android:icon="@drawable/bottom_nav_settings"
+        android:title="Settings" />
+
+
+
+</menu>

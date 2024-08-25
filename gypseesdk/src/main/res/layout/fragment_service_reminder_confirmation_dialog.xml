@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_bg">
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/theme_blue"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Add vehicle"
+            android:fontFamily="@font/poppins"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/descriptionTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTv"
+            android:fontFamily=""
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="On checking, there are no cars attached to your profile. We request you to add a  car."
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/descriptionTV">
+
+
+            <TextView
+                android:id="@+id/positioveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="12dp"
+                android:fontFamily="@font/poppins"
+                android:text="Done"
+                android:background="@color/theme_blue"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <View
+                android:id="@+id/lineView2"
+                android:layout_width="1dp"
+                android:layout_height="38dp"
+                android:layout_below="@+id/descriptionTV"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/negativeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lineView"
+                android:layout_toStartOf="@+id/lineView2"
+                android:gravity="center"
+                android:fontFamily="@font/poppins"
+                android:padding="12dp"
+                android:text="Cancel"
+                android:background="@color/theme_blue"
+                android:textColor="@color/white"                android:textSize="13dp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="lastName"
+            type="String" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:clickable="true"
+        android:focusable="true"
+        tools:context=".fragments.ServiceReminderFragment">
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/serviceReminderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolBarLayout"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Service reminder"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:text="Distance travelled since code clear"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+
+            <EditText
+                android:id="@+id/clodeClearedDistance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@{name}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:text="Set service reminder"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+
+            <EditText
+                android:id="@+id/serviceReminderDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/serviceReminderLayout"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="25dp"
+            android:background="@color/colorPrimary" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lineView"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Pollution reminder"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+
+            <EditText
+                android:id="@+id/pollutionReminderDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:enabled="false"
+                android:focusable="false"
+                android:hint="Valid till date"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#019700"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Save"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+</layout>

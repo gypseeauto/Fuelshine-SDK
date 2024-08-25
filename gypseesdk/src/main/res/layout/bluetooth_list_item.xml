@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="50dp"
+    android:layout_width="match_parent"
+    android:paddingHorizontal="10dp"
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/available_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/underline"
+        android:layout_alignParentLeft="true"
+        android:textSize="12dp"
+        android:drawableLeft="@drawable/ic_bluetooth_default"
+        android:textColor="@color/black"
+        android:ellipsize="end"
+        android:text="Bluetooth Device"
+        android:paddingLeft="4dp"
+        android:gravity="center_vertical"/>
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_right_arrow"/>
+
+
+</RelativeLayout>

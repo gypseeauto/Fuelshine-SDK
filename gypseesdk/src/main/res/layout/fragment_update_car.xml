@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:clickable="true"
+        android:focusable="true"
+        tools:context=".fragments.UpdateCarFragment">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        tools:context=".fragments.UpdateCarFragment">
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:id="@+id/nested_scroll_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/back_button_layout"
+                                android:layout_width="75dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/backImg"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:clipToOutline="true"
+                                    android:src="@drawable/fs_green_back_img"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/back"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="12dp"
+                                    android:fontFamily="@font/poppins"
+                                    android:lineHeight="21sp"
+                                    android:text="@string/back"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="15sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            <TextView
+                                android:id="@+id/my_vehicles"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/poppins_bold"
+                                android:gravity="center_horizontal|top"
+                                android:lineHeight="36sp"
+                                android:text="@string/update_details"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@id/back_button_layout" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/vehicle_detail_recyclerview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:scrollbars="none" />
+
+                            <include
+                                android:id="@+id/grid_info"
+                                layout="@layout/info_grid" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:paddingStart="20dp"
+                                android:text="@string/rto_information"
+                                android:textColor="@color/grey_darker"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rto_info_recyclerview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:scrollbars="none" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/grey_accent"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="6dp"
+                                android:text="@string/smart_maintenance_reminder"
+                                android:textColor="@color/grey_darker"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingVertical="8dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:paddingVertical="8dp"
+                                        android:paddingStart="20dp"
+                                        android:paddingEnd="20dp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="2dp"
+                                            android:text="@string/service_reminder_in_kms"
+                                            android:textColor="@color/grey"
+                                            android:textStyle="bold" />
+
+                                        <EditText
+                                            android:id="@+id/service_reminder"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/service_reminder_in_kms"
+                                            android:imeOptions="actionNext"
+                                            android:inputType="number"
+                                            android:maxEms="5"
+                                            android:maxLength="5"
+                                            android:textColor="@color/grey"
+                                            android:textStyle="bold" />
+
+                                    </LinearLayout>
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:paddingVertical="8dp"
+                                        android:paddingStart="20dp"
+                                        android:paddingEnd="20dp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="2dp"
+                                            android:text="@string/next_service_due_date"
+                                            android:textColor="@color/grey"
+                                            android:textStyle="bold" />
+
+                                        <EditText
+                                            android:id="@+id/service_due_date"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:cursorVisible="false"
+                                            android:focusable="false"
+                                            android:hint="@string/next_service_due_date"
+                                            android:textColor="@color/grey"
+                                            android:textStyle="bold" />
+
+                                    </LinearLayout>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                                <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:paddingVertical="8dp"
+                                        android:paddingStart="20dp"
+                                        android:paddingEnd="20dp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="2dp"
+                                            android:text="@string/odometer_reading"
+                                            android:textColor="@color/grey"
+                                            android:textStyle="bold" />
+
+                                        <EditText
+                                            android:id="@+id/odomter"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/odometer_reading"
+                                            android:imeOptions="actionDone"
+                                            android:inputType="number"
+                                            android:maxEms="6"
+                                            android:maxLength="6"
+                                            android:textColor="@color/grey" />
+
+                                    </LinearLayout>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+                    <TextView
+                        android:id="@+id/update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:paddingVertical="16dp"
+                        android:text="@string/update_btn"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+        <!--
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/toolBarLayout">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:contentPadding="10dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="RTO Details"
+                                    android:textColor="@color/text_black"
+                                    android:textSize="15dp" />
+
+                                <TextView
+                                    android:id="@+id/carDetailsTv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Click on + icon to set automated reminders."
+                                    android:textColor="@color/text_black"
+                                    android:textSize="12dp" />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Smart Maintenance Reminder"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:id="@+id/smartServiceRemTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Service Reminder in KMS"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp" />
+
+                            <EditText
+                                android:id="@+id/serviceReminderkm"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Service Due After KM"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLength="7"
+                                android:singleLine="true"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Next Service Due Date"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp" />
+
+                            <EditText
+                                android:id="@+id/servieReminderDueDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:hint="Enter next service due date"
+                                android:imeOptions="actionDone"
+                                android:maxLength="10"
+                                android:singleLine="true"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Odometer Reading"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp" />
+
+                            <EditText
+                                android:id="@+id/odoMeterReading"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="total KM driven by vehicle"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLength="7"
+                                android:singleLine="true"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+
+                        <View
+                            android:id="@+id/lineView"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@color/text_black" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="Pollution Reminder"
+                                android:textColor="@color/text_black"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/pollutionRenewDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:hint="Valid Till Date"
+                                android:imeOptions="actionDone"
+                                android:inputType="date"
+                                android:singleLine="true"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/theme_blue"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Update"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />-->
+    </LinearLayout>
+</layout>

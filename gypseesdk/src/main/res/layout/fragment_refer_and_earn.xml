@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="refrralCode"
+            type="String" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <include
+            android:id="@+id/toolbarlayout"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/natrr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbarlayout"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="@string/fuelshine_road_safety_promise"
+            android:textColor="@color/text_black"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nacre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/natrr"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+
+            android:layout_marginBottom="20dp"
+            android:text="@string/know_safety_no_pain_no_safety_know_pain_nshare_fuelshine_app_with_your_loved_ones_amp_help_them_drive_safe_on_the_roads_n_nafter_all_life_is_precious_hold_it_with_both_hands"
+            android:textColor="@color/text_black"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/frameLayout"
+            android:layout_below="@+id/nacre"
+            android:layout_margin="20dp"
+            android:src="@drawable/sharepage_image" />
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/shareTxtv"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/white_curvedcorners_bg">
+
+            <TextView
+                android:id="@+id/referralCodeTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_share_white_24dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@{refrralCode}"
+                android:textColor="@color/text_black"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/copyImage"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/copy_image"
+
+                />
+        </FrameLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/shareTxtv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/whatsapp"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+</layout>

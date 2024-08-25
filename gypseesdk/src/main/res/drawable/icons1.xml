@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable/icons.xml -->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="60dp"
+    android:height="40dp"
+    android:viewportWidth="60"
+    android:viewportHeight="40"
+    >
+    <group>
+        <clip-path
+            android:pathData="M8 0H52C56.4183 0 60 3.58172 60 8V32C60 36.4183 56.4183 40 52 40H8C3.58172 40 0 36.4183 0 32V8C0 3.58172 3.58172 0 8 0Z"
+            />
+        <path
+            android:pathData="M0 0V40H60V0"
+            android:fillColor="#82C341"
+            />
+    </group>
+</vector>

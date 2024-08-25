@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:rowCount="1"
+    android:columnCount="4"
+    android:orientation="horizontal"
+    android:paddingHorizontal="4dp"
+    android:paddingVertical="8dp"
+    android:background="@color/grey_accent">
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_row="0"
+        android:gravity="center"
+        android:layout_columnWeight="1"
+        android:layout_column="0"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@color/grey"
+            android:drawableTop="@drawable/ic_calendar"
+            android:text="Reg. date"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_darker"
+            android:id="@+id/reg_date"
+            android:text="dd-mmm-yyyy"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_row="0"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:layout_column="1"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            android:drawableTop="@drawable/ic_fuel"
+            android:text="Fuel"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_darker"
+            android:id="@+id/fuel"
+            android:text="Petrol"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_row="0"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:layout_column="2"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            android:drawableTop="@drawable/ic_chassis"
+            android:text="Chassis No."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_darker"
+            android:id="@+id/chassis_no"
+            android:text="XXXXXXXXXXXXX"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_row="0"
+        android:gravity="center"
+        android:layout_columnWeight="1"
+        android:layout_column="3"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_gear"
+            android:textColor="@color/grey"
+            android:text="Engine"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_darker"
+            android:id="@+id/engine"
+            android:text="value"/>
+    </LinearLayout>
+
+</GridLayout>

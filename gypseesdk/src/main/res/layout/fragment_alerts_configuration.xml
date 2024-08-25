@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="10dp"
+    android:background="@color/whiteBack"
+    android:layout_marginEnd="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AlertsConfigurationFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:id="@+id/back_button_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        >
+        <ImageView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/backImg"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/fs_green_back_img"
+            android:clipToOutline="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="14sp"
+            android:layout_marginTop="3dp"
+            android:textAlignment="center"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="21sp"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <TextView
+        android:id="@+id/alertTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/alert_configuration"
+        app:layout_constraintTop_toBottomOf="@id/back_button_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:lineHeight="36sp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal|top"
+        android:layout_marginTop="30dp"
+        />
+
+<!--    <RelativeLayout-->
+<!--        app:layout_constraintTop_toBottomOf="@id/alertTxt"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginTop="45dp"-->
+<!--        android:id="@+id/icon_button"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:background="@drawable/icon_button"-->
+<!--        >-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/icon"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:src="@drawable/alerts_mic_icon"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            />-->
+<!--    </RelativeLayout>-->
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/use_the_mic_txt"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Use the microphone to help you with common tasks while driving"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/colorPrimaryDark"-->
+<!--        android:gravity="center_horizontal|top"-->
+<!--        android:lineHeight="24sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:fontFamily="@font/poppins"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/icon_button"-->
+<!--        android:layout_marginTop="35dp"-->
+<!--        />-->
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/quick_action_txt"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Quick actions"-->
+<!--        android:fontFamily="@font/poppins"-->
+<!--        android:lineHeight="24sp"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/colorPrimaryDark"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/use_the_mic_txt"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        />-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/btn_layout_1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/quick_action_txt"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        >-->
+
+<!--        <LinearLayout-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/call_btn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            android:background="@drawable/button_dark"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/call_icon"-->
+<!--                android:src="@drawable/alerts_call_icon"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:foregroundGravity="center_vertical|center_horizontal"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                />-->
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/label_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Call"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:textSize="14sp"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:lineHeight="21sp"-->
+<!--                android:gravity="center_horizontal |center_vertical"-->
+<!--                android:textColor="@color/greenBack"-->
+<!--                android:foregroundGravity="center_vertical|center_horizontal"-->
+<!--                />-->
+
+
+
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/music_btn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            android:background="@drawable/button_dark"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/music_icon"-->
+<!--                android:src="@drawable/alerts_music_icon"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                />-->
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/music_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Music"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:textSize="14sp"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:lineHeight="21sp"-->
+<!--                android:textColor="@color/greenBack"-->
+<!--                android:gravity="center_horizontal|center_vertical"-->
+<!--                />-->
+
+
+
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/parkingh_btn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            android:background="@drawable/button_dark"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/parking_icon"-->
+<!--                android:src="@drawable/alerts_parking_icon"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                />-->
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/parking_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Parking"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:textSize="14sp"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:lineHeight="21sp"-->
+<!--                android:textColor="@color/greenBack"-->
+<!--                android:gravity="center_horizontal|center_vertical"-->
+<!--                />-->
+
+
+
+
+<!--        </LinearLayout>-->
+
+
+
+<!--    </LinearLayout>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/btn_layout_2"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/btn_layout_1"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:orientation="horizontal"-->
+<!--        >-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/gas_btn"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="161.5dp"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            android:background="@drawable/button_dark"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/gas_icon"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                android:src="@drawable/alerts_gas_icon"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/gas_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Gas Station"-->
+<!--                android:textColor="@color/greenBack"-->
+<!--                android:textSize="14sp"-->
+<!--                android:lineHeight="21sp"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:gravity="center_horizontal|center_vertical"-->
+<!--                />-->
+
+
+
+
+
+<!--        </LinearLayout>-->
+
+
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/ev_btn"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="161.5dp"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            android:background="@drawable/button_dark"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ev_icon"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                android:src="@drawable/alerts_ev_icon"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/ev_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Ev Charger"-->
+<!--                android:textColor="@color/greenBack"-->
+<!--                android:textSize="14sp"-->
+<!--                android:lineHeight="21sp"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:gravity="center_horizontal|center_vertical"-->
+<!--                />-->
+
+
+
+
+
+<!--        </LinearLayout>-->
+
+
+<!--    </LinearLayout>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/btn_layout_3"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/btn_layout_2"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:orientation="horizontal"-->
+<!--        >-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/navigation_btn"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="161.5dp"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            android:background="@drawable/button_dark"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/navigate_icon"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                android:src="@drawable/alerts_nav_icon"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/nav_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Navigation"-->
+<!--                android:textColor="@color/greenBack"-->
+<!--                android:textSize="14sp"-->
+<!--                android:lineHeight="21sp"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:gravity="center_horizontal|center_vertical"-->
+<!--                />-->
+
+
+
+
+
+<!--        </LinearLayout>-->
+
+
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/location_btn"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="161.5dp"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:clipToOutline="true"-->
+<!--            android:background="@drawable/button_dark"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/location_icon"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                android:src="@drawable/alerts_location_icon"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/location_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Location"-->
+<!--                android:textColor="@color/greenBack"-->
+<!--                android:textSize="14sp"-->
+<!--                android:lineHeight="21sp"-->
+<!--                android:fontFamily="@font/poppins"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:gravity="center_horizontal|center_vertical"-->
+<!--                />-->
+
+
+
+
+
+<!--        </LinearLayout>-->
+
+
+<!--    </LinearLayout>-->
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/speed_layout"
+        app:layout_constraintTop_toBottomOf="@id/alertTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="35dp"
+        >
+
+        <TextView
+            android:id="@+id/speeding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speeding"
+            android:textSize="20sp"
+            android:lineHeight="30sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="top"
+            />
+        <TextView
+            android:id="@+id/this_alert_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_alert_will_play_when_you_are_nspeeding"
+            android:gravity="top"
+            android:lineHeight="21sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:layout_below="@id/speeding"
+            android:layout_marginBottom="10dp"
+            />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/speed_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/braking_layout"
+        app:layout_constraintTop_toBottomOf="@id/speed_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:id="@+id/brake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/braking"
+            android:textSize="20sp"
+            android:lineHeight="30sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="top"
+            />
+        <TextView
+            android:id="@+id/this_alert_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_alert_will_play_when_you_are_nharsh_braking"
+            android:gravity="top"
+            android:lineHeight="21sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:layout_below="@id/brake"
+            android:layout_marginBottom="10dp"
+            />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/brake_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accelaration_layout"
+        app:layout_constraintTop_toBottomOf="@id/braking_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:id="@+id/accelaration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accelaration"
+            android:textSize="20sp"
+            android:lineHeight="30sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="top"
+            />
+        <TextView
+            android:id="@+id/this_alert_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_alert_will_play_when_you_are_nharsh_accelerating"
+            android:gravity="top"
+            android:lineHeight="21sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:layout_below="@id/accelaration"
+            android:layout_marginBottom="10dp"
+            />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/accelaration_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_and_driving_layout"
+        app:layout_constraintTop_toBottomOf="@id/accelaration_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:id="@+id/text_and_driving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texting_and_drving"
+            android:textSize="20sp"
+            android:lineHeight="30sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="top"
+            />
+        <TextView
+            android:id="@+id/this_alert_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_alert_will_play_when_you_are_ntexting_and_driving"
+            android:gravity="top"
+            android:lineHeight="21sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:layout_below="@id/text_and_driving"
+            android:layout_marginBottom="10dp"
+            />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/text_and_drive_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

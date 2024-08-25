@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable/button_dark.xml -->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="103.67dp"
+    android:height="37dp"
+    android:viewportWidth="103.67"
+    android:viewportHeight="37"
+    >
+    <group>
+        <clip-path
+            android:pathData="M6 0H97.6667C100.98 0 103.667 2.68629 103.667 6V31C103.667 34.3137 100.98 37 97.6667 37H6C2.68629 37 0 34.3137 0 31V6C0 2.68629 2.68629 0 6 0Z"
+            />
+        <path
+            android:pathData="M6 0H97.6667C100.98 0 103.667 2.68629 103.667 6V31C103.667 34.3137 100.98 37 97.6667 37H6C2.68629 37 0 34.3137 0 31V6C0 2.68629 2.68629 0 6 0Z"
+            android:strokeWidth="2"
+            android:strokeColor="#82C341"
+            />
+    </group>
+</vector>

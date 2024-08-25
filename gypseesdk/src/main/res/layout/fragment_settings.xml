@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/whiteBack"
+    tools:context=".fragments.SettingsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/whiteBack"
+            >
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/settingsText"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/version"
+                android:text="@string/settings"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center_horizontal|top"
+                android:lineHeight="36sp"
+                />
+
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins"
+                android:lineHeight="21sp"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintTop_toBottomOf="@id/settingsText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                />
+
+
+            <TextView
+                android:id="@+id/logs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins"
+                android:lineHeight="21sp"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintTop_toBottomOf="@id/version"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/version"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/personalInfoLayout"
+                android:visibility="gone"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/personal_info_icon"
+                    android:id="@+id/person_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal_information"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/personalInfoLayout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/myvehicleLayout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_permission_car_icon"
+                    android:id="@+id/vehicle_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_vehicles"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/myvehicleLayout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/rules_layout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_rules_icon"
+                    android:id="@+id/rules_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/general_rules"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/rules_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/alerts_layout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_alert_icon"
+                    android:id="@+id/alert_config_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/alert_configuration"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+                <TextView
+                    android:id="@+id/mute_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mute"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:lineHeight="21sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="55dp"
+                    android:gravity="right|top"
+                    />
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/alerts_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/share_layout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_share_icon"
+                    android:id="@+id/share_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/share_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/rate_us_layout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/rate_us"
+                    android:id="@+id/star_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rate_us"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/rate_us_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/help_layout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_help_icon"
+                    android:id="@+id/help_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/help_and_support"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/help_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/about_layout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_setting_imfo"
+                    android:id="@+id/about_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privacy_policy"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/about_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/log_out_layout"
+                android:visibility="gone"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_logout"
+                    android:id="@+id/log_out_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/logout"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/log_out_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:id="@+id/logsLayout"
+                >
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/fs_logout"
+                    android:id="@+id/log_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/label10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/logs"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins"
+                    android:lineHeight="21sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    />
+
+
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>
