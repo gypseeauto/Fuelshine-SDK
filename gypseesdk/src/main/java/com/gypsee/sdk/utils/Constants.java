@@ -10,7 +10,7 @@ public class Constants {
     public static long LOCATION_FASTEST_INTERVAL = 100;
     public static float SMALLEST_DISPLACEMENT = 10;
     public static float LOCATION_ACCURACY = 150;
-    public static float overSpeed_alert_max_duration = 180;
+    public static float overSpeed_alert_max_duration = 30;
 
     //Voice alerts
 //    public static String HARSH_BRAKING = "Please brake gently and safely so that both you and your vehicle are safe.";

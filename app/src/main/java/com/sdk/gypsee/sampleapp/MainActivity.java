@@ -19,6 +19,8 @@ import com.sdk.gypsee.sampleapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.gypsee.sdk.gypseesdk.GypseeSdk;
 
 import java.util.Date;
@@ -43,7 +45,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Call this function for the start sdk and pass the required details
-                GypseeSdk.start(MainActivity.this,"hellobhaskar@gypsee.ai","hellobhaskar@gypsee.ai","test");
+                String email =  binding.emailEt.getText().toString();
+                String password =  binding.emailEt.getText().toString();
+                if(!email.contains("@"))
+                {
+                    Toast.makeText(MainActivity.this, "Please enter proper email", Toast.LENGTH_SHORT).show();
+                }else if(password.length()<4) {
+                    Toast.makeText(MainActivity.this, "Please enter proper Password", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    GypseeSdk.start(MainActivity.this,email,email,password);
+
+                }
             }
         });
     }
