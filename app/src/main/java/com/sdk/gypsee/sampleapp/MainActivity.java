@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -19,6 +20,8 @@ import com.sdk.gypsee.sampleapp.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.gypsee.sdk.gypseesdk.GypseeSdk;
+
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,11 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
+
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Call this function for the start sdk and pass the required details
-                GypseeSdk.start(MainActivity.this,"hello@gypsee.ai","hello@gypsee.ai","test");
+                GypseeSdk.start(MainActivity.this,"hellobhaskar@gypsee.ai","hellobhaskar@gypsee.ai","test");
             }
         });
     }

@@ -129,6 +129,7 @@ import com.gypsee.sdk.serverclasses.ApiInterface;
 import com.gypsee.sdk.threads.ConnectThread;
 import com.gypsee.sdk.trips.TripAlert;
 import com.gypsee.sdk.trips.TripRecord;
+import com.gypsee.sdk.utils.Constants;
 import com.gypsee.sdk.utils.FleetSocketConnection;
 import com.gypsee.sdk.utils.GpsUtils;
 import com.gypsee.sdk.utils.NetworkConnectionCallback;
@@ -3355,17 +3356,14 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
         }
 
-        if (speed < maxSpeed && speedAlert != null) {
-            new DatabaseHelper(getApplicationContext()).insertTripAlert(speedAlert);
-            addTripAlertToArray(speedAlert);
-
-            speedAlert = null;
+        if (speed < maxSpeed && overSpeedAlert != null) {
+            sendOverSpeedAlertToserver();
             /*if (fragmentHomeBinding.alertsLayout.alerts.getBackground() != null)
                 fetchAlertsAndDisplay();*/
         }
         if (speed > maxSpeed) {
 
-            if (speedAlert == null) {
+            if (overSpeedAlert == null) {
                 showNotification("Over speed");
 
                 String language = myPreferenece.getLang();
@@ -3395,17 +3393,30 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 showNotification(overspeeding);
             }
 
-            speedAlert = speedAlert == null ? new TripAlert("Overspeed", speed + " km/hr", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "") : speedAlert;
+            overSpeedAlert = overSpeedAlert == null ? new TripAlert("Overspeed", speed + " km/hr", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "") : overSpeedAlert;
 
-            if (speed > Integer.parseInt(speedAlert.getAlertValue().replace(" km/hr", ""))) {
-                speedAlert.setAlertValue(speed + " km/hr");
+            if (speed > Integer.parseInt(overSpeedAlert.getAlertValue().replace(" km/hr", ""))) {
+                overSpeedAlert.setAlertValue(speed + " km/hr");
             }
-            speedAlert.setTimeInterval(TimeUtils.calcDiffTime(speedAlert.getTimeStamp(), new Date().getTime()));
+            overSpeedAlert.setTimeInterval(TimeUtils.calcDiffTime(overSpeedAlert.getTimeStamp(), new Date().getTime()));
+
+            if(TimeUtils.calcDiffTimeInSec(new Date(overSpeedAlert.getTimeStamp()), new Date())> Constants.overSpeed_alert_max_duration)
+            {
+                sendOverSpeedAlertToserver();
+            }
             Log.e(TAG, "Speed ALert");
         }
 
         //checkAlertsCount(); display method
 
+    }
+
+    //Here we are sending overspeed alert to server
+    private void sendOverSpeedAlertToserver() {
+        new DatabaseHelper(getApplicationContext()).insertTripAlert(overSpeedAlert);
+        addTripAlertToArray(overSpeedAlert);
+
+        overSpeedAlert = null;
     }
 
 
@@ -3528,7 +3539,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         return EcoSpeedEnums.BelowEcoSpeed;
     }
 
-    private TripAlert speedAlert, engineAlert;
+    private TripAlert overSpeedAlert, engineAlert;
 
     private float filter(final float prev, final float curr, final int ratio) {
         // If first time through, initialise digital filter with current values
@@ -3832,10 +3843,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             engineAlert = null;
             i = i + 1;
         }
-        if (speedAlert != null) {
-            databaseHelper.insertTripAlert(speedAlert);
-            addTripAlertToArray(speedAlert);
-            speedAlert = null;
+        if (overSpeedAlert != null) {
+            databaseHelper.insertTripAlert(overSpeedAlert);
+            addTripAlertToArray(overSpeedAlert);
+            overSpeedAlert = null;
             i = i + 1;
 
         }
