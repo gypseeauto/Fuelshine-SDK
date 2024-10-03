@@ -1,3 +1,4 @@
+
 plugins {
     id 'com.android.library'
     id 'maven-publish'
@@ -195,7 +196,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -216,18 +217,30 @@ android {
 
 publishing {
     publications {
-        release(MavenPublication) {
+        bar(MavenPublication) {
+
+
             groupId = 'com.github.gypseesdk'
             artifactId = 'gypseesdk'
-            version = '1.0.3'
+            version = '1.0.4'
+            artifact("$buildDir/outputs/aar/gypseesdk-release.aar")
 
-            afterEvaluate {
+           /* afterEvaluate {
                 from components.release
-            }
+            }*/
         }
     }
-    repositories {               // << --- ADD This
-        mavenLocal()
+    repositories {
+        maven {
+            name "Fuelshine-SDK"
+            url uri("https://maven.pkg.github.com/gypseeauto/Fuelshine-SDK/")
+            credentials{
+                username = "Bhaskar91083"
+                password = "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"
+            }
+
+        }// << --- ADD This
+
     }
 }
 
