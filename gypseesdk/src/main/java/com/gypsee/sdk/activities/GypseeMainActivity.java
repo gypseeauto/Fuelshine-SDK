@@ -275,7 +275,7 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
 
     private boolean hasExecuted;
 
-    private ForegroundService foregroundService;
+   public  ForegroundService foregroundService;
 
     private boolean isForegroundRunning = false;
 

@@ -257,7 +257,6 @@
         <service
             android:name=".services.TripBackGroundService"
             android:enabled="true"
-            tools:node="merge"
             android:foregroundServiceType="location"
             android:exported="false" />
         <activity android:name=".activities.ProfileActivity"
@@ -309,9 +308,13 @@
             android:name=".activities.QuickManualActivity"
             android:screenOrientation="nosensor" />
 
-        <service
+        <receiver
             android:name=".services.RecognitionIntentService"
-            android:exported="true" />
+            android:exported="false"
+            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION">
+
+
+        </receiver>
 
         <receiver
             android:name=".broadcastreceivers.InstallReferrerReceiver"

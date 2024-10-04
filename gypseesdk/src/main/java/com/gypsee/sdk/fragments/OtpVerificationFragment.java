@@ -30,7 +30,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.auth.api.credentials.Credential;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -496,9 +495,9 @@ public class OtpVerificationFragment extends Fragment implements OtpReceivedInte
 
         if (requestCode == RESOLVE_HINT) {
             if (resultCode == RESULT_OK) {
-                Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
+              /*  Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
                 mobileNumber.setText(credential.getId().replace("+91", ""));
-                checkMobileNumberTosendOtp();
+                checkMobileNumberTosendOtp();*/
 
                 // credential.getId();  <-- will need to process phone number string
             }

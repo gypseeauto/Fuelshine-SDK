@@ -19,6 +19,8 @@ import com.gypsee.sdk.helpers.BluetoothHelperClass;
 import com.gypsee.sdk.jsonParser.AsyncTaskClass;
 import com.gypsee.sdk.models.User;
 
+import java.util.Objects;
+
 public class GypseeSdk {
 
     public static void start(Context context, String userName, String password,String fcmToken) {
@@ -66,7 +68,10 @@ public class GypseeSdk {
         MyPreferenece myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context);
         User user = myPreferenece.getUser();
 
-//        if (user == null) {
+        if (user != null && Objects.equals(user.getUserEmail(), userName)) {
+            checkPermissionsAndNavigate(context,myPreferenece);
+            return;
+        }
         JSONObject jsonObject = new JSONObject();
 //put something inside the map, could be null
         try {
@@ -119,19 +124,8 @@ public class GypseeSdk {
 
                     myPreferenece.storeUser(new User(userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
                             userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
-                    //updating inTraining mode in HomeFragment on fresh install
-                    Intent in1;
-                    if (BluetoothHelperClass.fetchDeniedPermissions(context).length > 0 || !Settings.canDrawOverlays(context) ||
-//                    !myPreferenece.getIfAccessibilityPermissionGranted() || //uncomment if accessibility permission is required
-                            !myPreferenece.getIfQueryAllPackagesPermissionGranted()) {
-                        in1 = new Intent(context, PermissionActivity.class);
-                    }else {
-                        in1 = new Intent(context, GypseeMainActivity.class);
-                    }
 
-                    in1.putExtra("freshlogin", true);
-                    in1.putExtra("isNewUser", false);
-                    context.startActivity(in1);
+                    checkPermissionsAndNavigate(context,myPreferenece);
                 }else {
                     registerWithEmailPassword(context,userName,fcmToken,password);
                     //Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -143,7 +137,22 @@ public class GypseeSdk {
                 "regerror", context.getResources().getString(R.string.mobileLoginAPi), "Login with username and possword");
     }
 
+    private static void checkPermissionsAndNavigate(Context context, MyPreferenece myPreferenece) {
 
+        //updating inTraining mode in HomeFragment on fresh install
+        Intent in1;
+        if (BluetoothHelperClass.fetchDeniedPermissions(context).length > 0 || !Settings.canDrawOverlays(context) ||
+//                    !myPreferenece.getIfAccessibilityPermissionGranted() || //uncomment if accessibility permission is required
+                !myPreferenece.getIfQueryAllPackagesPermissionGranted()) {
+            in1 = new Intent(context, PermissionActivity.class);
+        }else {
+            in1 = new Intent(context, GypseeMainActivity.class);
+        }
+
+        in1.putExtra("freshlogin", true);
+        in1.putExtra("isNewUser", false);
+        context.startActivity(in1);
+    }
 
 
     private static void registerWithEmailPassword(Context context, String userName, String fcmToken, String password) {
@@ -209,18 +218,8 @@ public class GypseeSdk {
                     myPreferenece.storeUser(new User(userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
                             userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
                     //updating inTraining mode in HomeFragment on fresh install
-                    Intent in1;
-                    if (BluetoothHelperClass.fetchDeniedPermissions(context).length > 0 || !Settings.canDrawOverlays(context) ||
-//                    !myPreferenece.getIfAccessibilityPermissionGranted() || //uncomment if accessibility permission is required
-                            !myPreferenece.getIfQueryAllPackagesPermissionGranted()) {
-                        in1 = new Intent(context, PermissionActivity.class);
-                    }else {
-                        in1 = new Intent(context, GypseeMainActivity.class);
-                    }
+                    checkPermissionsAndNavigate(context,myPreferenece);
 
-                    in1.putExtra("freshlogin", true);
-                    in1.putExtra("isNewUser", false);
-                    context.startActivity(in1);
                 }else {
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 }

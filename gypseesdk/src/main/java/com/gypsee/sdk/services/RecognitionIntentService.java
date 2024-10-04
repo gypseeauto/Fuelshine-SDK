@@ -8,16 +8,17 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.android.gms.location.ActivityTransitionEvent;
 import com.google.android.gms.location.ActivityTransitionResult;
 import com.google.android.gms.location.DetectedActivity;
+import com.gypsee.sdk.utils.Constants;
 
 import java.util.List;
 
 public class RecognitionIntentService extends BroadcastReceiver {
 
-    private String RECOGNITION_ACTION = "recognition_action";
     private String TAG = RecognitionIntentService.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.e(TAG, "RecognitionIntentService onReceive: " );
 
         if (ActivityTransitionResult.hasResult(intent)) {
             ActivityTransitionResult result = ActivityTransitionResult.extractResult(intent);
@@ -31,12 +32,12 @@ public class RecognitionIntentService extends BroadcastReceiver {
 
                     Log.e(TAG, "in Vehicle");
                     //startForeGroundService();
-                    Intent intent1 = new Intent(RECOGNITION_ACTION);
+                    Intent intent1 = new Intent(Constants.RECOGNITION_ACTION);
                     intent1.putExtra("inVehicleActivity", true);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent1);
                 } else if ((activityType == DetectedActivity.WALKING)) {
                     Log.e(TAG, "on foot");
-                    Intent intent1 = new Intent(RECOGNITION_ACTION);
+                    Intent intent1 = new Intent(Constants.RECOGNITION_ACTION);
                     intent1.putExtra("inVehicleActivity", false);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent1);
                 }

@@ -90,10 +90,7 @@ public class LogsFragment extends Fragment {
 
 
     private void clearLogs() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPreferenece.serviceLogs, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(MyPreferenece.tripLogs, "");
-        editor.apply();
+        ((GypseeMainActivity) requireActivity()).foregroundService.clearLogs();
         logsBinding.logs.setText("No logs available");
     }
 

@@ -277,8 +277,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
 
     // lib for SMS verification (Phone Auth)
-    implementation 'com.google.android.gms:play-services-auth:20.7.0'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.2'
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.7.7'
     implementation 'com.github.bumptech.glide:glide:4.13.0'

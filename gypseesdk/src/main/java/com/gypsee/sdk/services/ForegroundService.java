@@ -501,30 +501,22 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     private boolean isObdConnected = false;
 
     private ActivityRecognitionClient recognitionClient;
-    private int RECOGNITION_PENDING_INTENT_REQUEST_CODE = 111;
     PendingIntent recognitionPendingIntent;
 
     private void setupRecognitionClient() {
-        Log.e(TAG, "Activity Recognition Client Setup");
         Intent intent = new Intent(this, RecognitionIntentService.class);
+        //Intent intent = new Intent("ACTIVITY_RECOGNITION");
+        int RECOGNITION_PENDING_INTENT_REQUEST_CODE = 111;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             recognitionPendingIntent = PendingIntent.getBroadcast(this, RECOGNITION_PENDING_INTENT_REQUEST_CODE, intent, PendingIntent.FLAG_MUTABLE);
         } else {
             recognitionPendingIntent = PendingIntent.getBroadcast(this, RECOGNITION_PENDING_INTENT_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
-
         registerRecognitionBroadcastReceiver();
         requestRecognitionUpdates();
     }
 
     private void requestRecognitionUpdates() {
-        recognitionClient =  ActivityRecognition.getClient(getApplicationContext());
-
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-                Log.e(TAG, "requestRecognitionUpdates: " );
-                return;
-            }
 
             List<ActivityTransition> transitions = new ArrayList<>();
 
@@ -554,6 +546,14 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                             .build());
 
             ActivityTransitionRequest request = new ActivityTransitionRequest(transitions);
+
+
+        recognitionClient =  ActivityRecognition.getClient(getApplicationContext());
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "requestRecognitionUpdates: " );
+            return;
+        }
 
             Task<Void> task = recognitionClient.requestActivityTransitionUpdates(request, recognitionPendingIntent);
             task.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -714,11 +714,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     }
 
 
-    private String RECOGNITION_ACTION = "recognition_action";
     private boolean activityCaptured = false;
 
     private void registerRecognitionBroadcastReceiver() {
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(activityRecognitionBroadcastReceiver, new IntentFilter(RECOGNITION_ACTION));
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(activityRecognitionBroadcastReceiver, new IntentFilter(Constants.RECOGNITION_ACTION));
     }
 
 
@@ -734,7 +733,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             if (action == null) {
                 return;
             }
-            if (action.equals(RECOGNITION_ACTION)) {
+            if (action.equals(Constants.RECOGNITION_ACTION)) {
                 inVehicleActivity = intent.getBooleanExtra("inVehicleActivity", false);
                 addLog(TAG + " - " + "activityRecognitionBroadcastReceiver onReceive: " + inVehicleActivity);
 
@@ -3157,16 +3156,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         }
         if (currentTrip != null) {
 
-//            if (ecoSpeedEnum == EcoSpeedEnums.EcoSpeed){
-//                textToSpeech.stop();
-//                textToSpeech.speak(ECO_SPEED, TextToSpeech.QUEUE_FLUSH, null, null);
-//            }
-//
-//            if (ecoSpeedEnum == EcoSpeedEnums.AboveEcoSpeed){
-//                textToSpeech.stop();
-//                textToSpeech.speak(ABOVE_ECO_SPEED, TextToSpeech.QUEUE_FLUSH, null, null);
-//
-//            }
             callServer(getString(R.string.vehicleEcoSpeedApi).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Add EcoSpeed alerts", 7);
 
         }
@@ -3816,7 +3805,9 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
             if (ecoSpeedEnum != null) {
                 sendTheEcoSpeedAlert();
+                resetEcoSpeedAlerts();
             }
+
             callServer(getResources().getString(R.string.tripEndurl), "end trip", 15);
 
             //Save the last connected vehicle.
