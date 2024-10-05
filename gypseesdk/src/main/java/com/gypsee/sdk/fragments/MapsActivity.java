@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -54,7 +55,9 @@ import com.gypsee.sdk.dialogs.GiveFeedbackDialog;
 import com.gypsee.sdk.helpers.BluetoothHelperClass;
 import com.gypsee.sdk.helpers.DirectionsJSONParser;
 import com.gypsee.sdk.models.GameLevelModel;
+import com.gypsee.sdk.models.TripMileage;
 import com.gypsee.sdk.models.User;
+import com.gypsee.sdk.models.Vehiclemodel;
 import com.gypsee.sdk.serverclasses.ApiClient;
 import com.gypsee.sdk.serverclasses.ApiInterface;
 import com.gypsee.sdk.trips.TripRecord;
@@ -67,8 +70,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
 
     TripRecord tripRecord;
-    private LocationManager mLocationManager;
-    private LocationListener mLocationListener;
     FragmentTripdetailsBinding fragmentTripdetailsBinding;
     private LatLng mOrigin;
     private LatLng mDestination;
@@ -110,19 +111,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.e("TripMileage",Mileage);
         Log.e("singleTripRecord",tripRecord.toString());
 
-        fragmentTripdetailsBinding.recenterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!routeCoordinates.isEmpty()) {
-                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                    for (LatLng latLng : routeCoordinates) {
-                        builder.include(latLng);
-                    }
-                    LatLngBounds bounds = builder.build();
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-                } else {
-                    Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
+        fragmentTripdetailsBinding.recenterButton.setOnClickListener(v -> {
+            if (!routeCoordinates.isEmpty()) {
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                for (LatLng latLng : routeCoordinates) {
+                    builder.include(latLng);
                 }
+                LatLngBounds bounds = builder.build();
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+            } else {
+                Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -131,49 +129,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        fragmentTripdetailsBinding.kmValue2.setText(tripRecord.getDistanceCovered());
 //        fragmentTripdetailsBinding.safeKmValue.setText(tripRecord.getSafeKm());
 //        fragmentTripdetailsBinding.safePerValue.setText(tripRecord.getSafeKm());
-        fragmentTripdetailsBinding.property1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isFuelPriceVisible) {
-                    // If fuel price is visible, hide it and show down arrow
-                    fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.downArrow.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.upArrow.setVisibility(View.GONE);
-                    isFuelPriceVisible = false;
-                } else {
-                    // If fuel price is not visible, show it and hide down arrow
-                    fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.downArrow.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.upArrow.setVisibility(View.VISIBLE);
+        fragmentTripdetailsBinding.property1.setOnClickListener(view -> {
+            if (isFuelPriceVisible) {
+                // If fuel price is visible, hide it and show down arrow
+                fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.downArrow.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.upArrow.setVisibility(View.GONE);
+                isFuelPriceVisible = false;
+            } else {
+                // If fuel price is not visible, show it and hide down arrow
+                fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.downArrow.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.upArrow.setVisibility(View.VISIBLE);
 //                    // Set top margin to 0
 //                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
 //                    params.topMargin = 0;
 //                    fragmentTripdetailsBinding.fuelPrice.setLayoutParams(params);
-                    isFuelPriceVisible = true;
-                }
+                isFuelPriceVisible = true;
             }
         });
 
-        fragmentTripdetailsBinding.property2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isKmVisible) {
-                    // If fuel price is visible, hide it and show down arrow
-                    fragmentTripdetailsBinding.kmText1.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.downArrow1.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.upArrow1.setVisibility(View.GONE);
-                    isKmVisible = false;
-                } else {
-                    // If fuel price is not visible, show it and hide down arrow
-                    fragmentTripdetailsBinding.kmText1.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.downArrow1.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.upArrow1.setVisibility(View.VISIBLE);
+        fragmentTripdetailsBinding.property2.setOnClickListener(view -> {
+            if (isKmVisible) {
+                // If fuel price is visible, hide it and show down arrow
+                fragmentTripdetailsBinding.kmText1.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.downArrow1.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.upArrow1.setVisibility(View.GONE);
+                isKmVisible = false;
+            } else {
+                // If fuel price is not visible, show it and hide down arrow
+                fragmentTripdetailsBinding.kmText1.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.downArrow1.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.upArrow1.setVisibility(View.VISIBLE);
 //                    // Set top margin to 0
 //                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
 //                    params.topMargin = 0;
 //                    fragmentTripdetailsBinding.fuelPrice.setLayoutParams(params);
-                    isKmVisible = true;
-                }
+                isKmVisible = true;
             }
         });
 
@@ -191,59 +183,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //            fragmentTripdetailsBinding.fuelValue.setText("+ ₹" + tripRecord.getTripSavingsCommission());
 //        }
 
-        fragmentTripdetailsBinding.property3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isTextKmVisible) {
-                    // If fuel price is visible, hide it and show down arrow
-                    fragmentTripdetailsBinding.tripKmText.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.downArrow2.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.upArrow2.setVisibility(View.GONE);
-                    isTextKmVisible = false;
-                } else {
-                    // If fuel price is not visible, show it and hide down arrow
-                    fragmentTripdetailsBinding.tripKmText.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.downArrow2.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.upArrow2.setVisibility(View.VISIBLE);
+        fragmentTripdetailsBinding.property3.setOnClickListener(view -> {
+            if (isTextKmVisible) {
+                // If fuel price is visible, hide it and show down arrow
+                fragmentTripdetailsBinding.tripKmText.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.downArrow2.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.upArrow2.setVisibility(View.GONE);
+                isTextKmVisible = false;
+            } else {
+                // If fuel price is not visible, show it and hide down arrow
+                fragmentTripdetailsBinding.tripKmText.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.downArrow2.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.upArrow2.setVisibility(View.VISIBLE);
 //                    // Set top margin to 0
 //                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
 //                    params.topMargin = 0;
 //                    fragmentTripdetailsBinding.fuelPrice.setLayoutParams(params);
-                    isTextKmVisible = true;
-                }
+                isTextKmVisible = true;
             }
         });
 
 
-        fragmentTripdetailsBinding.property4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isEcoTrack) {
-                    // If fuel price is visible, hide it and show down arrow
-                    fragmentTripdetailsBinding.tripKmText1.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.downArrow3.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.upArrow3.setVisibility(View.GONE);
-                    isEcoTrack = false;
-                } else {
-                    // If fuel price is not visible, show it and hide down arrow
-                    fragmentTripdetailsBinding.tripKmText1.setVisibility(View.VISIBLE);
-                    fragmentTripdetailsBinding.downArrow3.setVisibility(View.GONE);
-                    fragmentTripdetailsBinding.upArrow3.setVisibility(View.VISIBLE);
+        fragmentTripdetailsBinding.property4.setOnClickListener(view -> {
+            if (isEcoTrack) {
+                // If fuel price is visible, hide it and show down arrow
+                fragmentTripdetailsBinding.tripKmText1.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.downArrow3.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.upArrow3.setVisibility(View.GONE);
+                isEcoTrack = false;
+            } else {
+                // If fuel price is not visible, show it and hide down arrow
+                fragmentTripdetailsBinding.tripKmText1.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.downArrow3.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.upArrow3.setVisibility(View.VISIBLE);
 //                    // Set top margin to 0
 //                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
 //                    params.topMargin = 0;
 //                    fragmentTripdetailsBinding.fuelPrice.setLayoutParams(params);
-                    isEcoTrack = true;
-                }
+                isEcoTrack = true;
             }
         });
 
-        fragmentTripdetailsBinding.backButtonLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        fragmentTripdetailsBinding.backButtonLayout.setOnClickListener(v -> finish());
 
 //        String safeKm = String.valueOf(tripRecord.getSafeKm());
 
@@ -258,12 +239,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        }
 
 
-        fragmentTripdetailsBinding.contactBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFeedbackDialog();
-            }
-        });
+        fragmentTripdetailsBinding.contactBtn.setOnClickListener(v -> showFeedbackDialog());
 
 
     }
@@ -559,45 +535,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         JSONObject fuelPriceObj = jsonObject.getJSONObject("data");
 
+        Gson gson = new Gson();
+        TripMileage tripMileage = gson.fromJson(fuelPriceObj.toString(), TripMileage.class);
 
-        String totalDeficiencyWeightage = fuelPriceObj.getString("totalDeficiencyWeightage");
-        String expectedFuelCost = fuelPriceObj.getString("expectedFuelCost");
-        String actualFuelCost = fuelPriceObj.getString("actualFuelCost");
-        String efficiency_deficiencyPercentage = fuelPriceObj.getString("efficiency_deficiencyPercentage");
-        String fuelPrice = fuelPriceObj.getString("fuelPrice");
-        String weightagesData = fuelPriceObj.getString("weightagesData");
-        String tripDistanceKm = fuelPriceObj.getString("tripDistanceKm");
-        String epaArAiMileage = fuelPriceObj.getString("epaArAiMileage");
-        String ecoSpeedStartRange = fuelPriceObj.getString("ecoSpeedStartRange");
-        String ecoSpeedEndRange = fuelPriceObj.getString("ecoSpeedEndRange");
-        String overSpeedBaseWeightage = fuelPriceObj.getString("overSpeedBaseWeightage");
-        String overSpeedStepWeightage = fuelPriceObj.getString("overSpeedStepWeightage");
-        String efficiencyWeightage = fuelPriceObj.getString("efficiencyWeightage");
-        String mileageObtained = fuelPriceObj.getString("mileageObtained");
-        String netWeightage = fuelPriceObj.getString("netWeightage");
-        String fuelSavingAmount = fuelPriceObj.getString("fuelSavingAmount");
-        String fuelConsumedInLiters = fuelPriceObj.getString("fuelConsumedInLiters");
-        String safeKmPercentage = fuelPriceObj.getString("safeKmPercentage");
-        String fuelSaving = fuelPriceObj.getString("fuelSaving");
-        String co2Emission = fuelPriceObj.getString("co2Emission");
-
-
-
-        fragmentTripdetailsBinding.fuelAmount.setText(fuelSavingAmount);
-        fragmentTripdetailsBinding.fuelPriceValue.setText("₹" +fuelPrice);
+        fragmentTripdetailsBinding.fuelAmount.setText(String.valueOf(tripMileage.getFuelSavingAmount()));
+        fragmentTripdetailsBinding.fuelPriceValue.setText("₹" + tripMileage.getFuelPrice());
 //        fragmentTripdetailsBinding.safePerValue.setText(safeKmPercentage);
-        fragmentTripdetailsBinding.kmValue2.setText(tripDistanceKm);
+        fragmentTripdetailsBinding.kmValue2.setText( String.valueOf(tripMileage.getTripDistanceKm()));
 
-        float emission = Float.parseFloat(co2Emission);
+        double emission = tripMileage.getCo2Emission();
 
         if (emission >= 0){
-            fragmentTripdetailsBinding.tripKmValue1.setText("+ " + co2Emission + "KG");
+            fragmentTripdetailsBinding.tripKmValue1.setText("+ " + emission + "KG");
             fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.red));
             fragmentTripdetailsBinding.tripKmText1.setText(R.string.save_our_planet_driving_fuel_efficiently);
 
 
         }else{
-            fragmentTripdetailsBinding.tripKmValue1.setText(co2Emission + "KG");
+            fragmentTripdetailsBinding.tripKmValue1.setText(emission + "KG");
             fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.light_green));
             fragmentTripdetailsBinding.tripKmText1.setText(R.string.you_are_making_our_planet_greener);
         }
@@ -605,33 +560,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        float amount = Float.parseFloat(fuelSavingAmount);
+        float amount = tripMileage.getFuelSavingAmount() ;
 
         if (amount < 0){
             fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data_red));
             fragmentTripdetailsBinding.fuelValue.setTextColor(getColor(R.color.white));
-            fragmentTripdetailsBinding.fuelValue.setText(" ₹" + fuelSavingAmount );
         }else if (amount == 0){
             fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
-            fragmentTripdetailsBinding.fuelValue.setText("+ ₹" +  fuelSavingAmount );
         }
         else {
             fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
-            fragmentTripdetailsBinding.fuelValue.setText( "+ ₹" +  fuelSavingAmount );
         }
 
+        fragmentTripdetailsBinding.fuelValue.setText(" ₹".concat(""+amount)  );
 
 
-        fragmentTripdetailsBinding.tripKmValue.setText(mileageObtained);
-        fragmentTripdetailsBinding.kmValue.setText(epaArAiMileage);
-
-
-
-
-
-
-
-
+        fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getMileageObtained()));
+        fragmentTripdetailsBinding.kmValue.setText(String.valueOf(tripMileage.getEpaArAiMileage()) );
 
 
 
@@ -691,9 +636,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void getMyLocation() {
 
         // Getting LocationManager object from System Service LOCATION_SERVICE
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        mLocationListener = new LocationListener() {
+        LocationListener mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 mOrigin = new LatLng(location.getLatitude(), location.getLongitude());

@@ -787,8 +787,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         JSONObject gameLevelObj = jsonObject.getJSONObject("gameLevel");
 
-
-        String level = gameLevelObj.getString("gameLevel");
+        String level = gameLevelObj.has("gameLevel") ?gameLevelObj.getString("gameLevel"):"";
         String totalSafePercent = gameLevelObj.getString("totalSafeKmPercent");
         String totalSafeKm = gameLevelObj.getString("totalSafeKms");
 

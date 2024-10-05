@@ -167,9 +167,8 @@ public class GypseeSdk {
             jsonObject.put("userPassword", password);
             jsonObject.put("userEmail", userName);
             jsonObject.put("fcmToken", fcmToken);
-            long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
 
-            jsonObject.put("userPhoneNumber", "+91"+number);
+            jsonObject.put("userPhoneNumber", userName);
 
 
         } catch (JSONException e) {
