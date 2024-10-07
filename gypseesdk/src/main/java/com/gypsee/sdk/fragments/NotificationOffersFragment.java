@@ -21,9 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.tsuryo.swipeablerv.SwipeLeftRightCallback;
-import com.tsuryo.swipeablerv.SwipeableRecyclerView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -77,7 +74,7 @@ public class NotificationOffersFragment extends Fragment {
 
         final OffersRecyclerAdapter offersRecyclerAdapter = new OffersRecyclerAdapter(context, offersModelArrayList);
 
-        SwipeableRecyclerView offersRecycleriew = fragmentNotificationOffersBinding.offersRecycleriew;
+       /* SwipeableRecyclerView offersRecycleriew = fragmentNotificationOffersBinding.offersRecycleriew;
         offersRecycleriew.setAdapter(offersRecyclerAdapter);
 
         offersRecycleriew.setListener(new SwipeLeftRightCallback.Listener() {
@@ -141,7 +138,7 @@ public class NotificationOffersFragment extends Fragment {
                         // do whatever
                     }
                 })
-        );
+        );*/
 
     }
 

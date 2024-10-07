@@ -46,7 +46,7 @@
         </androidx.cardview.widget.CardView>
 
 
-        <com.tsuryo.swipeablerv.SwipeableRecyclerView
+       <!-- <com.tsuryo.swipeablerv.SwipeableRecyclerView
             android:id="@+id/offersRecycleriew"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -57,9 +57,8 @@
             app:leftImage="@drawable/delete_image"
             app:leftText="Clear"
             app:textColor="@android:color/white"
-            app:textSize="20sp" />
+            app:textSize="20sp" />-->
 
-        <!-- TODO: Update blank fragment layout -->
 
 
     </LinearLayout>
