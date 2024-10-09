@@ -491,6 +491,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
                     Intent intent = new Intent(getApplicationContext(), BackgroundLocationService.class);
                     startService(intent);
+//                    startForegroundService(intent);
                 }
             }
         });
@@ -3637,6 +3638,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             //Need to collect the gps params only for distance Calculation and storing the trip lat, long in the server& distance between then should exceed 100 meteres.
 
             int timeDifference = calculateGPSTimeInterval();
+
+            Log.e("LocationTag","Latitude = " + location.getLatitude() + "longitude = " + location.getLongitude());
+
+            addLog("Location : Latitude =  + location.getLatitude() + \"longitude = \" + location.getLongitude()");
 
             if (timeDifference >= 3) {
                 String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());

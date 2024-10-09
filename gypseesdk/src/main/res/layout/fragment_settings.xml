@@ -79,7 +79,6 @@
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
                 android:id="@+id/personalInfoLayout"
-                android:visibility="gone"
                 >
 
                 <ImageView

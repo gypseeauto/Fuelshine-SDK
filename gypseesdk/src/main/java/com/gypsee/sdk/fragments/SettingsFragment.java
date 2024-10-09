@@ -189,7 +189,6 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
 
 
-
                 // Create the new fragment instance
                 MyCarsListFragment myCarsListFragment = new MyCarsListFragment();
 
@@ -201,6 +200,15 @@ public class SettingsFragment extends Fragment {
 
             }
         });
+
+        settingsBinding.personalInfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFragment profileFragment = new ProfileFragment();
+                ((GypseeMainActivity) requireActivity()).replaceNormalFragment(profileFragment);
+            }
+        });
+
 
         settingsBinding.logsLayout.setOnClickListener(new View.OnClickListener() {
             @Override

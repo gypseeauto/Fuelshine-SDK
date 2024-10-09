@@ -8,6 +8,9 @@
     <!--    <color name="colorPrimaryDark">#195754</color>-->
     <color name="colorPrimaryDark">#192E44</color>
     <color name="dark_blue">#192E44</color>
+    <color name="transactions_grey">#6B7278</color>
+    <color name="transactions_red">#FF0000</color>
+
 
     <color name="dark_grey">#707981</color>
     <color name="light_grey">#BAC3CA</color>

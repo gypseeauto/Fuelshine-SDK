@@ -484,7 +484,8 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
         activityMainBinding.topBar.profileImgHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        startActivity(new Intent(GypseeMainActivity.this, ProfileActivity.class));
+//                        startActivity(new Intent(GypseeMainActivity.this, ProfileActivity.class));
+                        startActivity(new Intent(GypseeMainActivity.this, EcoRewardsActivity.class));
             }
         });
     }
@@ -1541,8 +1542,18 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
         }
         new DatabaseHelper(this).insertRegisteredDevices(deviceModelArrayList);
         //Checking the devices
-        registeredDevices = foregroundService.fetchRegisteredDevices();
-        registeredDevices = foregroundService.getConnectedRegisteredDevices(registeredDevices);
+
+        if (isForegroundRunning) {
+            registeredDevices = foregroundService.fetchRegisteredDevices();
+            registeredDevices = foregroundService.getConnectedRegisteredDevices(registeredDevices);
+
+        } else {
+            Log.e("BluetoothError", "Foreground service is not connected");
+        }
+
+
+//        registeredDevices = foregroundService.fetchRegisteredDevices();
+//        registeredDevices = foregroundService.getConnectedRegisteredDevices(registeredDevices);
 
     }
 

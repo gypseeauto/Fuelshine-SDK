@@ -83,7 +83,6 @@ public class BackgroundLocationService extends Service {
 
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setInterval(2000); // 10 seconds
-
             locationRequest.setFastestInterval(1000); // 5 seconds
             locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
 

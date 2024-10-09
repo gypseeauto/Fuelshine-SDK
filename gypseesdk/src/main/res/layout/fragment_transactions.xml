@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.TransactionsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="75dp"
+        android:layout_height="30dp"
+        android:id="@+id/back_button_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        >
+        <ImageView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/backImg"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/fs_green_back_img"
+            android:clipToOutline="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="21sp"
+            />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <RelativeLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/performance_info"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        >
+
+        <TextView
+            android:id="@+id/performance_text"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:text="My Transactions"
+            android:textStyle="bold"
+            android:lineHeight="36sp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:gravity="center_horizontal|top"
+            />
+
+        <ImageView
+            android:id="@+id/date_layout"
+            android:layout_width="24dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="24dp"
+            android:src="@drawable/settins_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp"
+            android:clipToOutline="true"
+            />
+
+        <TextView
+            android:id="@+id/walletDate"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/today"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="20sp"
+            android:textSize="13sp"
+            android:textAlignment="center"
+            android:textColor="@color/light_grey"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/performance_text"
+            android:layout_marginBottom="15dp"
+            android:gravity="center_horizontal|top"
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/crdView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintTop_toBottomOf="@id/performance_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="8dp"
+        >
+
+        <LinearLayout
+            app:layout_constraintTop_toBottomOf="@id/data_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/data_3"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/data_1"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/earned_box"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/earned_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/earned"
+                        android:lineHeight="20sp"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/earned_wallet_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/_0_0_rupee"
+                        android:layout_marginBottom="8dp"
+                        android:textStyle="bold"
+                        android:lineHeight="20sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="3dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintStart_toEndOf="@id/earned_box"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBaseline_toBottomOf="parent"
+                    android:background="#D8DCE8"/>
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/spent_box"
+                    app:layout_constraintStart_toEndOf="@id/earned_box"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="center_vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/spent_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/redBack"
+                        android:text="@string/spent"
+                        android:lineHeight="20sp"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/spent_wallet_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/redBack"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/_0_0_rupee"
+                        android:textStyle="bold"
+                        android:lineHeight="20sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="3dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintStart_toEndOf="@id/spent_box"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBaseline_toBottomOf="parent"
+                    android:background="#D8DCE8"/>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/balance_box"
+                    app:layout_constraintStart_toEndOf="@id/spent_box"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="center_vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/balance_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/light_green"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/balance"
+                        android:lineHeight="20sp"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center_horizontal|top"
+                        />
+
+                    <TextView
+                        android:id="@+id/balance_wallet_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/light_green"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/_0_0_rupee"
+                        android:textStyle="bold"
+                        android:lineHeight="20sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/historial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/historical"
+        android:fontFamily="@font/poppins"
+        android:textSize="13sp"
+        android:visibility="gone"
+        android:textColor="@color/light_grey"
+        android:layout_marginTop="10dp"
+        android:lineHeight="20sp"
+        app:layout_constraintTop_toBottomOf="@id/crdView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal|top"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallet_recView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/historial"
+        tools:listitem="@layout/transactions_layout" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:id="@id/progressBar"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/historial"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

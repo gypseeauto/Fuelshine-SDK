@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.EcoRewardsFragmnet">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolbar"
+        android:background="@color/green"
+        >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back_button"
+            android:id="@+id/backBtn"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:fontFamily="@font/poppins"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50sp"
+            android:text="Eco Rewards"
+            android:textColor="@color/white"
+            android:layout_alignStart="@id/backBtn"
+            />
+
+    </RelativeLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rewards_details_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:padding="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/eco_rewards_box"
+        android:elevation="4dp"
+        >
+
+        <ImageView
+            android:id="@+id/qr_code"
+            android:layout_width="97dp"
+            android:layout_height="97dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/generate_qr"
+            />
+
+        <!--        android:background="@drawable/qr_code_"-->
+
+        <TextView
+            android:id="@+id/generate_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/qr_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:lineHeight="17sp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/generate_qr"
+            android:textAppearance="@style/generate_qr"
+            android:gravity="center_horizontal|top"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="30dp"
+            >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_alignParentTop="true"
+                android:text="Prakriti M"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/teachers_regular"
+                android:lineHeight="19sp"
+                android:gravity="top"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/points_balance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"
+                    android:text="Points Balance :"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.03"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/teachers_regular"
+                    android:lineHeight="19sp"
+                    android:gravity="top"
+                    />
+
+                <TextView
+                    android:id="@+id/points_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    app:layout_constraintStart_toEndOf="@id/points_balance_text"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"
+                    android:text="4600"
+                    android:layout_marginStart="15dp"
+                    android:layout_alignEnd="@id/points_balance_text"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.03"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/teachers_regular"
+                    android:lineHeight="19sp"
+                    android:gravity="top"
+                    />
+
+
+                <TextView
+                    android:id="@+id/points_earned_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/points_balance_text"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"
+                    android:text="Points Balance :"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.03"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/teachers_regular"
+                    android:lineHeight="19sp"
+                    android:gravity="top"
+                    />
+
+                <TextView
+                    android:id="@+id/points_earned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    app:layout_constraintStart_toEndOf="@id/points_earned_text"
+                    app:layout_constraintTop_toBottomOf="@id/points_balance"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"
+                    android:text="4600"
+                    android:layout_marginStart="15dp"
+                    android:layout_alignEnd="@id/points_balance_text"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.03"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/teachers_regular"
+                    android:lineHeight="19sp"
+                    android:gravity="top"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/your_coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toBottomOf="@id/rewards_details_box"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="@font/teachers_regular"
+        android:lineHeight="19sp"
+        android:text="@string/your_coupon"
+        android:letterSpacing="0.03"
+        android:gravity="center_horizontal|top"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:id="@+id/coupons_recView"
+        android:layout_marginStart="15dp"
+        app:layout_constraintTop_toBottomOf="@id/your_coupon"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/coupons_list"
+        />
+
+    <TextView
+        android:id="@+id/recent_tran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="15dp"
+        app:layout_constraintTop_toBottomOf="@id/coupons_recView"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/recent_tran"
+        android:fontFamily="@font/teachers_regular"
+        android:letterSpacing="0.03"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:lineHeight="19sp"
+        android:gravity="center_horizontal|top"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/coupons_recView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="15dp"
+        android:id="@+id/transactions"
+        android:src="@drawable/settins_icon"
+        android:layout_marginTop="12dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/recent_tran"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/transactions_layout"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
