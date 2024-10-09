@@ -1540,6 +1540,7 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
 
             deviceModelArrayList.add(bluetoothDeviceModel);
         }
+
         new DatabaseHelper(this).insertRegisteredDevices(deviceModelArrayList);
         //Checking the devices
 
