@@ -816,6 +816,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //            fragmentHomeBinding.safeKmPercent.setText(totalSafePercent + "%");
 //        }
 
+
         fragmentHomeBinding.level1.setText(level);
         fragmentHomeBinding.text3.setText(level);
         fragmentHomeBinding.kmDrivenTv.setText(totalSafeKm);
