@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +25,7 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
 import com.gypsee.sdk.R;
+import com.gypsee.sdk.activities.GypseeMainActivity;
 import com.gypsee.sdk.activities.ProfileActivity;
 import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.models.User;
@@ -92,12 +97,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Vi
     // NetworkActivity networkActivity;
 
     LinearLayout linearLayout;
+    ConstraintLayout backBtnLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         preferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, requireContext());
         user = preferenece.getUser();
+
+        ((GypseeMainActivity) requireActivity()).hideBottomNav();
 
 
         // Inflate the layout for this fragment
@@ -124,36 +132,33 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Vi
         save = view.findViewById(R.id.btn_save);
         purchaseDateEt.setOnTouchListener(this);
         linearLayout = view.findViewById(R.id.ll_progress);
+        backBtnLayout = view.findViewById(R.id.back_button_layout);
 
-//        customerName.setText(user.getUserFullName());
-//        mobileNumber.setText(user.getUserPhoneNumber());
+
+//        // Assuming user is already initialized
+//        if (user != null) {
+//            customerName.setText(user.getUserFullName());
+//            mobileNumber.setText(user.getUserPhoneNumber());
+//        }
+//
 //        mobileNumber.setEnabled(false);
 //        customerName.setEnabled(false);
-//        Toolbar toolbar =  view.findViewById (R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(R.drawable.back_button);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+//
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        if (toolbar != null) {
+//            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//            toolbar.setNavigationIcon(R.drawable.back_button);
+//            toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+//        }
 
-        // Assuming user is already initialized
-        if (user != null) {
-            customerName.setText(user.getUserFullName());
-            mobileNumber.setText(user.getUserPhoneNumber());
-        }
+        backBtnLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
-        mobileNumber.setEnabled(false);
-        customerName.setEnabled(false);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-            toolbar.setNavigationIcon(R.drawable.back_button);
-            toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
-        }
 
 
 
@@ -345,7 +350,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Vi
         });
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
 
-
+        ((GypseeMainActivity) requireActivity()).showBottomNav();
+    }
 
 }

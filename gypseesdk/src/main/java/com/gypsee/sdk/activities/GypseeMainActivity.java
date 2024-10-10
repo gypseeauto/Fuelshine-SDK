@@ -51,10 +51,12 @@ import com.gypsee.sdk.databinding.GypseeActivityMainBinding;
 import com.gypsee.sdk.dialogs.ReferralCodeDialogFragment;
 import com.gypsee.sdk.dialogs.SubscribeDialog;
 import com.gypsee.sdk.fragments.ConnectedDeviceAdapter;
+import com.gypsee.sdk.fragments.EcoRewardsFragmnet;
 import com.gypsee.sdk.fragments.HomeFragment;
 
 
 import com.gypsee.sdk.fragments.NewVehiclePerformanceFragment;
+import com.gypsee.sdk.fragments.ProfileFragment;
 import com.gypsee.sdk.fragments.SettingsFragment;
 import com.gypsee.sdk.fragments.WalletFragment;
 import com.gypsee.sdk.helpers.BluetoothHelperClass;
@@ -473,19 +475,27 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
 
         user = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, getApplicationContext()).getUser();
 
-        if (user.getUserImg().contains("http"))
-            Glide
-                    .with(getApplicationContext())
-                    .load(user.getUserImg())
-                    .placeholder(R.drawable.ic_profile)
-                    .centerInside()
-                    .into(activityMainBinding.topBar.profileImage);
+//        if (user.getUserImg().contains("http"))
+//            Glide
+//                    .with(getApplicationContext())
+//                    .load(user.getUserImg())
+//                    .placeholder(R.drawable.ic_profile)
+//                    .centerInside()
+//                    .into(activityMainBinding.topBar.profileImage);
 
         activityMainBinding.topBar.profileImgHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                EcoRewardsFragmnet ecoRewardsFragmnet = new EcoRewardsFragmnet();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.mainFrameLayout, ecoRewardsFragmnet, EcoRewardsFragmnet.class.getSimpleName())
+                        .addToBackStack(EcoRewardsFragmnet.class.getSimpleName())
+                        .commit();
+
 //                        startActivity(new Intent(GypseeMainActivity.this, ProfileActivity.class));
-                        startActivity(new Intent(GypseeMainActivity.this, EcoRewardsActivity.class));
+//                        startActivity(new Intent(GypseeMainActivity.this, EcoRewardsActivity.class));
             }
         });
     }

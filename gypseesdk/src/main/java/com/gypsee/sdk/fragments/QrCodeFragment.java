@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gypsee.sdk.R;
+import com.gypsee.sdk.activities.GypseeMainActivity;
 import com.gypsee.sdk.databinding.FragmentEcoRewardsFragmnetBinding;
 import com.gypsee.sdk.databinding.FragmentQrCodeBinding;
 
@@ -70,7 +71,9 @@ public class QrCodeFragment extends Fragment {
                              Bundle savedInstanceState) {
         qrCodeBinding = FragmentQrCodeBinding.inflate(inflater,container,false);
 
-        qrCodeBinding.backBtn.setOnClickListener(new View.OnClickListener() {
+        ((GypseeMainActivity) requireActivity()).hideBottomNav();
+
+        qrCodeBinding.backButtonLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requireActivity().getSupportFragmentManager().popBackStack();

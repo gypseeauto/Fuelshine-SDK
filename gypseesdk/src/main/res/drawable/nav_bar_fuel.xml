@@ -13,7 +13,7 @@
             />
         <path
             android:pathData="M0 0V80H375V0"
-            android:fillColor="#FFFFFF"
+            android:fillColor="@color/white"
             />
         <path
             android:pathData="M0 0H375V80H0V0Z"

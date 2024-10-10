@@ -405,5 +405,12 @@
     <string name="expires_in_">Expires in :</string>
     <string name="please_show">Please show the QR code at store</string>
     <string name="eco_point_r">Eco Point Redemption Code</string>
+    <string name="drive_efficiently_to_save_more_fuel">Drive efficiently to save more fuel</string>
+    <string name="poor_driving_habbits">Poor driving habbits lead to fuel loss and higher costs.</string>
+    <string name="good_job_fuel_use">Good job ! Fuel use was efficient</string>
+    <string name="fuel_saving_loss">Fuel Saving / Loss for the trip</string>
+    <string name="your_fuelshine_eco_reward_card">Your Fuelshine Eco Reward Card</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="fuel_economy_insights">Fuel Economy Insights</string>
 
 </resources>

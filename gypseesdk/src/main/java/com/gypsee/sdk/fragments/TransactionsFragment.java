@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.gypsee.sdk.R;
+import com.gypsee.sdk.activities.GypseeMainActivity;
 import com.gypsee.sdk.databinding.FragmentTransactionsBinding;
 
 import java.text.SimpleDateFormat;
@@ -77,6 +78,8 @@ public class TransactionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         transactionsBinding = FragmentTransactionsBinding.inflate(inflater,container,false);
+
+        ((GypseeMainActivity) requireActivity()).hideBottomNav();
 
         transactionsBinding.backButtonLayout.setOnClickListener(new View.OnClickListener() {
             @Override

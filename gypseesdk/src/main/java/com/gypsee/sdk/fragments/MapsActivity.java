@@ -75,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private MarkerOptions mMarkerOptions;
     private Polyline mPolyline;
     private boolean isFuelPriceVisible = false;
+    private boolean isPotentialFuelSave = false;
     private boolean isKmVisible = false;
     private boolean isTextKmVisible = false;
     private boolean isEcoTrack = false;
@@ -154,6 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
         fragmentTripdetailsBinding.property2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,6 +216,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        fragmentTripdetailsBinding.property5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isFuelPriceVisible) {
+                    // If fuel price is visible, hide it and show down arrow
+                    fragmentTripdetailsBinding.tripKmText2.setVisibility(View.GONE);
+                    fragmentTripdetailsBinding.downArrow4.setVisibility(View.VISIBLE);
+                    fragmentTripdetailsBinding.upArrow4.setVisibility(View.GONE);
+                    isFuelPriceVisible = false;
+                } else {
+                    // If fuel price is not visible, show it and hide down arrow
+                    fragmentTripdetailsBinding.tripKmText2.setVisibility(View.VISIBLE);
+                    fragmentTripdetailsBinding.downArrow4.setVisibility(View.GONE);
+                    fragmentTripdetailsBinding.upArrow4.setVisibility(View.VISIBLE);
+//                    // Set top margin to 0
+//                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
+//                    params.topMargin = 0;
+//                    fragmentTripdetailsBinding.fuelPrice.setLayoutParams(params);
+                    isFuelPriceVisible = true;
+                }
+
+
+            }
+        });
 
         fragmentTripdetailsBinding.property4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -630,7 +657,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
+        if (emission > 0){
+            fragmentTripdetailsBinding.tripKmValue2.setText(co2Emission);
+            fragmentTripdetailsBinding.tripKmValue2.setTextColor(getResources().getColor(R.color.red));
+            fragmentTripdetailsBinding.tripKmText2.setText("You could have saved Rupees "+ emission + "on this trip driving fuel efficiently.");
+        }else if (emission == 0){
+            fragmentTripdetailsBinding.tripKmValue2.setText(co2Emission);
+            fragmentTripdetailsBinding.tripKmValue2.setTextColor(getResources().getColor(R.color.light_green));
+            fragmentTripdetailsBinding.tripKmText2.setText(R.string.good_job_fuel_use);
+        }
+        else{
+            fragmentTripdetailsBinding.tripKmValue2.setText(co2Emission);
+            fragmentTripdetailsBinding.tripKmValue2.setTextColor(getResources().getColor(R.color.light_green));
+            fragmentTripdetailsBinding.tripKmText2.setText(R.string.poor_driving_habbits);
+        }
 
 
 

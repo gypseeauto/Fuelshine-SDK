@@ -2,14 +2,18 @@ package com.gypsee.sdk.fragments;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.gypsee.sdk.R;
+import com.gypsee.sdk.activities.GypseeMainActivity;
 import com.gypsee.sdk.databinding.FragmentEcoRewardsFragmnetBinding;
 
 /**
@@ -65,20 +69,37 @@ public class EcoRewardsFragmnet extends Fragment {
                              Bundle savedInstanceState) {
         rewardBinding = FragmentEcoRewardsFragmnetBinding.inflate(inflater, container, false);
 
-        rewardBinding.backBtn.setOnClickListener(new View.OnClickListener() {
+        ((GypseeMainActivity) requireActivity()).hideBottomNav();
+
+//        // Set status bar color programmatically
+//        Window window = requireActivity().getWindow();
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        window.setStatusBarColor(ContextCompat.getColor(requireContext(), R.color.green)); // Use your color resource
+
+        rewardBinding.backButtonLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().finish();
+                requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
         rewardBinding.generateQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new QrCodeFragment());
-                transaction.addToBackStack(null);  // Optional: Adds the transaction to the back stack
-                transaction.commit();
+
+
+                QrCodeFragment qrCodeFragment = new QrCodeFragment();
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.mainFrameLayout, qrCodeFragment, QrCodeFragment.class.getSimpleName())
+                        .addToBackStack(QrCodeFragment.class.getSimpleName())
+                        .commit();
+
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.fragment_container, new QrCodeFragment());
+//                transaction.addToBackStack(null);  // Optional: Adds the transaction to the back stack
+//                transaction.commit();
 
             }
         });
@@ -86,10 +107,18 @@ public class EcoRewardsFragmnet extends Fragment {
         rewardBinding.transactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new TransactionsFragment());
-                transaction.addToBackStack(null);  // Optional: Adds the transaction to the back stack
-                transaction.commit();
+
+                TransactionsFragment transactionsFragment = new TransactionsFragment();
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.mainFrameLayout, transactionsFragment, TransactionsFragment.class.getSimpleName())
+                        .addToBackStack(TransactionsFragment.class.getSimpleName())
+                        .commit();
+
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.fragment_container, new TransactionsFragment());
+//                transaction.addToBackStack(null);  // Optional: Adds the transaction to the back stack
+//                transaction.commit();
             }
         });
 
@@ -103,4 +132,11 @@ public class EcoRewardsFragmnet extends Fragment {
         super.onDestroy();
         rewardBinding = null;
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((GypseeMainActivity) requireActivity()).showBottomNav();
+    }
+
 }
