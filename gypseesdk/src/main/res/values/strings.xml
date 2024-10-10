@@ -412,5 +412,7 @@
     <string name="your_fuelshine_eco_reward_card">Your Fuelshine Eco Reward Card</string>
     <string name="recent_transactions">Recent Transactions</string>
     <string name="fuel_economy_insights">Fuel Economy Insights</string>
+    <string name="point_balance">Points Balance :</string>
+    <string name="points_earned">Points Earned :</string>
 
 </resources>

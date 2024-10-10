@@ -85,7 +85,7 @@
             android:layout_width="24dp"
             android:layout_centerHorizontal="true"
             android:layout_height="24dp"
-            android:src="@drawable/settins_icon"
+            android:src="@drawable/date_pick_img"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_alignParentTop="true"

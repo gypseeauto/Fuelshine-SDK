@@ -1172,7 +1172,7 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    app:layout_constraintTop_toBottomOf="@id/property_2"
+                    app:layout_constraintTop_toBottomOf="@id/property_3"
                     android:id="@+id/property_5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

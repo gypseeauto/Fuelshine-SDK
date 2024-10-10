@@ -69,8 +69,8 @@
             />
 
         <RelativeLayout
-            android:layout_width="43dp"
-            android:layout_height="43dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:id="@+id/profileImgHolder"
             android:layout_gravity="center"
             android:background="@drawable/img"
@@ -83,8 +83,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="2dp"
                 android:src="@drawable/rewards_icon"
                 android:layout_centerInParent="true"

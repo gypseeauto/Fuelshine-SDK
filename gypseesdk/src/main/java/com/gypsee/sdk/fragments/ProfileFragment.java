@@ -136,13 +136,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Vi
 
 
 //        // Assuming user is already initialized
-//        if (user != null) {
-//            customerName.setText(user.getUserFullName());
-//            mobileNumber.setText(user.getUserPhoneNumber());
-//        }
+        if (user != null) {
+            customerName.setText(user.getUserFullName());
+            mobileNumber.setText(user.getUserPhoneNumber());
+        }
 //
-//        mobileNumber.setEnabled(false);
-//        customerName.setEnabled(false);
+        mobileNumber.setEnabled(false);
+        customerName.setEnabled(false);
 //
 //        Toolbar toolbar = view.findViewById(R.id.toolbar);
 //        if (toolbar != null) {
