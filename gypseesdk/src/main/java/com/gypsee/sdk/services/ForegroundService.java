@@ -1720,7 +1720,18 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 jsonObject.addProperty("userID", user.getUserId());
                 JsonArray dataArray = new JsonArray();
 
-                tempTripLatLongArrayList.addAll(tripLatLongArrayList);
+
+//                tempTripLatLongArrayList.addAll(tripLatLongArrayList);
+
+//                if (networkCallback.isNetWorkAvailable){
+//                    tempTripLatLongArrayList.addAll(tripLatLongArrayList);
+//                }else {
+//                    tempTripLatLongArrayList.addAll(tripDatabase.tripDao().getTripsLatLongByTripId(currentTrip.getId()));
+//                }
+
+
+                tempTripLatLongArrayList.addAll(tripDatabase.tripDao().getTripsLatLongByTripId(currentTrip.getId()));
+
 
 
                 // tripDatabase.tripDao().deleteTripsByTripId(currentTrip.getId());
@@ -2076,7 +2087,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                 break;
                             case 7:
                                 ecoSpeedAlerts = new JsonArray();
-
                                 //    parseLoginRegisterResponse(responseStr);
                                 break;
 
@@ -2091,8 +2101,11 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                             case 10:
                                 //Clear temporary lat long model array list.
                                 tempTripLatLongArrayList.clear();
+                                if (tripDatabase == null) {
+                                    tripDatabase = TripDatabase.getDatabase(ForegroundService.this);
+                                }
                                 parseGPSDistance(responseStr);
-
+                                tripDatabase.tripDao().deleteTripsByTripId(currentTrip.getId());
                                 //Parse GPS calculate for a trip.
                                 // parseFetchTripsResponse(responseStr);
                                 break;
@@ -2791,7 +2804,9 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             public void run() {
                 try {
                     if (currentTrip != null) {
-                        callServer(getString(R.string.gpsTripDistance), "Upload GPS for trip calculation", 10);
+                        if(networkCallback.isNetWorkAvailable){
+                            callServer(getString(R.string.gpsTripDistance), "Upload GPS for trip calculation", 10);
+                        }
 
                     }
                 } catch (Exception e) {
@@ -3641,7 +3656,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
             Log.e("LocationTag","Latitude = " + location.getLatitude() + "longitude = " + location.getLongitude());
 
-            addLog("Location : Latitude =  + location.getLatitude() + \"longitude = \" + location.getLongitude()");
+//            addLog("Location : Latitude =  + location.getLatitude() + \"longitude = \" + location.getLongitude()");
 
             if (timeDifference >= 3) {
                 String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
@@ -3658,7 +3673,18 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     //Distance between 2 lat long should not exceed 500 meters
                     if (distance > 20 && distance <= 450) {
                         addLog("Added lat long distance: " + distance);
-                        tripLatLongArrayList.add(tripLatLong);
+
+                        // add the lat long to db
+                        insertTripLatLongtoDb(tripLatLong);
+//                        tripLatLongArrayList.add(tripLatLong);
+
+//                        //new code
+//                        if(networkCallback.isNetWorkAvailable){
+//                            tripLatLongArrayList.add(tripLatLong);
+//                        }else {
+//                            insertTripLatLongtoDb(tripLatLong);
+//                        }
+//
                     }
 
                     previousLocation = location;
@@ -3756,6 +3782,22 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
             doUnbindService();
             endTrip();
+
+//            if (tripDatabase == null) {
+//                tripDatabase = TripDatabase.getDatabase(ForegroundService.this);
+//            }
+//            List<TripLatLong> storedTrip = tripDatabase.tripDao().getTripsLatLongByTripId(currentTrip.getId());
+//
+//            if (!storedTrip.isEmpty()){
+//                for (TripLatLong tripLatLong : storedTrip) {
+//                    Log.e(TAG, "Lat: " + tripLatLong.getLatitude() + ", Long: " + tripLatLong.getLongitude());
+//                }
+//            }
+
+
+
+//            tripDatabase.tripDao().deleteTripsByTripId(currentTrip.getId());
+
         } else {
             sendMyBroadcast(6);
         }
