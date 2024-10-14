@@ -240,8 +240,7 @@ publishing {
             url uri("https://maven.pkg.github.com/gypseeauto/Fuelshine-SDK/")
             credentials{
                 username = "Bhaskar91083"
-               // password = "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"
-                password = "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"
+                password = "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"
             }
 
         }// << --- ADD This

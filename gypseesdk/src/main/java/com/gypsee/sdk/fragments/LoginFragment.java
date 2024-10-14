@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import com.gypsee.sdk.R;
 import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.fragments.countrycodepicker.CountryCodeFragment;
+import com.gypsee.sdk.gypseesdk.GypseeSdk;
 import com.gypsee.sdk.jsonParser.AsyncTaskClass;
 import com.gypsee.sdk.jsonParser.ResponseFromServer;
 import com.gypsee.sdk.models.User;
@@ -146,12 +147,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Cou
     private void initGmailOptions() {
         // Configure sign-in to request the user's ID, email address, and basic
 // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(GypseeSdk.googleClientId)
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
-*/
 
         logoutFromGmail();
     }

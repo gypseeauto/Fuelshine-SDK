@@ -1,0 +1,8 @@
+{
+  "values": {
+    "harshAccelaration": 9.88,
+    "harshBraking": -10.94,
+    "overSpeedAlertMaxDuration": 30,
+    "updateTripTime": 150
+  }
+}

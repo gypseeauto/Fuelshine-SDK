@@ -392,5 +392,30 @@
 
 
     <string name="applicationid">com.gypsee.sdk</string>
+    <string name="generate_qr">Generate QR</string>
+    <string name="your_coupon">Your Coupons</string>
+    <string name="recent_tran">Recent Transaction</string>
+    <string name="discount_on">20% Discount on your first car wash</string>
+    <string name="get_the_cou">Get the coupon now</string>
+    <string name="redeem_now">Redeem Now</string>
+    <string name="car_wash">Car Wash</string>
+    <string name="ac_dc_car_w">AC/DC Car Wash</string>
+    <string name="some_id">-500</string>
+    <string name="today_11_45">Today 11:45 A.M</string>
+    <string name="expires_in_">Expires in :</string>
+    <string name="please_show">Please show the QR code at store</string>
+    <string name="eco_point_r">Eco Point Redemption Code</string>
+    <string name="drive_efficiently_to_save_more_fuel">Drive efficiently to save more fuel</string>
+    <string name="poor_driving_habbits">Poor driving habbits lead to fuel loss and higher costs.</string>
+    <string name="good_job_fuel_use">Good job ! Fuel use was efficient</string>
+    <string name="fuel_saving_loss">Fuel Saving / Loss for the trip</string>
+    <string name="your_fuelshine_eco_reward_card">Your Fuelshine Eco Reward Card</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="fuel_economy_insights">Fuel Economy Insights</string>
+    <string name="point_balance">Points Balance :</string>
+    <string name="points_earned">Points Earned :</string>
+    <string name="fuel_savings_message">You could have saved Rupees %1$d on this trip driving fuel efficiently.</string>
+    <string name="fuel_use_efficient"> Good job ! Fuel use was efficient</string>
+
 
 </resources>

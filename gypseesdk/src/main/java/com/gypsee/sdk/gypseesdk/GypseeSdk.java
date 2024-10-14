@@ -11,8 +11,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.gypsee.sdk.R;
 import com.gypsee.sdk.activities.GypseeMainActivity;
+import com.gypsee.sdk.activities.SplashActivity;
 import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.fragments.PermissionActivity;
 import com.gypsee.sdk.helpers.BluetoothHelperClass;
@@ -26,8 +28,12 @@ public class GypseeSdk {
     public static void start(Context context, String userName, String password,String fcmToken) {
         final Intent in;
 
-
-        if(userName.isEmpty()){
+        //If all the values are emmpty, it will start splash screen. It is Directly our fuel shine app
+        if(userName.isEmpty() &&password.isEmpty()&&fcmToken.isEmpty()){
+            in = new Intent(context, SplashActivity.class);
+         context.startActivity(in);
+        }
+        else if(userName.isEmpty()){
             Toast.makeText(context,"Please provide valid username",Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){
             Toast.makeText(context,"Please provide valid password",Toast.LENGTH_SHORT).show();
@@ -36,33 +42,16 @@ public class GypseeSdk {
         }else{
            loginWithEmailPassword(context,userName,fcmToken,password);
         }
-//        }else{
-//            //Here checking the permissions. If all permissions are granted, we will go to MainActivity
-//            //Else, we will go to permissions Activity
-//            if (BluetoothHelperClass.fetchDeniedPermissions(context).length > 0 || !Settings.canDrawOverlays(context) ||
-////                    !myPreferenece.getIfAccessibilityPermissionGranted() || //uncomment if accessibility permission is required
-//                    !myPreferenece.getIfQueryAllPackagesPermissionGranted()) {
-//                in = new Intent(context, PermissionActivity.class);
-//            } else /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-//
-//                if (checkSelfPermission(ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED){
-//                    in = new Intent(this, PermissionActivity.class);
-//                } else {
-//                    in = new Intent(this, MainActivity.class);
-//                }
-//
-//            } else */{
-//                in = new Intent(context, MainActivity.class);
-//            }
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    context.startActivity(in);
-//                }
-//            }, 2000);
-//        }
 
     }
+
+    /**
+     * Login with user email and password & go to main page
+     * @param context content
+     * @param userName userName
+     * @param fcmToken  fcmToken
+     * @param password password
+     */
 
     private static void loginWithEmailPassword(Context context, String userName, String fcmToken, String password) {
         MyPreferenece myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context);
@@ -92,38 +81,10 @@ public class GypseeSdk {
                 if (status.equals("200")) {
                     JSONObject userJsonObject = jsonResponse.getJSONObject("user");
 
-                    String userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn, userAddresses;
+                    Gson gson = new Gson();
+                    User loggedInUser = gson.fromJson(userJsonObject.toString(),User.class);
 
-                    boolean approved, locked, signUpBonusCredited, referCodeApplied;
-
-                    JSONObject userWallet = userJsonObject.has("userWallet")? userJsonObject.getJSONObject("userWallet") : null;
-
-                    int walletAmount;
-
-                    userId = userJsonObject.has("userId") ? userJsonObject.getString("userId") : "";
-                    userName1 = userJsonObject.has("userName") ? userJsonObject.getString("userName") : "";
-                    userFullName = userJsonObject.has("userFullName") ? userJsonObject.getString("userFullName") : "";
-                    userEmail = userJsonObject.has("userEmail") ? userJsonObject.getString("userEmail") : "";
-                    userPhoneNumber = userJsonObject.has("userPhoneNumber") ? userJsonObject.getString("userPhoneNumber") : "";
-                    userAccessToken = userJsonObject.has("userAccessToken") ? userJsonObject.getString("userAccessToken") : "";
-                    fcmToken1 = userJsonObject.has("fcmToken") ? userJsonObject.getString("fcmToken") : "";
-                    userImg = userJsonObject.has("userImg") ? userJsonObject.getString("userImg") : "";
-                    userDeviceMac = userJsonObject.has("userDeviceMac") ? userJsonObject.getString("userDeviceMac") : "";
-                    userTypes = userJsonObject.has("userTypes") ? userJsonObject.getString("userTypes") : "";
-                    referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
-                    createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
-                    lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
-                    userAddresses = userJsonObject.has("userAddresses") ? userJsonObject.getString("userAddresses") : "";
-                    approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
-                    locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
-                    signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
-                    referCodeApplied = userJsonObject.has("referCodeApplied") && userJsonObject.getBoolean("referCodeApplied");
-
-                    walletAmount = (userWallet != null) ? (userWallet.has("loyaltyPoints") ? userWallet.getInt("loyaltyPoints") : 0) : 0;
-
-                    myPreferenece.storeUser(new User(userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
+                    myPreferenece.storeUser(loggedInUser);
 
                     checkPermissionsAndNavigate(context,myPreferenece);
                 }else {
@@ -154,7 +115,13 @@ public class GypseeSdk {
         context.startActivity(in1);
     }
 
-
+    /**
+     * Register with username and password & go to permission page or main activity
+     * @param context
+     * @param userName
+     * @param fcmToken
+     * @param password
+     */
     private static void registerWithEmailPassword(Context context, String userName, String fcmToken, String password) {
         MyPreferenece myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context);
         User user = myPreferenece.getUser();
@@ -227,5 +194,11 @@ public class GypseeSdk {
             }
         }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, jsonObject.toString(),
                 "regerror", context.getResources().getString(R.string.registerApi), "Register with username and password");
+    }
+
+   public static String googleClientId;
+
+     public static void setClientId(String clientId) {
+      googleClientId = clientId;
     }
 }

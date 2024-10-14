@@ -1982,17 +1982,17 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
 
-                    /*fragmentHomeBinding.progressLayout.setVisibility(View.GONE);
-                    fragmentHomeBinding.progressTv.setText("Please wait ... we are connecting with your car");
-*/
-
                     if (response.isSuccessful()) {
-                        Log.e(TAG, "Response is success");
+                        addLog( purpose +" Response is success");
 
                         //If the response is null, we will return immediately.
                         ResponseBody responseBody = response.body();
                         if (responseBody == null)
+                        {
+                            addLog(purpose + " Response null:");
                             return;
+                        }
+
                         String responseStr = responseBody.string();
                         Log.e(TAG, purpose + " Response :" + responseStr);
 
@@ -2003,7 +2003,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                 break;
                             case 1:
 
-                                Log.e(TAG, "case 1");
                                 boolean isDriveMode = myPreferenece.getSharedPreferences().getBoolean(MyPreferenece.DRIVING_MODE, true);
 
                                 //If the service is not bound, we need to exit from the program
@@ -2160,12 +2159,15 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                 break;
 
                         }
-                    } else {
+                    }
+
+                    else {
                         Log.e(TAG, purpose + " Response is not successful");
 
                         String errResponse = response.errorBody().string();
                         Log.e("Error code 400", errResponse);
-                        Log.e(TAG, purpose + "Response is : " + errResponse);
+                        addLog(purpose + "Response is : " + errResponse);
+
                         int responseCode = response.code();
                         if (responseCode == 401 || responseCode == 403) {
                             //include logout functionality
@@ -2212,10 +2214,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 fragmentHomeBinding.logoLayout.setEnabled(true);
                 fragmentHomeBinding.startDriveButton.setEnabled(true);
 */
-                if (value == 1) {
-                    //Need to enable the button for phone mode.
-                    //  disableDriveLayout(false);
-                }
+                addLog(purpose+" end trip failed "+t.getMessage());
+
 
                 Log.e(TAG, "error here since request failed");
                 if (t.getMessage().contains("Unable to resolve host")) {
@@ -3098,7 +3098,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     JsonArray angles = new JsonArray();
     boolean isReset;
     //private float harshAccelaration = 9.88f, harshDecelaration = -10.94f;
-    private float harshAccelaration = 16.88f, harshDecelaration = -15.94f;
+    private float harshAccelaration = 10.23f, harshDecelaration = -16.58f;
 
 
     private void addTripAlertToArray(TripAlert temporaryAccAlert) {
@@ -3184,9 +3184,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         if (speedsWithIntervals.size() == 1)
             return;
 
-        Log.e(TAG, "Speed currentTimeInSec : " + speedsWithIntervals.get(1) + "previousTimeInSec : " + speedsWithIntervals.get(0));
         timeDiff = TimeUtils.calcDiffTimeInSec(speedsWithIntervals.get(0), speedsWithIntervals.get(1));
-        Log.e(TAG, "Speed Time difference is : " + timeDiff);
         if (timeDiff == 0) {
             // if (timeDiff == 0 || speed == 0) {
 
@@ -3246,7 +3244,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
             Log.e(TAG, "Harsh deceleration");
             if (tempDecAlert == null) {
-                tempDecAlert = new TripAlert("Harsh Braking", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.028 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
+                tempDecAlert = new TripAlert("Harsh Braking", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.28 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
                 tempDecAlert.setInitialSpeed(speed);
 
             } else {
@@ -3728,7 +3726,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     private void stopLiveData() {
         needToEndTrip = true;
-        addLog("is network available = " + networkCallback.isNetWorkAvailable);
 
         if (networkCallback.isNetWorkAvailable) {
             needToEndTrip = false;
@@ -3755,7 +3752,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             return;
         }
 
-        Log.e(TAG, "end trip called");
 
         myPreferenece.setIsTripRunning(false);
 
@@ -3768,8 +3764,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
         initJson = new JsonObject();
 
-        //ending trip
-        Log.e(TAG, "coming in else");
         sendMyBroadcast(2);
 
         if (currentTrip != null) {

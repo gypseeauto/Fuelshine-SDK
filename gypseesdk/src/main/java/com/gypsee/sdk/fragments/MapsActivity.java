@@ -149,6 +149,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
+        fragmentTripdetailsBinding.property3.setOnClickListener(view -> {
+            if (isFuelPriceVisible) {
+                // If fuel price is visible, hide it and show down arrow
+                fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.downArrow.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.upArrow.setVisibility(View.GONE);
+                isFuelPriceVisible = false;
+            } else {
+                // If fuel price is not visible, show it and hide down arrow
+                fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.downArrow.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.upArrow.setVisibility(View.VISIBLE);
+//                    // Set top margin to 0
+//                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
+//                    params.topMargin = 0;
+//                    fragmentTripdetailsBinding.fuelPrice.setLayoutParams(params);
+                isFuelPriceVisible = true;
+            }
+        });
+
         fragmentTripdetailsBinding.property2.setOnClickListener(view -> {
             if (isKmVisible) {
                 // If fuel price is visible, hide it and show down arrow
@@ -183,18 +204,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //            fragmentTripdetailsBinding.fuelValue.setText("+ ₹" + tripRecord.getTripSavingsCommission());
 //        }
 
-        fragmentTripdetailsBinding.property3.setOnClickListener(view -> {
-            if (isTextKmVisible) {
+        fragmentTripdetailsBinding.property5.setOnClickListener(view -> {
+            if (fragmentTripdetailsBinding.downArrow4.getVisibility()==View.VISIBLE) {
                 // If fuel price is visible, hide it and show down arrow
-                fragmentTripdetailsBinding.tripKmText.setVisibility(View.GONE);
-                fragmentTripdetailsBinding.downArrow2.setVisibility(View.VISIBLE);
-                fragmentTripdetailsBinding.upArrow2.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.potentialSavingsDesc.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.upArrow4.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.downArrow4.setVisibility(View.GONE);
                 isTextKmVisible = false;
             } else {
                 // If fuel price is not visible, show it and hide down arrow
-                fragmentTripdetailsBinding.tripKmText.setVisibility(View.VISIBLE);
-                fragmentTripdetailsBinding.downArrow2.setVisibility(View.GONE);
-                fragmentTripdetailsBinding.upArrow2.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.potentialSavingsDesc.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.upArrow4.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.downArrow4.setVisibility(View.VISIBLE);
 //                    // Set top margin to 0
 //                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
 //                    params.topMargin = 0;
@@ -558,7 +579,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
 
+        if (tripMileage.getPotentialSavingLossForTheTrip() <0){
+            String message = getString(R.string.fuel_savings_message, tripMileage.getPotentialSavingLossForTheTrip());
+            fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.red));
+            fragmentTripdetailsBinding.potentialSavingsDesc.setText(message);
 
+        }else{
+
+            fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.light_green));
+            fragmentTripdetailsBinding.potentialSavingsDesc.setText(R.string.fuel_use_efficient);
+        }
+
+        fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs. " +tripMileage.getPotentialSavingLossForTheTrip());
 
         float amount = tripMileage.getFuelSavingAmount() ;
 
@@ -577,7 +609,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getMileageObtained()));
         fragmentTripdetailsBinding.kmValue.setText(String.valueOf(tripMileage.getEpaArAiMileage()) );
-
 
 
     }

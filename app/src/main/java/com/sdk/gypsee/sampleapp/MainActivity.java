@@ -40,14 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-
+        GypseeSdk.setClientId("930731945545-5hso7raslpcbm6eupad8i5gnlfd434c7.apps.googleusercontent.com");
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Call this function for the start sdk and pass the required details
                 String email =  binding.emailEt.getText().toString();
                 String password =  binding.emailEt.getText().toString();
-                if(!email.contains("@"))
+
+                if(email.isEmpty() && password.isEmpty()){
+                    GypseeSdk.start(MainActivity.this,"","","");
+
+                }
+                else if(!email.contains("@"))
                 {
                     Toast.makeText(MainActivity.this, "Please enter proper email", Toast.LENGTH_SHORT).show();
                 }else if(password.length()<4) {

@@ -1063,7 +1063,7 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    app:layout_constraintTop_toBottomOf="@id/property_3"
+                    app:layout_constraintTop_toBottomOf="@id/property_5"
                     android:id="@+id/property_4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1171,6 +1171,113 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintTop_toBottomOf="@id/property_3"
+                    android:id="@+id/property_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/property_1_"
+                    >
+
+                    <TextView
+                        android:id="@+id/fuelEconomyInsights"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginBottom="10dp"
+                        app:layout_constraintBottom_toTopOf="@id/potentialSavingsDesc"
+                        android:text="@string/fuel_economy_insights"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="13sp"
+                        android:gravity="center_horizontal|top"
+                        android:lineHeight="20sp"
+                        android:layout_marginStart="12dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/potentialFuelSavingsTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_0_0"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/light_green"
+                        android:fontFamily="@font/poppins_bold"
+                        android:lineHeight="20sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="40dp"
+                        android:gravity="center_horizontal|top"
+                        />
+
+
+                    <ImageView
+                        android:id="@+id/down_arrow4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="10dp"
+                        android:layout_height="6dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/fs_down_arrow"
+                        />
+
+                    <ImageView
+                        android:id="@+id/up_arrow4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="10dp"
+                        android:layout_height="6dp"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/fs_up_arrow"
+                        />
+
+
+
+                    <TextView
+                        android:id="@+id/potentialSavingsDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/drive_efficiently_to_save_more_fuel"
+                        android:layout_below="@id/fuelEconomyInsights"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_horizontal|top"
+                        android:lineHeight="20sp"
+                        android:layout_marginStart="12dp"
+                        android:alpha="0.8"
+                        />
+
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/driving_performance_text"

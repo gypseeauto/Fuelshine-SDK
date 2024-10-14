@@ -1539,10 +1539,21 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
 
             deviceModelArrayList.add(bluetoothDeviceModel);
         }
+
         new DatabaseHelper(this).insertRegisteredDevices(deviceModelArrayList);
         //Checking the devices
-        registeredDevices = foregroundService.fetchRegisteredDevices();
-        registeredDevices = foregroundService.getConnectedRegisteredDevices(registeredDevices);
+
+        if (isForegroundRunning) {
+            registeredDevices = foregroundService.fetchRegisteredDevices();
+            registeredDevices = foregroundService.getConnectedRegisteredDevices(registeredDevices);
+
+        } else {
+            Log.e("BluetoothError", "Foreground service is not connected");
+        }
+
+
+//        registeredDevices = foregroundService.fetchRegisteredDevices();
+//        registeredDevices = foregroundService.getConnectedRegisteredDevices(registeredDevices);
 
     }
 
@@ -1648,7 +1659,6 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
 
                     ArrayList<BluetoothDevice> currentBoundDevices = foregroundService.getConnectedDevices();
-
 
                     if(currentBoundDevices.size()>0)
                     {

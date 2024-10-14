@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -23,9 +24,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Collections;
@@ -37,6 +41,29 @@ import com.gypsee.sdk.database.DatabaseHelper;
 //import org.apache.http.conn.util.InetAddressUtils;
 
 public class Utils {
+
+
+
+    public String getConfigFromAssets(Context context) {
+        String json = null;
+        try {
+            AssetManager assetManager = context.getAssets();
+            InputStream inputStream = assetManager.open("gypseeconfig.json");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            json = stringBuilder.toString();
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+
 
     /**
      * Convert byte array to hex string
