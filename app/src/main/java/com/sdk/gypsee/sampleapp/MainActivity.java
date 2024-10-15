@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -13,7 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
+import com.gypsee.sdk.GypseeSdk;
 import com.gypsee.sdk.utils.Utils;
 import com.sdk.gypsee.sampleapp.databinding.ActivityMainBinding;
 
@@ -21,9 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.gypsee.sdk.gypseesdk.GypseeSdk;
-
-import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,14 +29,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
        // Utils.registerNetworkCallback(getApplicationContext());
         Utils.registerNetworkCallback(getApplicationContext());
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-
-        GypseeSdk.setClientId("930731945545-5hso7raslpcbm6eupad8i5gnlfd434c7.apps.googleusercontent.com");
+        Gyp.setClientId("930731945545-5hso7raslpcbm6eupad8i5gnlfd434c7.apps.googleusercontent.com");
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

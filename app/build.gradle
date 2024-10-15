@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    alias(libs.plugins.kotlinAndroid)
 
 }
 
@@ -42,6 +43,9 @@ android {
         pickFirst  '**'
         exclude "META-INF/DEPENDENCIES"
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -54,6 +58,7 @@ dependencies {
 
     implementation libs.firebase.analytics
     implementation libs.firebase.crashlytics
+    implementation libs.core.ktx
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
@@ -61,6 +66,9 @@ dependencies {
     // Inject the multiDex and gypsee sdk in your gradle
     implementation libs.multidex
     //implementation libs.gypsee.sdk
-    implementation project(':gypseesdk')
+    //implementation project(':gypseesdk')
+    implementation "com.github.gypseesdk:gypseesdk:1.1.3.4"
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

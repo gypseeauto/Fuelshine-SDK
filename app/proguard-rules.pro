@@ -19,3 +19,19 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class androidx.** { *; }
+# Keep your public classes
+-keep public class com.gypsee.sdk.** { *; }
+
+-keep class androidx.** { *; }
+# Keep your public classes
+-keep public class com.gypsee.sdk.** { *; }
+# keep all public and protected method names,
+# which could be used by Java reflection.
+-keepclassmembernames class * {
+    public protected <methods>;
+}
+-keep class * {
+    *;
+}

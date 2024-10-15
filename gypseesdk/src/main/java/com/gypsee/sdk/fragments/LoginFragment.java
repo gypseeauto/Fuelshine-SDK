@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import com.gypsee.sdk.R;
 import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.fragments.countrycodepicker.CountryCodeFragment;
-import com.gypsee.sdk.gypseesdk.GypseeSdk;
+import com.gypsee.sdk.GypseeSdk;
 import com.gypsee.sdk.jsonParser.AsyncTaskClass;
 import com.gypsee.sdk.jsonParser.ResponseFromServer;
 import com.gypsee.sdk.models.User;

@@ -1,4 +1,4 @@
-package com.gypsee.sdk.gypseesdk;
+package com.gypsee.sdk;
 
 
 import android.content.Context;
@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.gypsee.sdk.R;
 import com.gypsee.sdk.activities.GypseeMainActivity;
 import com.gypsee.sdk.activities.SplashActivity;
 import com.gypsee.sdk.config.MyPreferenece;
