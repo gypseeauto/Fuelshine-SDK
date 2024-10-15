@@ -23,13 +23,6 @@ dependencyResolutionManagement {
             credentials { username authToken }
         }
 
-        maven{
-            url = uri("https://maven.pkg.github.com/gypseeauto/Fuelshine-SDK/")
-            credentials{
-                username = "Bhaskar91083"
-                password = "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"
-            }
-        }
     }
 }
 
