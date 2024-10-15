@@ -65,10 +65,9 @@ dependencies {
 
     // Inject the multiDex and gypsee sdk in your gradle
     implementation libs.multidex
-    //implementation libs.gypsee.sdk
     implementation project(':gypseesdk')
 
+   // implementation 'com.github.gypseeauto:Fuelshine-SDK:1.0.6'
 
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }
