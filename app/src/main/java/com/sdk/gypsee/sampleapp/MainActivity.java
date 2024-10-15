@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        Gyp.setClientId("930731945545-5hso7raslpcbm6eupad8i5gnlfd434c7.apps.googleusercontent.com");
+        GypseeSdk.setClientId("930731945545-5hso7raslpcbm6eupad8i5gnlfd434c7.apps.googleusercontent.com");
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
