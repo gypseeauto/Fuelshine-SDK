@@ -220,30 +220,7 @@ public class ProductPageFragment extends Fragment {
                 String country = "";
                 String pincode = "";
 
-                if (!user.getUserAddresses().equals("")){
-                    try {
-                        JSONArray userAddressArray = new JSONArray(user.getUserAddresses());
-                        if (userAddressArray.length() > 0){
 
-                            JSONObject firstObject = userAddressArray.getJSONObject(0);
-
-                            city = firstObject.has("city") ? firstObject.getString("city") : "";
-                            lineOne = firstObject.has("addressLineOne") ? firstObject.getString("addressLineOne") : "";
-                            lineTwo = firstObject.has("addressLineTwo") ? firstObject.getString("addressLineTwo") : "";
-                            String fullCountry = firstObject.has("country") ? firstObject.getString("country") : "";
-                            pincode = firstObject.has("pincode") ? firstObject.getString("pincode") : "";
-
-                            country = fullCountry.substring(0,2).toUpperCase();
-
-
-                        }
-
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
 
                 JsonObject addressObject = new JsonObject();
                 addressObject.addProperty("firstname", user.getUserName());

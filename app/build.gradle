@@ -67,7 +67,6 @@ dependencies {
     implementation libs.multidex
     //implementation libs.gypsee.sdk
     implementation project(':gypseesdk')
-    //implementation "com.github.gypseesdk:gypseesdk:1.1.3.4"
 
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'

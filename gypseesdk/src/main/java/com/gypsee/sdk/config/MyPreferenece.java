@@ -460,7 +460,6 @@ public class MyPreferenece {
         editor.putString(referCode, user.getReferCode());
         editor.putString(createdOn, user.getCreatedOn());
         editor.putString(lastUpdatedOn, user.getLastUpdatedOn());
-        editor.putString(userAddresses, user.getUserAddresses());
         editor.putBoolean(approved, user.isApproved());
         editor.putBoolean(locked, user.isLocked());
         editor.putBoolean(signUpBonusCredited, user.isSignUpBonusCredited());
@@ -491,7 +490,7 @@ public class MyPreferenece {
     public User getUser() {
 
         String userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, walletAmount,
+                userTypes, referCode, createdOn, lastUpdatedOn, walletAmount,
                 subscriptionCouponCode, subscriptionCreatedOn, subscriptionEndDate, subscriptionId,
                 subscriptionLastUpdatedOn, subscriptionStartDate, subscriptionAmount, subscriptionDiscountAmount, subscriptionPaidAmount;
 
@@ -514,7 +513,6 @@ public class MyPreferenece {
 
             createdOn = sharedPreferences.getString(MyPreferenece.createdOn, "");
             lastUpdatedOn = sharedPreferences.getString(MyPreferenece.lastUpdatedOn, "");
-            userAddresses = sharedPreferences.getString(MyPreferenece.userAddresses, "");
 
             approved = sharedPreferences.getBoolean(MyPreferenece.approved, false);
             locked = sharedPreferences.getBoolean(MyPreferenece.locked, false);
@@ -551,7 +549,7 @@ public class MyPreferenece {
             }
 
             User user = new User(userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                    userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited,referCodeApplied, inTrainingMode, walletAmount);
+                    userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited,referCodeApplied, inTrainingMode, walletAmount);
             user.setUserSubscriptions(subscriptionModel);
 
 

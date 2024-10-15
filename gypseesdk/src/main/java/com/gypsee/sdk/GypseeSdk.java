@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -91,7 +92,7 @@ public class GypseeSdk {
                     //Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 }
             }catch (Exception e){
-
+                e.printStackTrace();
             }
         }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, jsonObject.toString(),
                 "regerror", context.getResources().getString(R.string.mobileLoginAPi), "Login with username and possword");
@@ -108,7 +109,7 @@ public class GypseeSdk {
         }else {
             in1 = new Intent(context, GypseeMainActivity.class);
         }
-
+        Log.e("TAG", "checkPermissionsAndNavigate: ");
         in1.putExtra("freshlogin", true);
         in1.putExtra("isNewUser", false);
         context.startActivity(in1);
@@ -151,7 +152,7 @@ public class GypseeSdk {
                     JSONObject userJsonObject = jsonResponse.getJSONObject("user");
 
                     String userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn, userAddresses;
+                            userTypes, referCode, createdOn, lastUpdatedOn;
 
                     boolean approved, locked, signUpBonusCredited, referCodeApplied;
 
@@ -172,7 +173,6 @@ public class GypseeSdk {
                     referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
                     createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
                     lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
-                    userAddresses = userJsonObject.has("userAddresses") ? userJsonObject.getString("userAddresses") : "";
                     approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
                     locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
                     signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
@@ -181,7 +181,7 @@ public class GypseeSdk {
                     walletAmount = (userWallet != null) ? (userWallet.has("loyaltyPoints") ? userWallet.getInt("loyaltyPoints") : 0) : 0;
 
                     myPreferenece.storeUser(new User(userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
+                            userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
                     //updating inTraining mode in HomeFragment on fresh install
                     checkPermissionsAndNavigate(context,myPreferenece);
 

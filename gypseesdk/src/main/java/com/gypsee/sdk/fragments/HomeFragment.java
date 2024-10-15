@@ -1899,28 +1899,6 @@ List<TripRecord> records = new ArrayList<>();
     }
 
 
-    private void parseUpdateAddress(String response) throws JSONException {
-        JSONObject jsonResponse = new JSONObject(response);
-
-        String status = jsonResponse.getString("status");
-        String message = jsonResponse.getString("message");
-
-        if (status.equals("200")) {
-
-            // ArrayList<String> values = new ArrayList<>();
-            JSONObject userJsonObject = jsonResponse.getJSONObject("user");
-
-            String userAddresses = userJsonObject.has("userAddresses") ? userJsonObject.getString("userAddresses") : "";
-
-            new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context).saveStringData("userAddresses", userAddresses);
-            user.setUserAddresses(userAddresses);
-
-        } else {
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-        }
-    }
-
-
 
     private void parseFetchEmergencyContacts(String response) throws JSONException{
 
@@ -4116,7 +4094,7 @@ List<TripRecord> records = new ArrayList<>();
         JSONObject userJsonObject = jsonResponse.getJSONObject("user");
 
         String userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                userTypes, referCode, createdOn, lastUpdatedOn, userAddresses;
+                userTypes, referCode, createdOn, lastUpdatedOn;
 
         JSONObject userWallet = userJsonObject.has("userWallet")? userJsonObject.getJSONObject("userWallet") : null;
 
@@ -4137,7 +4115,6 @@ List<TripRecord> records = new ArrayList<>();
         referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
         createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
         lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
-        userAddresses = userJsonObject.has("userAddresses") ? userJsonObject.getString("userAddresses") : "";
         approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
         locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
         signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
@@ -4191,7 +4168,7 @@ List<TripRecord> records = new ArrayList<>();
 
         myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context);
         user = new User(userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, inTrainingMode, String.valueOf(walletAmount));
+                userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited, referCodeApplied, inTrainingMode, String.valueOf(walletAmount));
 
         user.setUserSubscriptions(subscriptionModel);
 

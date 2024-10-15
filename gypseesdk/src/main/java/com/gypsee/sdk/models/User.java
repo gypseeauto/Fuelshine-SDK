@@ -3,13 +3,13 @@ package com.gypsee.sdk.models;
 public class User {
 
     private String userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-            userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, walletAmount;
+            userTypes, referCode, createdOn, lastUpdatedOn, walletAmount;
 
     private boolean approved, locked, signUpBonusCredited,referCodeApplied, inTrainingMode;
 
     private SubscriptionModel userSubscriptions;
 
-    public User(String userId, String userName, String userFullName, String userEmail, String userPhoneNumber, String userAccessToken, String fcmToken, String userImg, String userDeviceMac, String userTypes, String referCode, String createdOn, String lastUpdatedOn, String userAddresses, boolean approved, boolean locked, boolean signUpBonusCredited, boolean referCodeApplied, boolean inTrainingMode, String walletAmount) {
+    public User(String userId, String userName, String userFullName, String userEmail, String userPhoneNumber, String userAccessToken, String fcmToken, String userImg, String userDeviceMac, String userTypes, String referCode, String createdOn, String lastUpdatedOn, boolean approved, boolean locked, boolean signUpBonusCredited, boolean referCodeApplied, boolean inTrainingMode, String walletAmount) {
         this.userId = userId;
         this.userName = userName;
         this.userFullName = userFullName;
@@ -23,7 +23,6 @@ public class User {
         this.referCode = referCode;
         this.createdOn = createdOn;
         this.lastUpdatedOn = lastUpdatedOn;
-        this.userAddresses = userAddresses;
         this.approved = approved;
         this.locked = locked;
         this.signUpBonusCredited = signUpBonusCredited;
@@ -160,13 +159,7 @@ public class User {
         this.lastUpdatedOn = lastUpdatedOn;
     }
 
-    public String getUserAddresses() {
-        return userAddresses;
-    }
 
-    public void setUserAddresses(String userAddresses) {
-        this.userAddresses = userAddresses;
-    }
 
     public boolean isApproved() {
         return approved;
@@ -216,7 +209,6 @@ public class User {
                 ", referCode='" + referCode + '\'' +
                 ", createdOn='" + createdOn + '\'' +
                 ", lastUpdatedOn='" + lastUpdatedOn + '\'' +
-                ", userAddresses='" + userAddresses + '\'' +
                 ", approved=" + approved +
                 ", locked=" + locked +
                 ", signUpBonusCredited=" + signUpBonusCredited +

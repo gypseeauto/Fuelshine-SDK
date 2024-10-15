@@ -295,7 +295,7 @@ public class SubscribeDialog extends Dialog {
 
         myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context);
         User user = new User(userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, inTrainingMode, String.valueOf(walletAmount));
+                userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited, referCodeApplied, inTrainingMode, String.valueOf(walletAmount));
         if (subscriptionModel != null){
             user.setUserSubscriptions(subscriptionModel);
         }

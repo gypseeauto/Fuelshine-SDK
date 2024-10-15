@@ -412,7 +412,7 @@ public class OtpVerificationFragment extends Fragment implements OtpReceivedInte
                 walletAmount = (userWallet != null) ? (userWallet.has("loyaltyPoints") ? userWallet.getInt("loyaltyPoints") : 0) : 0;
 
                 new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context).storeUser(new User(userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                        userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
+                        userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
                 //updating inTraining mode in HomeFragment on fresh install
                 gotoMainActivity(isNewUser);
 

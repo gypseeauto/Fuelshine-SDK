@@ -421,7 +421,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Cou
 
                     JSONObject userJsonObject = jsonResponse.getJSONObject("user");
                     String userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn, userAddresses;
+                            userTypes, referCode, createdOn, lastUpdatedOn;
 
                     JSONObject userWallet = userJsonObject.has("userWallet")? userJsonObject.getJSONObject("userWallet") : null;
 
@@ -441,7 +441,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Cou
                     referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
                     createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
                     lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
-                    userAddresses = userJsonObject.has("userAddresses") ? userJsonObject.getString("userAddresses") : "";
                     approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
                     locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
                     signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
@@ -451,7 +450,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Cou
 
 
                     new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, context).storeUser(new User(userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn, userAddresses, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
+                            userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
                     gotoMainActivity(false);
                 }
 
