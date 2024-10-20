@@ -19,8 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
-
--keep class androidx.** { *; }
-# Keep your public classes
--keep public class com.gypsee.sdk.** { *; }

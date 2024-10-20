@@ -26,6 +26,3 @@
 -keep public class com.gypsee.sdk.** { *; }
 # keep all public and protected method names,
 # which could be used by Java reflection.
--keepclassmembernames class * {
-    public protected <methods>;
-}

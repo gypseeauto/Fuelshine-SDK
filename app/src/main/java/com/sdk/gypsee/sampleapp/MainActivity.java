@@ -12,7 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.gypsee.sdk.GypseeSdk;
+import com.gypsee.sdk  .GypseeSdk;
 import com.gypsee.sdk.utils.Utils;
 import com.sdk.gypsee.sampleapp.databinding.ActivityMainBinding;
 
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Utils.registerNetworkCallback(getApplicationContext());
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         setSupportActionBar(binding.toolbar);
         GypseeSdk.setClientId("930731945545-5hso7raslpcbm6eupad8i5gnlfd434c7.apps.googleusercontent.com");
