@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
        // Utils.registerNetworkCallback(getApplicationContext());
         Utils.registerNetworkCallback(getApplicationContext());
         binding = ActivityMainBinding.inflate(getLayoutInflater());
