@@ -111,6 +111,7 @@ import com.gypsee.sdk.database.DatabaseHelper;
 import com.gypsee.sdk.database.TripDatabase;
 import com.gypsee.sdk.database.TripLatLong;
 import com.gypsee.sdk.enums.EcoSpeedEnums;
+import com.gypsee.sdk.fragments.HomeFragment;
 import com.gypsee.sdk.helpers.BluetoothHelperClass;
 import com.gypsee.sdk.helpers.DistanceCalculator;
 import com.gypsee.sdk.interfaces.BlueToothConnectionInterface;
@@ -200,6 +201,19 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     private TripDatabase tripDatabase;
 
     private GeofencingClient geofencingClient;
+
+
+    private GypseeMainActivity activity;
+
+    public void setActivity(GypseeMainActivity activity) {
+        this.activity = activity;
+    }
+
+    private Context context;
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     @Nullable
     @Override
@@ -345,6 +359,19 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         addLog("End Manual trip Clicked");
         Log.e("ManualTripEnd", "End Manual trip called");
         stopLiveData();
+
+        if (context instanceof GypseeMainActivity) {
+            GypseeMainActivity activity = (GypseeMainActivity) context;
+            HomeFragment fragment = (HomeFragment) activity.getSupportFragmentManager().findFragmentById(R.id.mainFrameLayout);
+            if (fragment != null) {
+                fragment.showEndTripBox();
+            } else {
+                Log.e("WrapTxt", "HomeFragment is null");
+            }
+        } else {
+            Log.e("WrapTxt", "context is not MainActivity or is null");
+        }
+
     }
 
     public void startManualTrip(Boolean isManualStart) {
@@ -889,8 +916,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             builder.setOngoing(true);
             // builder.setOnlyAlertOnce(true); //to quietly update the notification
             builder.setWhen(System.currentTimeMillis());
-            builder.setSmallIcon(R.mipmap.ic_launcher);
-            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.gypsee_theme_logo));
+            builder.setSmallIcon(R.drawable.notif_icon);
+            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon));
             builder.setPriority(Notification.PRIORITY_LOW);
             builder.setFullScreenIntent(pendingIntent, true);
 
@@ -1035,7 +1062,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
         Notification notification = notificationBuilder.setOngoing(true)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.notif_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon))
                 .setColor(getResources().getColor(R.color.colorPrimaryDark))
                 .setContentTitle("Fuelshine")
                 .setContentText(message)
@@ -1744,7 +1772,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 //If the array size is 2, then we need to call this.
                 // So that he can atleast call the API and calcualte the distance.
 
-                tripLatLongArrayList.clear();
 
                 if (tempTripLatLongArrayList.size() > 2) {
                     addLog("Uploading GPS for trip calculation API called finally---");
@@ -1753,6 +1780,9 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     checkBackGroundLocationServiceRunningOrNot();
                     return;
                 }
+
+                tripLatLongArrayList.clear();
+
                 break;
 
 
@@ -2123,6 +2153,19 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                 resetAllValues(true);
                                 callSpeaker(tripEndedMsg);
                                 showNotification(tripEndedMsg);
+
+                                if (context instanceof GypseeMainActivity) {
+                                    GypseeMainActivity activity = (GypseeMainActivity) context;
+                                    HomeFragment fragment = (HomeFragment) activity.getSupportFragmentManager().findFragmentById(R.id.mainFrameLayout);
+                                    if (fragment != null) {
+                                        fragment.hideEndTripBox();
+                                    } else {
+                                        Log.e("WrapTxt", "HomeFragment is null");
+                                    }
+                                } else {
+                                    Log.e("WrapTxt", "context is not MainActivity or is null");
+                                }
+
                                 break;
                             case 16:
                                 getUserVehicles();
@@ -2403,8 +2446,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             // builder.setOnlyAlertOnce(true); //to quietly update the notification
             builder.setWhen(System.currentTimeMillis());
             builder.setOngoing(false);
-            builder.setSmallIcon(R.drawable.gypsee_theme_logo);
-            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.gypsee_theme_logo));
+            builder.setSmallIcon(R.drawable.notif_icon);
+            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon));
             builder.setPriority(Notification.PRIORITY_HIGH);
             builder.addAction(android.R.drawable.ic_search_category_default, "Check", pendingIntent);
             if (vhsScore == 100) {
@@ -2442,7 +2485,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelID);
         notificationBuilder.setOngoing(false)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.notif_icon)
                 .setContentTitle("Fuelshine")
                 .setContentText(message)
                 .setStyle(bigTextStyle)

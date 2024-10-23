@@ -11,5 +11,6 @@
     <dimen name="photos_list_spacing">7dp</dimen>
     <dimen name="_26sdp">26dp</dimen>
     <dimen name="_42sdp">42dp</dimen>
+    <dimen name="_5sdp">6.50dp</dimen>
 
 </resources>

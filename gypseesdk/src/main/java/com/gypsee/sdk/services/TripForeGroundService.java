@@ -444,7 +444,7 @@ public class TripForeGroundService extends Service {
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             Notification notification = notificationBuilder.setOngoing(true)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.notif_icon)
                     .setContentTitle("App is running in background")
                     .setPriority(NotificationManager.IMPORTANCE_MIN)
                     .setCategory(Notification.CATEGORY_SERVICE)

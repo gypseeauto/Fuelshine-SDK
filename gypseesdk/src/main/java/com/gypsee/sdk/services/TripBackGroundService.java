@@ -502,7 +502,7 @@ public class TripBackGroundService extends IntentService {
             // Build the notification
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             Notification notification = notificationBuilder.setOngoing(true)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.notif_icon)
                     .setContentTitle("Fuelshine")
                     .setContentText("Ready to drive safely and fuel efficiently")
                     .setPriority(NotificationManager.IMPORTANCE_MIN)

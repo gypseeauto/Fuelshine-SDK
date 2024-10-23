@@ -241,6 +241,7 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
                     List<BluetoothDevice> devices = proxy.getDevicesMatchingConnectionStates(new int[]{BluetoothProfile.STATE_CONNECTED});
                     isConnected = !devices.isEmpty();
                     isServiceConnected = true;
+
                     // Update UI or perform actions indicating that Bluetooth service is connected
                 }
             }
@@ -285,6 +286,8 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
             foregroundService = ((ForegroundService.ForegroundServiceBinder) service).getService();
             foregroundService.clearLogs();
             isForegroundRunning = true;
+            foregroundService.setActivity(GypseeMainActivity.this);
+            foregroundService.setContext(GypseeMainActivity.this);
 
             if(!isServiceTripStarted && foregroundService.currentTrip==null){
                 unbindService(foregroundServiceConnection);

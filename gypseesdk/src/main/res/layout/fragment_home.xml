@@ -50,6 +50,71 @@
                 >
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/wrapTripBox"
+                    android:visibility="gone"
+                    android:background="@drawable/transparent_bg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6.5dp"
+                        android:layout_gravity="center"
+                        >
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:id="@+id/renewIcon"
+                            android:src="@drawable/renew_icon"
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5.20dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/wrapUpTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Wrapping up your trip"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/wrapUpSubTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="We'll end your trip in a moment unless you start driving again."
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/gen_rules"
                     android:layout_width="160dp"
                     android:layout_height="32dp"
