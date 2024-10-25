@@ -285,6 +285,8 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
             foregroundService = ((ForegroundService.ForegroundServiceBinder) service).getService();
             foregroundService.clearLogs();
             isForegroundRunning = true;
+            foregroundService.setActivity(GypseeMainActivity.this);
+            foregroundService.setContext(GypseeMainActivity.this);
 
             if(!isServiceTripStarted && foregroundService.currentTrip==null){
                 unbindService(foregroundServiceConnection);

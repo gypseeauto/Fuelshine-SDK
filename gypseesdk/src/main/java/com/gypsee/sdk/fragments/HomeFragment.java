@@ -58,6 +58,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -366,6 +368,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         checkForeServiceInitializedOrNot();
         return rootView;
+    }
+
+    public void showEndTripBox(){
+        fragmentHomeBinding.wrapTripBox.setVisibility(View.VISIBLE);
+        Animation rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate);
+        fragmentHomeBinding.renewIcon.startAnimation(rotateAnimation);
+        fragmentHomeBinding.startTripBtn.setEnabled(false);
+
+//        fragmentHomeBinding.startTripBtn.setBackgroundColor();
+
+        Log.e("WrapTxt","Show WrapUp Text");
+    }
+
+    public void hideEndTripBox(){
+        fragmentHomeBinding.wrapTripBox.setVisibility(View.GONE);
+        fragmentHomeBinding.renewIcon.clearAnimation();
+        fragmentHomeBinding.startTripBtn.setEnabled(true);
+
+        Log.e("WrapTxt","Hide WrapUp Text");
+
     }
 
     private void checkForeServiceInitializedOrNot() {

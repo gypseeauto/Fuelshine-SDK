@@ -416,6 +416,7 @@
     <string name="points_earned">Points Earned :</string>
     <string name="fuel_savings_message">You could have saved Rupees %1$d on this trip driving fuel efficiently.</string>
     <string name="fuel_use_efficient"> Good job ! Fuel use was efficient</string>
+    <string name="fuel_saving_app">Fuel Saving App</string>
 
 
 </resources>

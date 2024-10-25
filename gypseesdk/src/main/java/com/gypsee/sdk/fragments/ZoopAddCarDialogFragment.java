@@ -385,8 +385,8 @@ public class ZoopAddCarDialogFragment extends DialogFragment implements View.OnC
             builder.setStyle(bigTextStyle);
             // builder.setOnlyAlertOnce(true); //to quietly update the notification
             builder.setWhen(System.currentTimeMillis());
-            builder.setSmallIcon(R.drawable.gypsee_theme_logo);
-            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.gypsee_theme_logo));
+            builder.setSmallIcon(R.drawable.notif_icon);
+            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon));
             builder.setPriority(Notification.PRIORITY_HIGH);
             builder.setFullScreenIntent(pendingIntent, true);
             builder.build();
@@ -419,7 +419,7 @@ public class ZoopAddCarDialogFragment extends DialogFragment implements View.OnC
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelID);
 
         Notification notification = notificationBuilder.setOngoing(true)
-                .setSmallIcon(R.drawable.gypsee_theme_logo)
+                .setSmallIcon(R.drawable.notif_icon)
                 .setContentTitle("Fuelshine")
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("Enter your car registration number to know more about your car registered detail with your nearest RTO"))
                 .setContentText("Enter your car registration number to know more about your car registered detail with your nearest RTO")
