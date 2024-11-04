@@ -259,7 +259,17 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         showBluetoothForegroundNotification();
         setupRecognitionClient();
         registerInternetConnectionObserver();
-        checkRegisteredDeviceConnected();
+
+        if (isManualStart){
+            isServiceBound = true;
+            isObdConnected = false;
+        }else {
+            checkRegisteredDeviceConnected();
+        }
+        // For removing bluetooth dependency add these lines
+        // isServiceBound = true;
+        //        isObdConnected = false;
+//        checkRegisteredDeviceConnected(); // remove this method for removing bluetooth dependency
         registerLocationBroadcastReceiver();
 
     }
@@ -824,14 +834,32 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             if (isManualStart) {
                 resetAllValues(false);
                 isManualStart = true;
+
+                showNotification(detectedFastMovement);
+                isServiceBound = true;
+                isObdConnected = false;
+                checkForVehicle("");
+
+
             } else {
+
                 resetAllValues(false);
+
+
+                showNotification(detectedFastMovement);
+                checkBluetoothAndConnect(); // remove this method for removing bluetooth dependency
+                checkRegisteredDeviceConnected(); // remove this method for removing bluetooth dependency
+
+
             }
             activityCaptured = true;
 
-            showNotification(detectedFastMovement);
-            checkBluetoothAndConnect();
-            checkRegisteredDeviceConnected();
+//            showNotification(detectedFastMovement);
+//            checkBluetoothAndConnect(); // remove this method for removing bluetooth dependency
+//            checkRegisteredDeviceConnected(); // remove this method for removing bluetooth dependency
+
+            // For removing bluetooth dependency add these lines
+
 
         }
 
@@ -2896,7 +2924,11 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     //callBackgroundService(1);
                     callServer(getResources().getString(R.string.tripupdate_url), "Update trip ", 14);
 
-                    callServer(getString(R.string.updateTripConnectedDevices).replace("tripId", currentTrip.getId()), "Update Trip Connected Devices", 22);
+//                  For removing bluetooth dependency comment or remove  callServer(getString(R.string.updateTripConnectedDevices).replace("tripId", currentTrip.getId()), "Update Trip Connected Devices", 22);
+
+                    if(!isManualStart){
+                        callServer(getString(R.string.updateTripConnectedDevices).replace("tripId", currentTrip.getId()), "Update Trip Connected Devices", 22);
+                    }
                     //callBackgroundService(3);
                     if (selectedvehiclemodel != null) {
                         callServer(getResources().getString(R.string.UpdateVehDetails_Url).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Update vehicle ", 16);
