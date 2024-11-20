@@ -196,7 +196,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -282,10 +282,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
 
     implementation 'com.opencsv:opencsv:4.6'
-    implementation 'com.github.vihtarb:tooltip:0.2.0'
 
 
-    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
 
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.gms:play-services-maps:19.0.0'
