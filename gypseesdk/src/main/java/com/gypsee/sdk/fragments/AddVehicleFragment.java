@@ -89,7 +89,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.*;
-import com.tooltip.Tooltip;
 
 import static android.Manifest.permission.CAMERA;
 import static android.app.Activity.RESULT_OK;
@@ -104,7 +103,6 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
     private VehicleDocrecyclerAdapter vehicleDocrecyclerAdapter;
     private LinearLayout progressLayout;
     private User user;
-    private Tooltip tooltip;
     private File mPhotoFile;
 
     boolean isServiceDone;
@@ -261,7 +259,7 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
     private void initViews(View view) {
 
         vehicleRegistrationNo = view.findViewById(R.id.tv_vehicle_reg);
-        vinEt = view.findViewById(R.id.vinNumber);
+        vinEt = view.findViewById(R.id.vinNumberTxt);
         vinTIL = view.findViewById(R.id.vinTIL);
         purchaseDateEt = view.findViewById(R.id.tv_purchase_date);
         pollutionRenewDate = view.findViewById(R.id.pollutionRenewDate);
@@ -1117,8 +1115,6 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
         final int DRAWABLE_BOTTOM = 3;
 
 
-        if (tooltip != null && tooltip.isShowing())
-            tooltip.dismiss();
 
         EditText touchedView = vehicleRegistrationNo;
         String text = "Your registration number looks like - TN01CA280";
@@ -1150,25 +1146,25 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
             text = "Tell us when your car needs servicing in KMs";
             anchorview = view.findViewById(R.id.placeholder5);
             // your action here
-            tooltip = new Tooltip.Builder(anchorview)
+          /*  tooltip = new Tooltip.Builder(anchorview)
                     .setText(text)
                     .setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
                     .setTextColor(ContextCompat.getColor(context, R.color.white))
                     .setCornerRadius(5f)
                     .setCancelable(true)
-                    .show();
+                    .show();*/
             return false;
         }
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (event.getRawX() >= (touchedView.getRight() - touchedView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                 // your action here
-                tooltip = new Tooltip.Builder(anchorview)
+            /*    tooltip = new Tooltip.Builder(anchorview)
                         .setText(text)
                         .setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
                         .setTextColor(ContextCompat.getColor(context, R.color.white))
                         .setCornerRadius(5f)
                         .setCancelable(true)
-                        .show();
+                        .show();*/
                 return false;
             }
         }
