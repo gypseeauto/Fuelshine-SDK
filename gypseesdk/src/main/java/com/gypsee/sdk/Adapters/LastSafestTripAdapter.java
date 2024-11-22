@@ -6,12 +6,12 @@ import android.location.Geocoder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.daimajia.numberprogressbar.NumberProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.gypsee.sdk.R;
 import com.gypsee.sdk.databinding.LastSafestTripLayoutBinding;
 import com.gypsee.sdk.models.LastSafeTripModel;
@@ -93,7 +94,7 @@ public class LastSafestTripAdapter extends RecyclerView.Adapter<LastSafestTripAd
 
     }
 
-    private void setValuesBasedOnAlertValues(Double alertValues, NumberProgressBar overSpeedprogresss, Double maxValue, TextView Tv) {
+    private void setValuesBasedOnAlertValues(Double alertValues, LinearProgressIndicator overSpeedprogresss, Double maxValue, TextView Tv) {
 
         int percentage = 0;
         if (alertValues == null) {
@@ -164,15 +165,9 @@ public class LastSafestTripAdapter extends RecyclerView.Adapter<LastSafestTripAd
         return null;
     }
 
-    private void setUpProgressBar(NumberProgressBar overSpeedprogresss, int progress) {
+    private void setUpProgressBar(LinearProgressIndicator overSpeedprogresss, int progress) {
 
-        overSpeedprogresss.setReachedBarHeight(15f);
-        overSpeedprogresss.setUnreachedBarHeight(15f);
-        overSpeedprogresss.setReachedBarColor(mContext.getResources().getColor(R.color.theme_blue));
-        overSpeedprogresss.setUnreachedBarColor(mContext.getResources().getColor(R.color.white));
         overSpeedprogresss.setProgress(progress);
-        overSpeedprogresss.setProgressTextSize(0f);
-        overSpeedprogresss.setProgressTextVisibility(NumberProgressBar.ProgressTextVisibility.Invisible);
     }
 
     @Override

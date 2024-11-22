@@ -127,20 +127,16 @@
                     android:layout_weight="0.45"
                     android:orientation="vertical">
 
-                    <com.daimajia.numberprogressbar.NumberProgressBar
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:id="@+id/overSpeedprogresss"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:trackThickness="10dp"
                         android:paddingTop="7dp"
-                        custom:progress_current="80"
-                        custom:progress_max="100"
-                        custom:progress_reached_bar_height="10dp"
-                        custom:progress_reached_color="@color/white"
-                        custom:progress_text_color="#3498DB"
-                        custom:progress_text_offset="1dp"
-                        custom:progress_text_size="0sp"
-                        custom:progress_unreached_bar_height="10dp"
-                        custom:progress_unreached_color="@color/theme_blue" />
+                        android:progress="80"
+                        app:indicatorColor="@color/white"
+                      app:trackColor="@color/theme_blue"
+                         />
 
                     <TextView
                         android:id="@+id/overSpeedTv"
@@ -154,21 +150,15 @@
                         android:textStyle="bold" />
 
 
-                    <com.daimajia.numberprogressbar.NumberProgressBar
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:id="@+id/harshBreakingprogresss"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:trackThickness="10dp"
                         android:paddingTop="7dp"
-                        custom:progress_current="80"
-                        custom:progress_max="100"
-                        custom:progress_reached_bar_height="10dp"
-                        custom:progress_reached_color="@color/white"
-                        custom:progress_text_color="#3498DB"
-                        custom:progress_text_offset="1dp"
-                        custom:progress_text_size="0sp"
-                        custom:progress_text_visibility="visible"
-                        custom:progress_unreached_bar_height="10dp"
-                        custom:progress_unreached_color="@color/theme_blue" />
+                        android:progress="80"
+                        app:indicatorColor="@color/white"
+                        app:trackColor="@color/theme_blue" />
 
 
                     <TextView
@@ -182,21 +172,15 @@
                         android:textSize="7dp"
                         android:textStyle="bold" />
 
-                    <com.daimajia.numberprogressbar.NumberProgressBar
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:id="@+id/highRpmProgress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:trackThickness="10dp"
                         android:paddingTop="7dp"
-                        custom:progress_current="80"
-                        custom:progress_max="100"
-                        custom:progress_reached_bar_height="10dp"
-                        custom:progress_reached_color="@color/white"
-                        custom:progress_text_color="#3498DB"
-                        custom:progress_text_offset="1dp"
-                        custom:progress_text_size="0sp"
-                        custom:progress_text_visibility="visible"
-                        custom:progress_unreached_bar_height="10dp"
-                        custom:progress_unreached_color="@color/theme_blue" />
+                        android:progress="80"
+                        app:indicatorColor="@color/white"
+                        app:trackColor="@color/theme_blue" />
 
                     <TextView
                         android:id="@+id/highRPMTv"
@@ -209,21 +193,16 @@
                         android:textSize="7dp"
                         android:textStyle="bold" />
 
-                    <com.daimajia.numberprogressbar.NumberProgressBar
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        app:trackCornerRadius="3dp"
                         android:id="@+id/harshAccelarationprogresss"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        custom:progress_current="80"
-                        custom:progress_max="100"
-                        custom:progress_reached_bar_height="10dp"
-                        custom:progress_reached_color="@color/white"
-                        custom:progress_text_color="#3498DB"
-                        custom:progress_text_offset="1dp"
-                        custom:progress_text_size="0sp"
-                        custom:progress_text_visibility="visible"
-                        custom:progress_unreached_bar_height="10dp"
-                        custom:progress_unreached_color="@color/theme_blue" />
+                        app:trackThickness="10dp"
+                        android:paddingTop="7dp"
+                        android:progress="80"
+                        app:indicatorColor="@color/white"
+                        app:trackColor="@color/theme_blue"/>
 
                     <TextView
                         android:id="@+id/harshAccelarationTv"
