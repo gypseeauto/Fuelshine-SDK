@@ -282,7 +282,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
 
     implementation 'com.opencsv:opencsv:4.6'
-    implementation 'com.github.vihtarb:tooltip:0.2.0'
+//    implementation 'com.github.vihtarb:tooltip:0.2.0'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
 
 
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'

@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -89,7 +90,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.*;
-import com.tooltip.Tooltip;
+//import com.tooltip.Tooltip;
 
 import static android.Manifest.permission.CAMERA;
 import static android.app.Activity.RESULT_OK;
@@ -98,13 +99,14 @@ import static androidx.core.content.ContextCompat.checkSelfPermission;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddVehicleFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
+public class AddVehicleFragment extends Fragment implements View.OnClickListener {
+//public class AddVehicleFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
     private Vehiclemodel vehiclemodel;
     private VehicleDocrecyclerAdapter vehicleDocrecyclerAdapter;
     private LinearLayout progressLayout;
     private User user;
-    private Tooltip tooltip;
+//    private Tooltip tooltip;
     private File mPhotoFile;
 
     boolean isServiceDone;
@@ -253,10 +255,10 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
 
     private RecyclerView vehDocRecyclerview;
 
-    private TextInputEditText vinEt, vehicleRegistrationNo, purchaseDateEt, brandName, vehicleModelTv, pollutionRenewDate, insuranceRenewDate, odoMeterReading, servieReminderDueDate, couponCode;
+    private TextInputEditText  vehicleRegistrationNo, purchaseDateEt, brandName, vehicleModelTv, pollutionRenewDate, insuranceRenewDate, odoMeterReading, servieReminderDueDate, couponCode;
     TextInputLayout vinTIL;
 
-    private TextView smartServiceRemTv;
+    private TextView smartServiceRemTv,vinEt;
 
     private void initViews(View view) {
 
@@ -339,13 +341,13 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
             }
         });
 
-        vehicleModelTv.setOnTouchListener(this);
-        vehicleRegistrationNo.setOnTouchListener(this);
-        brandName.setOnTouchListener(this);
-        odoMeterReading.setOnTouchListener(this);
-        distancePostCC.setOnTouchListener(this);
-        distancePostCC.setOnTouchListener(this);
-        smartServiceRemTv.setOnTouchListener(this);
+//        vehicleModelTv.setOnTouchListener(this);
+//        vehicleRegistrationNo.setOnTouchListener(this);
+//        brandName.setOnTouchListener(this);
+//        odoMeterReading.setOnTouchListener(this);
+//        distancePostCC.setOnTouchListener(this);
+//        distancePostCC.setOnTouchListener(this);
+//        smartServiceRemTv.setOnTouchListener(this);
     }
 
     private EditText distancePostCC, seriveReminderKm;
@@ -1108,72 +1110,73 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
         context.startService(intent);
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event) {
+//
+//        final int DRAWABLE_LEFT = 0;
+//        final int DRAWABLE_TOP = 1;
+//        final int DRAWABLE_RIGHT = 2;
+//        final int DRAWABLE_BOTTOM = 3;
+//
+//
+//        if (tooltip != null && tooltip.isShowing())
+//            tooltip.dismiss();
+//
+//        EditText touchedView = vehicleRegistrationNo;
+//        String text = "Your registration number looks like - TN01CA280";
+//        View anchorview = view.findViewById(R.id.placeholder1);
+//        int id = v.getId();
+//        if (id == R.id.tv_vehicle_reg) {
+//        } else if (id == R.id.brandName) {
+//            brandName.setInputType(InputType.TYPE_NULL);
+//            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                Log.e(TAG, "Calling CarsBrandListFrgment");
+//                ((AppCompatActivity) context).getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .add(R.id.mainFrameLayout, CarsBrandListFrgment.newInstance(), CarsBrandListFrgment.class.getSimpleName())
+//                        .addToBackStack(CarsBrandListFrgment.class.getSimpleName())
+//                        .commit();
+//            }
+//
+//            return false;
+//        } else if (id == R.id.tv_vehicle_model) {
+//            touchedView = vehicleModelTv;
+//            text = "Tell us whether its a Tata Bolt or Tata Nexon";
+//            anchorview = view.findViewById(R.id.placeholder3);
+//        } else if (id == R.id.odoMeterReading) {
+//            touchedView = odoMeterReading;
+//            text = "Check out your car Odometer to know the KMs";
+//            anchorview = view.findViewById(R.id.placeholder4);
+//        } else if (id == R.id.smartServiceRemTv) {
+//            Log.e(TAG, "Ontouch listener");
+//            text = "Tell us when your car needs servicing in KMs";
+//            anchorview = view.findViewById(R.id.placeholder5);
+//            // your action here
+//            tooltip = new Tooltip.Builder(anchorview)
+//                    .setText(text)
+//                    .setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                    .setTextColor(ContextCompat.getColor(context, R.color.white))
+//                    .setCornerRadius(5f)
+//                    .setCancelable(true)
+//                    .show();
+//            return false;
+//        }
+//        if (event.getAction() == MotionEvent.ACTION_UP) {
+//            if (event.getRawX() >= (touchedView.getRight() - touchedView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                // your action here
+//                tooltip = new Tooltip.Builder(anchorview)
+//                        .setText(text)
+//                        .setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                        .setTextColor(ContextCompat.getColor(context, R.color.white))
+//                        .setCornerRadius(5f)
+//                        .setCancelable(true)
+//                        .show();
+//                return false;
+//            }
+//        }
+//        return false;
+//    }
 
-        final int DRAWABLE_LEFT = 0;
-        final int DRAWABLE_TOP = 1;
-        final int DRAWABLE_RIGHT = 2;
-        final int DRAWABLE_BOTTOM = 3;
-
-
-        if (tooltip != null && tooltip.isShowing())
-            tooltip.dismiss();
-
-        EditText touchedView = vehicleRegistrationNo;
-        String text = "Your registration number looks like - TN01CA280";
-        View anchorview = view.findViewById(R.id.placeholder1);
-        int id = v.getId();
-        if (id == R.id.tv_vehicle_reg) {
-        } else if (id == R.id.brandName) {
-            brandName.setInputType(InputType.TYPE_NULL);
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Log.e(TAG, "Calling CarsBrandListFrgment");
-                ((AppCompatActivity) context).getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.mainFrameLayout, CarsBrandListFrgment.newInstance(), CarsBrandListFrgment.class.getSimpleName())
-                        .addToBackStack(CarsBrandListFrgment.class.getSimpleName())
-                        .commit();
-            }
-
-            return false;
-        } else if (id == R.id.tv_vehicle_model) {
-            touchedView = vehicleModelTv;
-            text = "Tell us whether its a Tata Bolt or Tata Nexon";
-            anchorview = view.findViewById(R.id.placeholder3);
-        } else if (id == R.id.odoMeterReading) {
-            touchedView = odoMeterReading;
-            text = "Check out your car Odometer to know the KMs";
-            anchorview = view.findViewById(R.id.placeholder4);
-        } else if (id == R.id.smartServiceRemTv) {
-            Log.e(TAG, "Ontouch listener");
-            text = "Tell us when your car needs servicing in KMs";
-            anchorview = view.findViewById(R.id.placeholder5);
-            // your action here
-            tooltip = new Tooltip.Builder(anchorview)
-                    .setText(text)
-                    .setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                    .setTextColor(ContextCompat.getColor(context, R.color.white))
-                    .setCornerRadius(5f)
-                    .setCancelable(true)
-                    .show();
-            return false;
-        }
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (event.getRawX() >= (touchedView.getRight() - touchedView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                // your action here
-                tooltip = new Tooltip.Builder(anchorview)
-                        .setText(text)
-                        .setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                        .setTextColor(ContextCompat.getColor(context, R.color.white))
-                        .setCornerRadius(5f)
-                        .setCancelable(true)
-                        .show();
-                return false;
-            }
-        }
-        return false;
-    }
 
 
     private void registerBroadcastReceivers() {
