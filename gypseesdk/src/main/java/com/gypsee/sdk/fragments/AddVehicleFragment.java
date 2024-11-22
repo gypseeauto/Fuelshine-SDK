@@ -114,6 +114,7 @@ public class AddVehicleFragment extends Fragment implements View.OnClickListener
     public AddVehicleFragment() {
     }
 
+
     public static AddVehicleFragment newInstance(Vehiclemodel vehiclemodel) {
 
         Bundle args = new Bundle();
