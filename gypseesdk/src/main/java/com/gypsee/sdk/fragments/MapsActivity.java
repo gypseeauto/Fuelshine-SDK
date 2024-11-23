@@ -48,12 +48,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.JsonSyntaxException;
 import com.gypsee.sdk.R;
 import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.databinding.FragmentTripdetailsBinding;
 import com.gypsee.sdk.dialogs.GiveFeedbackDialog;
 import com.gypsee.sdk.helpers.BluetoothHelperClass;
 import com.gypsee.sdk.helpers.DirectionsJSONParser;
+import com.gypsee.sdk.models.FuelPrice;
 import com.gypsee.sdk.models.GameLevelModel;
 import com.gypsee.sdk.models.TripMileage;
 import com.gypsee.sdk.models.User;
@@ -153,15 +155,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         fragmentTripdetailsBinding.property3.setOnClickListener(view -> {
             if (isFuelPriceVisible) {
                 // If fuel price is visible, hide it and show down arrow
-                fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.GONE);
-                fragmentTripdetailsBinding.downArrow.setVisibility(View.VISIBLE);
-                fragmentTripdetailsBinding.upArrow.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.tripKmText.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.downArrow2.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.upArrow2.setVisibility(View.GONE);
                 isFuelPriceVisible = false;
             } else {
                 // If fuel price is not visible, show it and hide down arrow
-                fragmentTripdetailsBinding.fuelPriceText1.setVisibility(View.VISIBLE);
-                fragmentTripdetailsBinding.downArrow.setVisibility(View.GONE);
-                fragmentTripdetailsBinding.upArrow.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.tripKmText.setVisibility(View.VISIBLE);
+                fragmentTripdetailsBinding.downArrow2.setVisibility(View.GONE);
+                fragmentTripdetailsBinding.upArrow2.setVisibility(View.VISIBLE);
 //                    // Set top margin to 0
 //                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fragmentTripdetailsBinding.fuelPriceText1.getLayoutParams();
 //                    params.topMargin = 0;
@@ -545,72 +547,154 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void parseFuelPrice(String response) throws JSONException {
+//    private void parseFuelPrice(String response) throws JSONException {
+//
+//        JSONObject jsonObject = new JSONObject(response);
+//
+//        if (!jsonObject.has("data")){
+//            Toast.makeText(this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        JSONObject fuelPriceObj = jsonObject.getJSONObject("data");
+//
+//        Gson gson = new Gson();
+//        TripMileage tripMileage = gson.fromJson(fuelPriceObj.toString(), TripMileage.class);
+//
+//        fragmentTripdetailsBinding.fuelAmount.setText(String.valueOf(tripMileage.getFuelSavingAmount()));
+//        fragmentTripdetailsBinding.fuelPriceValue.setText("₹" + tripMileage.getFuelPrice());
+////        fragmentTripdetailsBinding.safePerValue.setText(safeKmPercentage);
+//        fragmentTripdetailsBinding.kmValue2.setText( String.valueOf(tripMileage.getTripDistanceKm()));
+//
+//        double emission = tripMileage.getCo2Emission();
+//
+//        if (emission >= 0){
+//            fragmentTripdetailsBinding.tripKmValue1.setText("+ " + emission + "KG");
+//            fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.red));
+//            fragmentTripdetailsBinding.tripKmText1.setText(R.string.save_our_planet_driving_fuel_efficiently);
+//
+//
+//        }else{
+//            fragmentTripdetailsBinding.tripKmValue1.setText(emission + "KG");
+//            fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.light_green));
+//            fragmentTripdetailsBinding.tripKmText1.setText(R.string.you_are_making_our_planet_greener);
+//        }
+//
+//        String value = String.valueOf(tripMileage.getPotentialSavingLossForTheTrip());
+//// Remove all '-' characters from the string
+//        String updatedValue = value.replace("-", "");
+//
+//
+//        if (tripMileage.getPotentialSavingLossForTheTrip() >= 0) {
+//            String message = getString(R.string.fuel_savings_message, tripMileage.getPotentialSavingLossForTheTrip());
+//            fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.light_green));
+//            fragmentTripdetailsBinding.potentialSavingsDesc.setText(R.string.fuel_use_efficient);
+//            fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs " + tripMileage.getPotentialSavingLossForTheTrip());
+//
+//        } else {
+//            fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.red));
+//
+//            fragmentTripdetailsBinding.potentialSavingsDesc.setText("You could have saved Rs " + updatedValue + " on this trip driving fuel efficiently");
+//            fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs " + tripMileage.getPotentialSavingLossForTheTrip());
+//
+//        }
+//
+////        fragmentTripdetailsBinding.potentialFuelSavingsTv.setText(getString(R.string.amount_format, tripMileage.getPotentialSavingLossForTheTrip()));
+////        fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs " + tripMileage.getPotentialSavingLossForTheTrip());
+//
+//        float amount = tripMileage.getFuelSavingAmount() ;
+//
+//        if (amount < 0){
+//            fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data_red));
+//            fragmentTripdetailsBinding.fuelValue.setTextColor(getColor(R.color.white));
+//        }else if (amount == 0){
+//            fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
+//        }
+//        else {
+//            fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
+//        }
+//
+//        fragmentTripdetailsBinding.fuelValue.setText(" ₹".concat(""+amount)  );
+//
+//
+//        fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getMileageObtained()));
+//        fragmentTripdetailsBinding.kmValue.setText(String.valueOf(tripMileage.getEpaArAiMileage()) );
+//
+//
+//    }
 
-        JSONObject jsonObject = new JSONObject(response);
 
-        if (!jsonObject.has("data")){
-            Toast.makeText(this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
-            return;
+    private void parseFuelPrice(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+
+            if (!jsonObject.has("data")) {
+                Toast.makeText(this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            JSONObject fuelPriceObj = jsonObject.getJSONObject("data");
+
+            Gson gson = new Gson();
+            FuelPrice tripMileage = gson.fromJson(fuelPriceObj.toString(), FuelPrice.class);
+
+            fragmentTripdetailsBinding.fuelAmount.setText(String.valueOf(tripMileage.getFuelSavingAmount()));
+            fragmentTripdetailsBinding.fuelPriceValue.setText("₹" + tripMileage.getFuelPrice());
+            // fragmentTripdetailsBinding.safePerValue.setText(safeKmPercentage);
+            fragmentTripdetailsBinding.kmValue2.setText(String.valueOf(tripMileage.getTripDistanceKm()));
+
+            double emission = tripMileage.getCo2Emission();
+
+            if (emission >= 0) {
+                fragmentTripdetailsBinding.tripKmValue1.setText("+ " + emission + "KG");
+                fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.red));
+                fragmentTripdetailsBinding.tripKmText1.setText(R.string.save_our_planet_driving_fuel_efficiently);
+            } else {
+                fragmentTripdetailsBinding.tripKmValue1.setText(emission + "KG");
+                fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.light_green));
+                fragmentTripdetailsBinding.tripKmText1.setText(R.string.you_are_making_our_planet_greener);
+            }
+
+            String value = String.valueOf(tripMileage.getPotentialSavingLossForTheTrip());
+            // Remove all '-' characters from the string
+            String updatedValue = value.replace("-", "");
+
+            if (tripMileage.getPotentialSavingLossForTheTrip() >= 0) {
+                String message = getString(R.string.fuel_savings_message, tripMileage.getPotentialSavingLossForTheTrip());
+                fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.light_green));
+                fragmentTripdetailsBinding.potentialSavingsDesc.setText(R.string.fuel_use_efficient);
+                fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs " + tripMileage.getPotentialSavingLossForTheTrip());
+            } else {
+                fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.red));
+                fragmentTripdetailsBinding.potentialSavingsDesc.setText("You could have saved Rs " + updatedValue + " on this trip driving fuel efficiently");
+                fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs " + tripMileage.getPotentialSavingLossForTheTrip());
+            }
+
+            float amount = tripMileage.getFuelSavingAmount();
+
+            if (amount < 0) {
+                fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data_red));
+                fragmentTripdetailsBinding.fuelValue.setTextColor(getColor(R.color.white));
+            } else if (amount == 0) {
+                fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
+            } else {
+                fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
+            }
+
+            fragmentTripdetailsBinding.fuelValue.setText(" ₹" + amount);
+            fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getMileageObtained()));
+            fragmentTripdetailsBinding.kmValue.setText(String.valueOf(tripMileage.getEpaArAiMileage()));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error parsing fuel price data. Please try again later.", Toast.LENGTH_SHORT).show();
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error in data format. Please try again later.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "An unexpected error occurred. Please try again later.", Toast.LENGTH_SHORT).show();
         }
-
-        JSONObject fuelPriceObj = jsonObject.getJSONObject("data");
-
-        Gson gson = new Gson();
-        TripMileage tripMileage = gson.fromJson(fuelPriceObj.toString(), TripMileage.class);
-
-        fragmentTripdetailsBinding.fuelAmount.setText(String.valueOf(tripMileage.getFuelSavingAmount()));
-        fragmentTripdetailsBinding.fuelPriceValue.setText("₹" + tripMileage.getFuelPrice());
-//        fragmentTripdetailsBinding.safePerValue.setText(safeKmPercentage);
-        fragmentTripdetailsBinding.kmValue2.setText( String.valueOf(tripMileage.getTripDistanceKm()));
-
-        double emission = tripMileage.getCo2Emission();
-
-        if (emission >= 0){
-            fragmentTripdetailsBinding.tripKmValue1.setText("+ " + emission + "KG");
-            fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.red));
-            fragmentTripdetailsBinding.tripKmText1.setText(R.string.save_our_planet_driving_fuel_efficiently);
-
-
-        }else{
-            fragmentTripdetailsBinding.tripKmValue1.setText(emission + "KG");
-            fragmentTripdetailsBinding.tripKmValue1.setTextColor(getResources().getColor(R.color.light_green));
-            fragmentTripdetailsBinding.tripKmText1.setText(R.string.you_are_making_our_planet_greener);
-        }
-
-
-        if (tripMileage.getPotentialSavingLossForTheTrip() <0){
-            String message = getString(R.string.fuel_savings_message, tripMileage.getPotentialSavingLossForTheTrip());
-            fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.red));
-            fragmentTripdetailsBinding.potentialSavingsDesc.setText(message);
-
-        }else{
-
-            fragmentTripdetailsBinding.potentialFuelSavingsTv.setTextColor(getResources().getColor(R.color.light_green));
-            fragmentTripdetailsBinding.potentialSavingsDesc.setText(R.string.fuel_use_efficient);
-        }
-
-        fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs. " +tripMileage.getPotentialSavingLossForTheTrip());
-
-        float amount = tripMileage.getFuelSavingAmount() ;
-
-        if (amount < 0){
-            fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data_red));
-            fragmentTripdetailsBinding.fuelValue.setTextColor(getColor(R.color.white));
-        }else if (amount == 0){
-            fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
-        }
-        else {
-            fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data));
-        }
-
-        fragmentTripdetailsBinding.fuelValue.setText(" ₹".concat(""+amount)  );
-
-
-        fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getMileageObtained()));
-        fragmentTripdetailsBinding.kmValue.setText(String.valueOf(tripMileage.getEpaArAiMileage()) );
-
-
     }
 
 
@@ -1014,7 +1098,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-//    private void parseFetchDrivingALerts(String response) throws JSONException {
+    //    private void parseFetchDrivingALerts(String response) throws JSONException {
 //
 //        JSONObject jsonResponse = new JSONObject(response);
 //
@@ -1139,7 +1223,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         String harshAcc = String.valueOf(harshAccelerationCount);
-        String harshBrk = String.valueOf(harshAccelerationCount);
+        String harshBrk = String.valueOf(harshBrakingCount);
         String speeding = String.valueOf(overspeedingCount);
         String textAndDrv = String.valueOf(textDriveCount);
 

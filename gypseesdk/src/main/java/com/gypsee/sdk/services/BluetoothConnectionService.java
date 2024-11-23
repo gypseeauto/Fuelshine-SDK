@@ -117,8 +117,8 @@ public class BluetoothConnectionService extends Service {
 
             builder.setStyle(bigTextStyle);
             builder.setWhen(System.currentTimeMillis());
-            builder.setSmallIcon(R.drawable.gypsee_theme_logo);
-            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.gypsee_theme_logo));
+            builder.setSmallIcon(R.drawable.notif_icon);
+            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon));
             builder.setPriority(Notification.PRIORITY_HIGH);
             builder.setFullScreenIntent(pendingIntent, true);
 
@@ -149,7 +149,7 @@ public class BluetoothConnectionService extends Service {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelID);
 
         Notification notification = notificationBuilder.setOngoing(true)
-                .setSmallIcon(R.drawable.gypsee_theme_logo)
+                .setSmallIcon(R.drawable.notif_icon)
                 .setContentTitle("Fuelshine")
                 .setContentText("Tap to open")
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)

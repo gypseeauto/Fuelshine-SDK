@@ -70,8 +70,8 @@ public class SubscribeNowNotifService extends Worker {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "1234567");
         notification = builder
                 .setColor(getApplicationContext().getResources().getColor(R.color.colorPrimaryDark))
-                .setSmallIcon(R.drawable.ic_splash_screen_wheel_no_bg)
-                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_coin_front))
+                .setSmallIcon(R.drawable.notif_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.new_app_icon))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("Subs"))
                 .setAutoCancel(true)
                 .setContentTitle("Subscribe Now")
