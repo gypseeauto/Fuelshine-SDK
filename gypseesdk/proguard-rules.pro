@@ -21,3 +21,4 @@
 #-renamesourcefileattribute SourceFile
 -keep class com.gypsee.sdk.** { *; }
 
+-keep class androidx.databinding.**{*;}
