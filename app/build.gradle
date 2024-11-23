@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -68,6 +68,6 @@ dependencies {
     implementation libs.multidex
    implementation project(':gypseesdk')
 
-   // implementation 'com.github.gypseeauto:Fuelshine-SDK:1.0.8.3'
+   // implementation 'com.github.gypseeauto:Fuelshine-SDK:1.0.8.6'
 
 }
