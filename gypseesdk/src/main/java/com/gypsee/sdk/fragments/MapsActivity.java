@@ -670,7 +670,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 fragmentTripdetailsBinding.potentialFuelSavingsTv.setText("Rs " + tripMileage.getPotentialSavingLossForTheTrip());
             }
 
-            float amount = tripMileage.getFuelSavingAmount();
+//            float amount = tripMileage.getFuelSavingAmount();
+            float amount = Float.parseFloat(tripRecord.getTripSavedAmount());
 
             if (amount < 0) {
                 fragmentTripdetailsBinding.data.setBackground(getResources().getDrawable(R.drawable.data_red));
@@ -682,7 +683,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             fragmentTripdetailsBinding.fuelValue.setText(" ₹" + amount);
-            fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getMileageObtained()));
+            fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getAdjustedMileageWithPenality()));
             fragmentTripdetailsBinding.kmValue.setText(String.valueOf(tripMileage.getEpaArAiMileage()));
 
         } catch (JSONException e) {

@@ -204,6 +204,12 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     private GeofencingClient geofencingClient;
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
+
     private GypseeMainActivity activity;
 
     public void setActivity(GypseeMainActivity activity) {
@@ -214,12 +220,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     public void setContext(Context context) {
         this.context = context;
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return binder;
     }
 
 
@@ -420,7 +420,26 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     Log.e(TAG, "TTS initialized");
                     Locale deviceLocale = getResources().getConfiguration().locale;
                     textToSpeech.setLanguage(deviceLocale);
-                    textToSpeech.speak("Welcome to Fuel Shine, " + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+
+                    String language = myPreferenece.getLang();
+                    textToSpeech.stop();
+
+
+                    switch (language){
+
+                        case "hi":
+                            textToSpeech.speak("फ्यूल शाइन में आपका स्वागत है।" + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+                            break;
+
+                        default:
+                            textToSpeech.speak("Welcome to Fuel Shine, " + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+                            break;
+
+
+                    }
+
+
+//                    textToSpeech.speak("Welcome to Fuel Shine, " + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
                 } else {
                     Log.e(TAG, "TTS failed");
                 }
@@ -568,34 +587,34 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     private void requestRecognitionUpdates() {
 
-            List<ActivityTransition> transitions = new ArrayList<>();
+        List<ActivityTransition> transitions = new ArrayList<>();
 
-            transitions.add(
-                    new ActivityTransition.Builder()
-                            .setActivityType(DetectedActivity.IN_VEHICLE)
-                            .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
-                            .build());
+        transitions.add(
+                new ActivityTransition.Builder()
+                        .setActivityType(DetectedActivity.IN_VEHICLE)
+                        .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
+                        .build());
 
 
-            transitions.add(
-                    new ActivityTransition.Builder()
-                            .setActivityType(DetectedActivity.STILL)
-                            .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
-                            .build());
+        transitions.add(
+                new ActivityTransition.Builder()
+                        .setActivityType(DetectedActivity.STILL)
+                        .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
+                        .build());
 
-            transitions.add(
-                    new ActivityTransition.Builder()
-                            .setActivityType(DetectedActivity.WALKING)
-                            .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
-                            .build());
+        transitions.add(
+                new ActivityTransition.Builder()
+                        .setActivityType(DetectedActivity.WALKING)
+                        .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
+                        .build());
 
-            transitions.add(
-                    new ActivityTransition.Builder()
-                            .setActivityType(DetectedActivity.ON_BICYCLE)
-                            .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
-                            .build());
+        transitions.add(
+                new ActivityTransition.Builder()
+                        .setActivityType(DetectedActivity.ON_BICYCLE)
+                        .setActivityTransition(ActivityTransition.ACTIVITY_TRANSITION_ENTER)
+                        .build());
 
-            ActivityTransitionRequest request = new ActivityTransitionRequest(transitions);
+        ActivityTransitionRequest request = new ActivityTransitionRequest(transitions);
 
 
         recognitionClient =  ActivityRecognition.getClient(getApplicationContext());
@@ -605,30 +624,29 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             return;
         }
 
-            Task<Void> task = recognitionClient.requestActivityTransitionUpdates(request, recognitionPendingIntent);
-            task.addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.e(TAG, "request recognition updates success");
-                    //Toast.makeText(getApplicationContext(), "Recognition started", Toast.LENGTH_LONG).show();
-                }
-            });
-            task.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    requestRecognitionUpdates();
+        Task<Void> task = recognitionClient.requestActivityTransitionUpdates(request, recognitionPendingIntent);
+        task.addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.e(TAG, "request recognition updates success");
+                //Toast.makeText(getApplicationContext(), "Recognition started", Toast.LENGTH_LONG).show();
+            }
+        });
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                requestRecognitionUpdates();
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1235");
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Activity Recognition Fail");
-                    FirebaseAnalytics.getInstance(getApplicationContext()).logEvent("Activity_Recognition_Fail", bundle);
-
-                    Log.e(TAG, "request recognition updates failed: " + e.getMessage());
-                    //Toast.makeText(getApplicationContext(), "Recognition failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-            });
-            //isRecognitionApiRunning = true;
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1235");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Activity Recognition Fail");
+                FirebaseAnalytics.getInstance(getApplicationContext()).logEvent("Activity_Recognition_Fail", bundle);
+                Log.e(TAG, "request recognition updates failed: " + e.getMessage());
+                //Toast.makeText(getApplicationContext(), "Recognition failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        });
+        //isRecognitionApiRunning = true;
 
     }
 
@@ -811,16 +829,16 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     Timer timerToStopTheTrip = new Timer();
     private void checkTripStartOrEndCalculation(){
         timerToStopTheTrip = new Timer();
-     timerToStopTheTrip.schedule(new TimerTask() {
-         @Override
-         public void run() {
-             // Code to run after the delay
-             isServiceBound = false;
-             stopLiveData();
-             activityCaptured = false;
-         }
-     }, 30000);
- }
+        timerToStopTheTrip.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Code to run after the delay
+                isServiceBound = false;
+                stopLiveData();
+                activityCaptured = false;
+            }
+        }, 30000);
+    }
 
 
     String detectedFastMovement = "We have detected fast movement and started tracking your trip.";
@@ -859,6 +877,12 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 //            checkRegisteredDeviceConnected(); // remove this method for removing bluetooth dependency
 
             // For removing bluetooth dependency add these lines
+
+
+            //  sendMyBroadcast(1);
+//            isServiceBound = true;
+//            isObdConnected = false;
+//            checkForVehicle("");
 
 
         }
@@ -958,7 +982,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             // builder.setOnlyAlertOnce(true); //to quietly update the notification
             builder.setWhen(System.currentTimeMillis());
             builder.setSmallIcon(R.drawable.notif_icon);
-            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon));
             builder.setPriority(Notification.PRIORITY_LOW);
             builder.setFullScreenIntent(pendingIntent, true);
 
@@ -1640,7 +1663,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 //If the end location is null, we will fetch the location. Then only start the trip.
                 if (endLocation == null) {
                     startBackGroundLocationService();
-                   startTripAfterDelay(15000);
+                    startTripAfterDelay(15000);
                     return;
 
                 } else {
@@ -1656,7 +1679,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 Log.e(TAG, purpose + " input json : " + jsonObject.toString());
 
                 if(networkCallback.isNetWorkAvailable)
-                call = apiService.uploadVehDetails(user.getUserAccessToken(), jsonObject);
+                    call = apiService.uploadVehDetails(user.getUserAccessToken(), jsonObject);
                 else {
                     startTripAfterDelay(35000);
                     return;
@@ -1821,6 +1844,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     checkBackGroundLocationServiceRunningOrNot();
                     return;
                 }
+
                 tripLatLongArrayList.clear();
                 break;
 
@@ -2190,6 +2214,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                     }
                                 }
                                 resetAllValues(true);
+
+
                                 String language = myPreferenece.getLang();
                                 textToSpeech.stop();
 
@@ -2202,6 +2228,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                         break;
 
                                 }
+
 //                                callSpeaker(tripEndedMsg);
                                 showNotification(tripEndedMsg);
 
@@ -2216,7 +2243,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                 } else {
                                     Log.e("WrapTxt", "context is not MainActivity or is null");
                                 }
-
 
 
                                 break;
@@ -2500,7 +2526,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             builder.setWhen(System.currentTimeMillis());
             builder.setOngoing(false);
             builder.setSmallIcon(R.drawable.notif_icon);
-            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon));
             builder.setPriority(Notification.PRIORITY_HIGH);
             builder.addAction(android.R.drawable.ic_search_category_default, "Check", pendingIntent);
             if (vhsScore == 100) {
@@ -2924,11 +2949,13 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     //callBackgroundService(1);
                     callServer(getResources().getString(R.string.tripupdate_url), "Update trip ", 14);
 
+
 //                  For removing bluetooth dependency comment or remove  callServer(getString(R.string.updateTripConnectedDevices).replace("tripId", currentTrip.getId()), "Update Trip Connected Devices", 22);
 
                     if(!isManualStart){
                         callServer(getString(R.string.updateTripConnectedDevices).replace("tripId", currentTrip.getId()), "Update Trip Connected Devices", 22);
                     }
+
                     //callBackgroundService(3);
                     if (selectedvehiclemodel != null) {
                         callServer(getResources().getString(R.string.UpdateVehDetails_Url).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Update vehicle ", 16);
@@ -2954,7 +2981,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 break;
         }
 
+
 //        callSpeaker(tripStartedMsg);
+
+
         showNotification(tracking);
     }
 
@@ -3860,7 +3890,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
 
     private void endTrip() {
-
         if (!networkCallback.isNetWorkAvailable) {
             return;
         }

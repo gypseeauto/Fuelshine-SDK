@@ -182,7 +182,7 @@ public class SettingsFragment extends Fragment {
 
         String versionName = pInfo.versionName;
 
-        settingsBinding.version.setText(getString(R.string.fuelshine_version)+versionName);
+        settingsBinding.version.setText(getString(R.string.fuelshine_version)+"1.0.87");
         
         settingsBinding.myvehicleLayout.setOnClickListener(new View.OnClickListener() {
             @Override

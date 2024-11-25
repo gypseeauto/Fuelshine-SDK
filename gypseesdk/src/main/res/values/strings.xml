@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--    <string name="app_name" translatable="false">Gypsee</string>-->
     <string name="app_name" translatable="false">Fuelshine</string>
+    <string name="fuel_shine" translatable="false">Fuelshine</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -260,7 +261,7 @@
     <string name="cerrada_de_fresnos">Cerrada de Fresnos</string>
     <string name="_0_00Rp">0.00₹</string>
     <string name="performance_title">Performance</string>
-    <string name="speeding">speeding</string>
+    <string name="speeding">Speeding</string>
     <string name="minutes_of_speeding">Minutes of speeding</string>
     <string name="hours_of_travel">Hours of travel</string>
     <string name="see_how_you_can_improve">See how you can improve</string>
@@ -278,7 +279,7 @@
     <string name="driving_performance">Driving Performance</string>
     <string name="number_of_unsafe_driving_events">Number of Unsafe Driving Events</string>
     <string name="harsh_acceleration">Harsh Acceleration</string>
-    <string name="harsh_breaking">Harsh Breaking</string>
+    <string name="harsh_breaking">Harsh Braking</string>
     <string name="text_amp_driving">"Text &amp; Driving"</string>
     <string name="was_trip_recorded_accurately_yes_or_no">Was trip recorded accurately ? Yes or No</string>
     <string name="write_to_us">Write to us</string>
@@ -340,7 +341,7 @@
     <string name="tarjeta_starbucks">Tarjeta Starbucks</string>
     <string name="braking">Braking</string>
     <string name="accelaration">Accelaration</string>
-    <string name="texting_and_drving">Texting and Drving</string>
+    <string name="texting_and_drving">Texting and Driving</string>
     <string name="this_alert_will_play_when_you_are_nspeeding">This alert will play when you are \nspeeding</string>
     <string name="this_alert_will_play_when_you_are_nharsh_braking">This alert will play when you are \nharsh braking</string>
     <string name="this_alert_will_play_when_you_are_nharsh_accelerating">This alert will play when you are \nharsh accelerating</string>
