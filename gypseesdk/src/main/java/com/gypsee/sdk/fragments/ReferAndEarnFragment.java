@@ -94,7 +94,7 @@ public class ReferAndEarnFragment extends Fragment implements View.OnClickListen
             Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
             whatsappIntent.setType("text/plain");
             whatsappIntent.setPackage("com.whatsapp");
-            whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Download Fuelshine App - " + "https://play.google.com/store/apps/details?id=in.gypsee.customer" + " Use referrral code : " + user.getReferCode());
+            whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Download Fuelshine App - " + "https://play.google.com/store/apps/details?id=app.fuelshine.fleet"+ " Use referrral code : " + user.getReferCode());
             try {
                 (/*(AppCompatActivity) */context).startActivity(whatsappIntent);
             } catch (ActivityNotFoundException ex) {
@@ -102,7 +102,7 @@ public class ReferAndEarnFragment extends Fragment implements View.OnClickListen
                     Intent newWhatsappIntent = new Intent(Intent.ACTION_SEND);
                     newWhatsappIntent.setType("text/plain");
                     newWhatsappIntent.setPackage("com.whatsapp.w4b");
-                    newWhatsappIntent.putExtra(Intent.EXTRA_TEXT, "Download Fuelshine App - " + "https://play.google.com/store/apps/details?id=in.gypsee.customer" + " Use referrral code : " + user.getReferCode());
+                    newWhatsappIntent.putExtra(Intent.EXTRA_TEXT, "Download Fuelshine App - " + "https://play.google.com/store/apps/details?id=app.fuelshine.fleet" + " Use referrral code : " + user.getReferCode());
                     context.startActivity(newWhatsappIntent);
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(context, "Whatsapp have not been installed.", Toast.LENGTH_LONG).show();

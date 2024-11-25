@@ -262,6 +262,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private WorkManager mWorkManager;
 
+    public void showEndTripBox(){
+        fragmentHomeBinding.wrapTripBox.setVisibility(View.VISIBLE);
+        Animation rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate);
+        fragmentHomeBinding.renewIcon.startAnimation(rotateAnimation);
+        fragmentHomeBinding.startTripBtn.setEnabled(false);
+
+//        fragmentHomeBinding.startTripBtn.setBackgroundColor();
+
+        Log.e("WrapTxt","Show WrapUp Text");
+    }
+
+    public void hideEndTripBox(){
+        fragmentHomeBinding.wrapTripBox.setVisibility(View.GONE);
+        fragmentHomeBinding.renewIcon.clearAnimation();
+        fragmentHomeBinding.startTripBtn.setEnabled(true);
+
+        Log.e("WrapTxt","Hide WrapUp Text");
+
+    }
 
 
 
@@ -370,39 +389,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    public void showEndTripBox(){
-        fragmentHomeBinding.wrapTripBox.setVisibility(View.VISIBLE);
-        Animation rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate);
-        fragmentHomeBinding.renewIcon.startAnimation(rotateAnimation);
-        fragmentHomeBinding.startTripBtn.setEnabled(false);
-
-//        fragmentHomeBinding.startTripBtn.setBackgroundColor();
-
-        Log.e("WrapTxt","Show WrapUp Text");
-    }
-
-    public void hideEndTripBox(){
-        fragmentHomeBinding.wrapTripBox.setVisibility(View.GONE);
-        fragmentHomeBinding.renewIcon.clearAnimation();
-        fragmentHomeBinding.startTripBtn.setEnabled(true);
-
-        Log.e("WrapTxt","Hide WrapUp Text");
-
-    }
-
     private void checkForeServiceInitializedOrNot() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (((GypseeMainActivity) requireActivity()).checkServiceRunning())
-                {
+                if (isAdded() && ((GypseeMainActivity) requireActivity()).checkServiceRunning()) {
                     connectWithForegroundService();
-                }else {
+                } else if (isAdded()) {
+                    // Re-run the check if the fragment is still attached
                     checkForeServiceInitializedOrNot();
                 }
             }
-        },3000L);
+        }, 3000L);
     }
+
+
+//    private void checkForeServiceInitializedOrNot() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (((MainActivity) requireActivity()).checkServiceRunning())
+//                {
+//                    connectWithForegroundService();
+//                }else {
+//                    checkForeServiceInitializedOrNot();
+//                }
+//            }
+//        },3000L);
+//    }
 
 
     private void showEndTripConfirmationDialog() {
@@ -645,7 +659,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 call = apiService.getFuelSavings(user.getUserAccessToken(), periodFrom, periodTo);
                 break;
 
-                //fetch init items
+            //fetch init items
             case 0:
                 //fetch product list
 //                loadNext = false;
@@ -841,7 +855,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fragmentHomeBinding.kmDrivenTv.setText(totalSafeKm);
         fragmentHomeBinding.safeKmPercent.setText(totalSafePercent + "%");
 
-        }
+    }
 
 
 
@@ -1314,7 +1328,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void loadRecyclerView() {
 //        if (fragmentHomeBinding.status.getBackground() == null) {
-            return;
+        return;
 //        }
 //        driveDetailsRecyclerAdapter = new DriveDetailsRecyclerAdapter(context, driveDetailsModelClasses);
 //        fragmentHomeBinding.driveDetailsRecyclerview.setAdapter(driveDetailsRecyclerAdapter);
@@ -1345,7 +1359,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()) + "\n" + StringFormater.capitalizeWord(tempVehiclemodel.getVehicleBrand().trim() + " " + tempVehiclemodel.getVehicleModel().trim()));
         }
 
-       fetchTodayDateAndFetchTrips();
+        fetchTodayDateAndFetchTrips();
 
     }
 
@@ -1385,7 +1399,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             LocalDate sevenDaysAgo = currentDate.minusDays(7);
 
             // Format the date string
-             dateString = sevenDaysAgo.format(formatter);
+            dateString = sevenDaysAgo.format(formatter);
 
             callGameServer(getResources().getString(R.string.gameLevel).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get Game Level",dateString,formattedDate,1);
 
@@ -1671,7 +1685,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //            fetchTrips();
 //            fetchTripsAndDisplay();
 
-           fetchTodayDateAndFetchTrips();
+            fetchTodayDateAndFetchTrips();
 
 
             fragmentHomeBinding.today.setBackground(getResources().getDrawable(R.drawable.hoy));
@@ -1692,7 +1706,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             General_RulesFragment rulesFragment = new General_RulesFragment();
 
-           requireActivity().getSupportFragmentManager().beginTransaction()
+            requireActivity().getSupportFragmentManager().beginTransaction()
                     .add(R.id.mainFrameLayout, rulesFragment)
                     .addToBackStack("General_RulesFragment")  // Optional: Add transaction to the back stack
                     .commit();
@@ -1724,7 +1738,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             } else {
                 // Bluetooth is enabled
-               // Toast.makeText(requireContext(), "Bluetooth is already enabled", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(requireContext(), "Bluetooth is already enabled", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -1739,8 +1753,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-//    List<TripRecord> records ;
-List<TripRecord> records = new ArrayList<>();
+    //    List<TripRecord> records ;
+    List<TripRecord> records = new ArrayList<>();
     private void fetchTripsAndDisplay() {
         records = new DatabaseHelper(context).fetchAllTripRecords();
 //If the current trip is not null,we will add the trip to the list.
@@ -2016,7 +2030,7 @@ List<TripRecord> records = new ArrayList<>();
                             instructionsArray.getJSONObject(0).getString("imageUrl"),
                             deviceName,
                             instructions
-                            );
+                    );
                 } else {
                     informationModel = new DeviceInformationModel("", "", "", instructions);
                 }
@@ -2243,7 +2257,7 @@ List<TripRecord> records = new ArrayList<>();
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             foregroundService = ((ForegroundService.ForegroundServiceBinder) service).getService();
-           checkStartTripButton();
+            checkStartTripButton();
         }
 
         @Override
@@ -3871,7 +3885,7 @@ List<TripRecord> records = new ArrayList<>();
 
 
 //            TripRecord tripRecord = new TripRecord(tripId, startDate, endDate, engineRpmMax, speed, engineRuntime, distanceCovered, alertsCount, startLat, startLong, endLat, endLong, startLocationName, destinationName, vhsScore, mileage, tripDuration, safeKm, lastUpdatedOn);
-             tripRecord = new TripRecord(tripId, startDate, endDate, engineRpmMax, speed, engineRuntime, distanceCovered, alertsCount, startLat, startLong, endLat, endLong, startLocationName, destinationName, vhsScore, mileage, tripDuration, safeKm, lastUpdatedOn,tripSavedAmount,tripSavingsCommission);
+            tripRecord = new TripRecord(tripId, startDate, endDate, engineRpmMax, speed, engineRuntime, distanceCovered, alertsCount, startLat, startLong, endLat, endLong, startLocationName, destinationName, vhsScore, mileage, tripDuration, safeKm, lastUpdatedOn,tripSavedAmount,tripSavingsCommission);
 
             new DatabaseHelper(context).insertTripRecord(tripRecord);
 
@@ -3879,7 +3893,7 @@ List<TripRecord> records = new ArrayList<>();
         }
 
 
-            fetchTripsAndDisplay();
+        fetchTripsAndDisplay();
     }
 
 
@@ -4116,7 +4130,7 @@ List<TripRecord> records = new ArrayList<>();
         JSONObject userJsonObject = jsonResponse.getJSONObject("user");
 
         String userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                userTypes, referCode, createdOn, lastUpdatedOn;
+                userTypes, referCode, createdOn, lastUpdatedOn, userAddresses;
 
         JSONObject userWallet = userJsonObject.has("userWallet")? userJsonObject.getJSONObject("userWallet") : null;
 
@@ -4137,6 +4151,7 @@ List<TripRecord> records = new ArrayList<>();
         referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
         createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
         lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
+        userAddresses = userJsonObject.has("userAddresses") ? userJsonObject.getString("userAddresses") : "";
         approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
         locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
         signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
@@ -4151,31 +4166,31 @@ List<TripRecord> records = new ArrayList<>();
         }
         if(subJsonObject != null){
 
-                boolean active = subJsonObject.has("active") && subJsonObject.getBoolean("active");
-                String couponCode = subJsonObject.has("couponCode") ? subJsonObject.getString("couponCode") : "";
-                String endDate = subJsonObject.has("endDate") ? subJsonObject.getString("endDate") : "";
-                String id = subJsonObject.has("id") ? subJsonObject.getString("id") : "";
-                String subLastUpdatedOn = subJsonObject.has("lastUpdatedOn") ? subJsonObject.getString("lastUpdatedOn") : "";
-                String startDate = subJsonObject.has("startDate") ? subJsonObject.getString("startDate") : "";
-                double paidAmount = subJsonObject.has("paidAmount") ? subJsonObject.getDouble("paidAmount") : 0;
-                double subscriptionAmount = subJsonObject.has("subscriptionAmount") ? subJsonObject.getDouble("subscriptionAmount") : 0;
-                double discountAmount = subJsonObject.has("discountAmount") ? subJsonObject.getDouble("discountAmount") : 0;
+            boolean active = subJsonObject.has("active") && subJsonObject.getBoolean("active");
+            String couponCode = subJsonObject.has("couponCode") ? subJsonObject.getString("couponCode") : "";
+            String endDate = subJsonObject.has("endDate") ? subJsonObject.getString("endDate") : "";
+            String id = subJsonObject.has("id") ? subJsonObject.getString("id") : "";
+            String subLastUpdatedOn = subJsonObject.has("lastUpdatedOn") ? subJsonObject.getString("lastUpdatedOn") : "";
+            String startDate = subJsonObject.has("startDate") ? subJsonObject.getString("startDate") : "";
+            double paidAmount = subJsonObject.has("paidAmount") ? subJsonObject.getDouble("paidAmount") : 0;
+            double subscriptionAmount = subJsonObject.has("subscriptionAmount") ? subJsonObject.getDouble("subscriptionAmount") : 0;
+            double discountAmount = subJsonObject.has("discountAmount") ? subJsonObject.getDouble("discountAmount") : 0;
 
-                if (!id.equals("")) {
+            if (!id.equals("")) {
 
-                    subscriptionModel = new SubscriptionModel(
-                            active,
-                            couponCode,
-                            createdOn,
-                            endDate,
-                            id,
-                            subLastUpdatedOn,
-                            startDate,
-                            discountAmount,
-                            subscriptionAmount,
-                            paidAmount
-                    );
-                }
+                subscriptionModel = new SubscriptionModel(
+                        active,
+                        couponCode,
+                        createdOn,
+                        endDate,
+                        id,
+                        subLastUpdatedOn,
+                        startDate,
+                        discountAmount,
+                        subscriptionAmount,
+                        paidAmount
+                );
+            }
 
         }
 
@@ -4294,4 +4309,5 @@ List<TripRecord> records = new ArrayList<>();
 
 
 }
+
 
