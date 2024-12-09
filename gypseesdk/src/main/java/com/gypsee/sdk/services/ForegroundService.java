@@ -412,7 +412,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     }
 
 
-    private void setupTTS() {
+        private void setupTTS() {
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -424,22 +424,19 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     String language = myPreferenece.getLang();
                     textToSpeech.stop();
 
-
-                    switch (language){
-
-                        case "hi":
-                            textToSpeech.speak("फ्यूल शाइन में आपका स्वागत है।" + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
-                            break;
-
-                        default:
-                            textToSpeech.speak("Welcome to Fuel Shine, " + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
-                            break;
-
-
+                    User user = myPreferenece.getUser();
+                    if (user != null && user.getUserFullName() != null) {
+                        switch (language) {
+                            case "hi":
+                                textToSpeech.speak("फ्यूल शाइन में आपका स्वागत है।" + user.getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+                                break;
+                            default:
+                                textToSpeech.speak("Welcome to Fuel Shine, " + user.getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+                                break;
+                        }
+                    } else {
+                        Log.e(TAG, "User or UserFullName is null");
                     }
-
-
-//                    textToSpeech.speak("Welcome to Fuel Shine, " + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
                 } else {
                     Log.e(TAG, "TTS failed");
                 }
@@ -447,9 +444,15 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         });
     }
 
-
-    private GeofencingRequest getGeofencingRequest(LatLng centerLatLng, float radius) {
+        private GeofencingRequest getGeofencingRequest(LatLng centerLatLng, float radius) {
         String GEOFENCE_REQUEST_ID = "GEOFENCE_REQUEST_ID";
+
+        // Handle the case where centerLatLng is null
+        if (centerLatLng == null) {
+            Log.e("GeofencingRequest", "centerLatLng is null, cannot create geofence.");
+            return null; // Return null or handle it appropriately
+        }
+
         Geofence.Builder builder = new Geofence.Builder()
                 .setRequestId(GEOFENCE_REQUEST_ID)
                 .setCircularRegion(centerLatLng.latitude, centerLatLng.longitude, radius)
