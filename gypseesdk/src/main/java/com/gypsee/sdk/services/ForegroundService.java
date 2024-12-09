@@ -121,12 +121,15 @@ import com.gypsee.sdk.io.ObdCommandJob;
 import com.gypsee.sdk.io.ObdGatewayService;
 import com.gypsee.sdk.io.TempTripData;
 import com.gypsee.sdk.models.BluetoothDeviceModel;
+import com.gypsee.sdk.models.GypseeThresholdValues;
 import com.gypsee.sdk.models.User;
 import com.gypsee.sdk.models.VehicleAlertModel;
 import com.gypsee.sdk.models.Vehiclemodel;
 import com.gypsee.sdk.network.InternetAccessThread;
+import com.gypsee.sdk.network.RetrofitClient;
 import com.gypsee.sdk.serverclasses.ApiClient;
 import com.gypsee.sdk.serverclasses.ApiInterface;
+import com.gypsee.sdk.serverclasses.GypseeApiService;
 import com.gypsee.sdk.threads.ConnectThread;
 import com.gypsee.sdk.trips.TripAlert;
 import com.gypsee.sdk.trips.TripRecord;
@@ -237,6 +240,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         dtcVals = getDict(R.array.dtc_keys, R.array.dtc_values);
 
         initApi = myPreferenece.getInitApi();
+
+        fetchThresholdValues();
 
         geofencingClient = LocationServices.getGeofencingClient(getApplicationContext());
         if (isServiceBound) {
@@ -411,6 +416,45 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         }
     }
 
+
+    private void fetchThresholdValues() {
+        GypseeApiService apiService = RetrofitClient.getRetrofitInstance().create(GypseeApiService.class);
+        Call<GypseeThresholdValues> call = apiService.getThresholdValues();
+
+        call.enqueue(new Callback<GypseeThresholdValues>() {
+            @Override
+            public void onResponse(Call<GypseeThresholdValues> call, Response<GypseeThresholdValues> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    GypseeThresholdValues values = response.body();
+                    GypseeThresholdValues.Alerts alerts = values.getAlerts();
+
+
+                    Log.d(TAG, "Harsh Acceleration: " + alerts.getHarshAcceleration());
+                    Log.d(TAG, "Harsh Braking: " + alerts.getHarshBraking());
+                    Log.d(TAG, "Overspeed: " + alerts.getOverspeed());
+
+                    harshAccelaration = alerts.getHarshAcceleration();
+                    harshDecelaration = alerts.getHarshBraking();
+                    maxSpeed = alerts.getOverspeed();
+
+                    addLog("Harsh Acceleration: " + alerts.getHarshAcceleration());
+                    addLog("Harsh Braking: " + alerts.getHarshBraking());
+                    addLog("Overspeed: " + alerts.getOverspeed());
+
+
+                } else {
+                    addLog("Threshold Response was not successful");
+                    Log.e(TAG, "Threshold Response was not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GypseeThresholdValues> call, Throwable t) {
+                Log.e(TAG, "Failed to fetch threshold values", t);
+                addLog("Failed to fetch threshold values"+t);
+            }
+        });
+    }
 
         private void setupTTS() {
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -1618,7 +1662,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     private ArrayList<String> troubleCodes = new ArrayList<>();
     private ArrayList<String> temptroubleCodes = new ArrayList<>();
 
-    int maxSpeed = 90;
+//    int maxSpeed = 90;
+    int maxSpeed;
     String maximumspeed = "01 km/hr";
     int currentRPM = 0;
     int maxEngineRPM = 3000, maximumRPM = 0;
@@ -3244,7 +3289,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     JsonArray angles = new JsonArray();
     boolean isReset;
     //private float harshAccelaration = 9.88f, harshDecelaration = -10.94f;
-    private float harshAccelaration = 10.23f, harshDecelaration = -16.58f;
+//    private float harshAccelaration = 10.23f, harshDecelaration = -16.58f;
+    private Double harshAccelaration, harshDecelaration;
 
 
     private void addTripAlertToArray(TripAlert temporaryAccAlert) {
