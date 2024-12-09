@@ -77,8 +77,13 @@ public class TripBackGroundService extends IntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Ensures the service is restarted if the system kills it
-
         Log.e(TAG, "onStartCommand: " );
+
+        if (intent == null) {
+            Log.e(TAG, "Received null intent");
+            stopSelf(); // Stop the service if intent is null
+            return START_NOT_STICKY; // Use START_NOT_STICKY to avoid restarting the service unnecessarily
+        }
 
         String purpose = intent.getStringExtra(PURPOSE);
         if (purpose == null) {

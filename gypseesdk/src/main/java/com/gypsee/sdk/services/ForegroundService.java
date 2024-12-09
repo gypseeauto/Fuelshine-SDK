@@ -412,6 +412,22 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     }
 
 
+//    private void setupTTS() {
+//        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+//            @Override
+//            public void onInit(int status) {
+//                if (status != TextToSpeech.ERROR) {
+//                    Log.e(TAG, "TTS initialized");
+//                    Locale deviceLocale = getResources().getConfiguration().locale;
+//                    textToSpeech.setLanguage(deviceLocale);
+//                    textToSpeech.speak("Welcome to Fuel Shine, " + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+//                } else {
+//                    Log.e(TAG, "TTS failed");
+//                }
+//            }
+//        });
+//    }
+
     private void setupTTS() {
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -420,7 +436,23 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     Log.e(TAG, "TTS initialized");
                     Locale deviceLocale = getResources().getConfiguration().locale;
                     textToSpeech.setLanguage(deviceLocale);
-                    textToSpeech.speak("Welcome to Fuel Shine, " + myPreferenece.getUser().getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+
+                    String language = myPreferenece.getLang();
+                    textToSpeech.stop();
+
+                    User user = myPreferenece.getUser();
+                    if (user != null && user.getUserFullName() != null) {
+                        switch (language) {
+                            case "hi":
+                                textToSpeech.speak("फ्यूल शाइन में आपका स्वागत है।" + user.getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+                                break;
+                            default:
+                                textToSpeech.speak("Welcome to Fuel Shine, " + user.getUserFullName(), TextToSpeech.QUEUE_FLUSH, null, null);
+                                break;
+                        }
+                    } else {
+                        Log.e(TAG, "User or UserFullName is null");
+                    }
                 } else {
                     Log.e(TAG, "TTS failed");
                 }
@@ -429,8 +461,32 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     }
 
 
+
+//    private GeofencingRequest getGeofencingRequest(LatLng centerLatLng, float radius) {
+//        String GEOFENCE_REQUEST_ID = "GEOFENCE_REQUEST_ID";
+//        Geofence.Builder builder = new Geofence.Builder()
+//                .setRequestId(GEOFENCE_REQUEST_ID)
+//                .setCircularRegion(centerLatLng.latitude, centerLatLng.longitude, radius)
+//                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
+//                .setExpirationDuration(Geofence.NEVER_EXPIRE);
+//
+//        GeofencingRequest.Builder requestBuilder = new GeofencingRequest.Builder();
+//        requestBuilder.setInitialTrigger(0);
+//        requestBuilder.addGeofence(builder.build());
+//
+//        return requestBuilder.build();
+//    }
+
+
     private GeofencingRequest getGeofencingRequest(LatLng centerLatLng, float radius) {
         String GEOFENCE_REQUEST_ID = "GEOFENCE_REQUEST_ID";
+
+        // Handle the case where centerLatLng is null
+        if (centerLatLng == null) {
+            Log.e("GeofencingRequest", "centerLatLng is null, cannot create geofence.");
+            return null; // Return null or handle it appropriately
+        }
+
         Geofence.Builder builder = new Geofence.Builder()
                 .setRequestId(GEOFENCE_REQUEST_ID)
                 .setCircularRegion(centerLatLng.latitude, centerLatLng.longitude, radius)

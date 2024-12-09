@@ -465,28 +465,30 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
         return true;
     }
 
-
     private void initTopAppBar() {
-
         User user = myPreferenece.getUser();
-        Log.e(TAG, "Firebasetoken : " + myPreferenece.getStringData(MyPreferenece.FCM_TOKEN));
-//        latLongModelArrayList.clear();
-        // calling new triplist
+
+        // Log Firebase token
+        Log.e(TAG, "Firebase token : " + myPreferenece.getStringData(MyPreferenece.FCM_TOKEN));
 
         user = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, getApplicationContext()).getUser();
 
-        if (user.getUserImg().contains("http"))
+        // Check if user is not null and has a valid image URL
+        if (user != null && user.getUserImg() != null && user.getUserImg().contains("http")) {
             Glide
                     .with(getApplicationContext())
                     .load(user.getUserImg())
                     .placeholder(R.drawable.ic_profile)
                     .centerInside()
                     .into(activityMainBinding.topBar.profileImage);
-
+        } else {
+            Log.e(TAG, "User or user image is null");
+            activityMainBinding.topBar.profileImage.setImageResource(R.drawable.ic_profile);
+        }
         activityMainBinding.topBar.profileImgHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        startActivity(new Intent(GypseeMainActivity.this, ProfileActivity.class));
+                startActivity(new Intent(GypseeMainActivity.this, ProfileActivity.class));
             }
         });
     }

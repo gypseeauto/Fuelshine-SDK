@@ -884,7 +884,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             MixpanelAPI.People people = mixpanelAPI.getPeople();
             PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
 
-            JSONObject initProperties = new JSONObject(); //set properties once
+            JSONObject initProperties = new JSONObject();
             initProperties.put(MixpanelUtils.USER_NAME, user.getUserFullName());
             initProperties.put(MixpanelUtils.USER_EMAIL, user.getUserEmail());
             initProperties.put(MixpanelUtils.USER_PHONE, user.getUserPhoneNumber());
@@ -894,7 +894,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             updateProperties.put(MixpanelUtils.USER_TRAINING_MODE, user.isInTrainingMode());
 
             JSONArray deniedPermissionJSONArray = new JSONArray();
-
             for (String item : fetchDeniedPermissions()) {
                 deniedPermissionJSONArray.put(item);
             }
@@ -902,17 +901,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             updateProperties.put(MixpanelUtils.USER_DENIED_PHONE_PERMISSIONS, deniedPermissionJSONArray);
             updateProperties.put(MixpanelUtils.USER_BATTERY_OPTIMIZATION_DISABLED, powerManager.isIgnoringBatteryOptimizations(context.getPackageName()));
 
+            Log.d("Mixpanel", "initProperties: " + initProperties.toString());
+            Log.d("Mixpanel", "updateProperties: " + updateProperties.toString());
+
             people.setOnce(initProperties);
             people.set(updateProperties);
             mixpanelAPI.flush();
 
-
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (UnsupportedOperationException e) {
+            Log.e("Mixpanel", "UnsupportedOperationException: " + e.getMessage());
         }
-
-
     }
+
 
 
     private List<String> fetchDeniedPermissions() {
