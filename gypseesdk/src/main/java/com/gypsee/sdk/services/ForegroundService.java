@@ -231,17 +231,29 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this);
-        maxSpeed = Integer.parseInt(defaultSharedPreferences.getString(ConfigActivity.over_speed_preference, "90"));
+//        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+//        maxSpeed = Integer.parseInt(defaultSharedPreferences.getString(ConfigActivity.over_speed_preference, "90"));
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
+        double thresholdAcceleration = Double.parseDouble(sharedPreferences.getString("harsh_acceleration", "0"));
+        double thresholdBraking = Double.parseDouble(sharedPreferences.getString("harsh_braking", "0"));
+        double thresholdSpeed = Double.parseDouble(sharedPreferences.getString("overspeed", "0"));
+
+        harshAccelaration = thresholdAcceleration;
+        harshDecelaration = thresholdBraking;
+        maxSpeed = (int) thresholdSpeed;
+
+//        addLog("Harsh Acceleration: " + harshAccelaration);
+//        addLog("Harsh Braking: " + harshDecelaration);
+//        addLog("Overspeed: " + maxSpeed);
+
 
         myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, this);
         Log.e(TAG, ": " );
         dtcVals = getDict(R.array.dtc_keys, R.array.dtc_values);
 
         initApi = myPreferenece.getInitApi();
-
-        fetchThresholdValues();
 
         geofencingClient = LocationServices.getGeofencingClient(getApplicationContext());
         if (isServiceBound) {
@@ -414,46 +426,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         } else {
             sendMyBroadcast(7);
         }
-    }
-
-
-    private void fetchThresholdValues() {
-        GypseeApiService apiService = RetrofitClient.getRetrofitInstance().create(GypseeApiService.class);
-        Call<GypseeThresholdValues> call = apiService.getThresholdValues();
-
-        call.enqueue(new Callback<GypseeThresholdValues>() {
-            @Override
-            public void onResponse(Call<GypseeThresholdValues> call, Response<GypseeThresholdValues> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    GypseeThresholdValues values = response.body();
-                    GypseeThresholdValues.Alerts alerts = values.getAlerts();
-
-
-                    Log.d(TAG, "Harsh Acceleration: " + alerts.getHarshAcceleration());
-                    Log.d(TAG, "Harsh Braking: " + alerts.getHarshBraking());
-                    Log.d(TAG, "Overspeed: " + alerts.getOverspeed());
-
-                    harshAccelaration = alerts.getHarshAcceleration();
-                    harshDecelaration = alerts.getHarshBraking();
-                    maxSpeed = alerts.getOverspeed();
-
-                    addLog("Harsh Acceleration: " + alerts.getHarshAcceleration());
-                    addLog("Harsh Braking: " + alerts.getHarshBraking());
-                    addLog("Overspeed: " + alerts.getOverspeed());
-
-
-                } else {
-                    addLog("Threshold Response was not successful");
-                    Log.e(TAG, "Threshold Response was not successful");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GypseeThresholdValues> call, Throwable t) {
-                Log.e(TAG, "Failed to fetch threshold values", t);
-                addLog("Failed to fetch threshold values"+t);
-            }
-        });
     }
 
         private void setupTTS() {
@@ -4151,7 +4123,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(ConfigActivity.over_speed_preference)) {
-            maxSpeed = Integer.parseInt(sharedPreferences.getString(key, "90"));
+//            maxSpeed = Integer.parseInt(sharedPreferences.getString(key, "90"));
         }
     }
 
