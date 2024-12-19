@@ -418,6 +418,7 @@
     <string name="fuel_savings_message">You could have saved Rupees %1$.2f on this trip driving fuel efficiently.</string>
     <string name="fuel_use_efficient"> Good job ! Fuel use was efficient</string>
     <string name="fuel_saving_app">Fuel Saving App</string>
+    <string name="sdk_version">1.0.8.9</string>
 
 
 </resources>

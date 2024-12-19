@@ -145,8 +145,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Cou
 
 
     private void initGmailOptions() {
-        // Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        if (GypseeSdk.googleClientId == null || GypseeSdk.googleClientId.isEmpty()) {
+            Log.e(TAG, "Google Client ID is null or empty. Cannot initialize Google Sign-In.");
+            return;
+        }
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(GypseeSdk.googleClientId)
                 .requestEmail()

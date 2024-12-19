@@ -774,6 +774,12 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
     private void callServerTogetAppversions(JsonObject jsonObject, final int value, final String purpose) {
         ApiInterface apiService = ApiClient.getRetrofitInstance(GypseeMainActivity.this).create(ApiInterface.class);
         User user = myPreferenece.getUser();
+
+        if (user == null) {
+            Log.e(TAG, "User is null. Cannot proceed with API call.");
+            return;
+        }
+
         Call<ResponseBody> call;
         Log.e(TAG, purpose + " input : " + jsonObject.toString());
         switch (value) {

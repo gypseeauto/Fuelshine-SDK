@@ -113,18 +113,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.e("TripMileage",Mileage);
         Log.e("singleTripRecord",tripRecord.toString());
 
-        fragmentTripdetailsBinding.recenterButton.setOnClickListener(v -> {
-            if (!routeCoordinates.isEmpty()) {
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                for (LatLng latLng : routeCoordinates) {
-                    builder.include(latLng);
-                }
-                LatLngBounds bounds = builder.build();
-                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-            } else {
-                Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        fragmentTripdetailsBinding.recenterButton.setOnClickListener(v -> {
+//            if (!routeCoordinates.isEmpty()) {
+//                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//                for (LatLng latLng : routeCoordinates) {
+//                    builder.include(latLng);
+//                }
+//                LatLngBounds bounds = builder.build();
+//                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+//            } else {
+//                Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 //        fragmentTripdetailsBinding.kmValue2.setText(tripRecord.getDistanceCovered());
@@ -266,6 +266,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        fragmentTripdetailsBinding.recenterButton.setOnClickListener(v -> {
+            if(isLoaded){
+
+                if (!routeCoordinates.isEmpty()) {
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                    for (LatLng latLng : routeCoordinates) {
+                        builder.include(latLng);
+                    }
+                    LatLngBounds bounds = builder.build();
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                } else {
+                    Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
+                }
+
+            }else {
+                Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+    }
+
+    boolean isLoaded = false;
 
     private void showFeedbackDialog() {
         try {
@@ -469,6 +497,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         switch (value) {
                             case 0:
                                 parselatLngOfTrip(responseStr);
+                                isLoaded = true;
                                 break;
                             case 1:
                                 parseFetchDrivingALerts(responseStr);
