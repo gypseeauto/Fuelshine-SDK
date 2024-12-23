@@ -3202,7 +3202,17 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
 
     public void refreshRegisteredDevices() {
-        callServer(getString(R.string.updateRegisteredDevices).replace("userId", myPreferenece.getUser().getUserId()), "Update Registered Devices", 20);
+//        callServer(getString(R.string.updateRegisteredDevices).replace("userId", myPreferenece.getUser().getUserId()), "Update Registered Devices", 20);
+
+        User user = myPreferenece.getUser();
+        if (user != null) {
+            String userId = user.getUserId();
+            String url = getString(R.string.updateRegisteredDevices).replace("userId", userId);
+            callServer(url, "Update Registered Devices", 20);
+        } else {
+            Log.e(TAG, "User is null. Cannot refresh registered devices.");
+        }
+
     }
 
 

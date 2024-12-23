@@ -173,7 +173,6 @@ public class SettingsFragment extends Fragment {
         ((GypseeMainActivity) requireActivity()).showBottomNav();
 
 
-
         try {
             pInfo = requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
@@ -182,7 +181,7 @@ public class SettingsFragment extends Fragment {
 
         String versionName = pInfo.versionName;
 
-        settingsBinding.version.setText(getString(R.string.fuelshine_version)+"1.0.87");
+        settingsBinding.version.setText(getString(R.string.fuelshine_version)+getString(R.string.sdk_version));
         
         settingsBinding.myvehicleLayout.setOnClickListener(new View.OnClickListener() {
             @Override

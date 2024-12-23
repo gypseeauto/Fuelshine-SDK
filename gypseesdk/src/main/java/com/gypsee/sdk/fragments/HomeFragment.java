@@ -823,7 +823,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         JSONObject gameLevelObj = jsonObject.getJSONObject("gameLevel");
 
-        String level = gameLevelObj.has("gameLevel") ?gameLevelObj.getString("gameLevel"):"";
+        String level = gameLevelObj.has("gameLevel") ?gameLevelObj.getString("gameLevel"):"0";
         String totalSafePercent = gameLevelObj.getString("totalSafeKmPercent");
         String totalSafeKm = gameLevelObj.getString("totalSafeKms");
 
@@ -1353,12 +1353,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fragmentHomeBinding.setOdbDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.obd_disconnected, null));
 
         ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(context).fetchAllVehicles();
+//        if (vehiclemodelArrayList.size() == 0) {
+//            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()));
+//        } else {
+//            Vehiclemodel tempVehiclemodel = vehiclemodelArrayList.get(0);
+//            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()) + "\n" + StringFormater.capitalizeWord(tempVehiclemodel.getVehicleBrand().trim() + " " + tempVehiclemodel.getVehicleModel().trim()));
+//        }
+
         if (vehiclemodelArrayList.size() == 0) {
-            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()));
+            String userFullName = user.getUserFullName();
+            String displayName = (userFullName != null) ? StringFormater.capitalizeWord(userFullName) : "User";
+            fragmentHomeBinding.setUserName("Hola, " + displayName);
         } else {
             Vehiclemodel tempVehiclemodel = vehiclemodelArrayList.get(0);
-            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()) + "\n" + StringFormater.capitalizeWord(tempVehiclemodel.getVehicleBrand().trim() + " " + tempVehiclemodel.getVehicleModel().trim()));
+
+            String userFullName = user.getUserFullName();
+            String vehicleBrand = tempVehiclemodel.getVehicleBrand();
+            String vehicleModel = tempVehiclemodel.getVehicleModel();
+
+            String displayName = (userFullName != null) ? StringFormater.capitalizeWord(userFullName) : "User";
+            String vehicleBrandName = (vehicleBrand != null) ? StringFormater.capitalizeWord(vehicleBrand.trim()) : "Unknown Brand";
+            String vehicleModelName = (vehicleModel != null) ? StringFormater.capitalizeWord(vehicleModel.trim()) : "Unknown Model";
+
+            fragmentHomeBinding.setUserName("Hola, " + displayName + "\n" + vehicleBrandName + " " + vehicleModelName);
         }
+
 
         fetchTodayDateAndFetchTrips();
 
