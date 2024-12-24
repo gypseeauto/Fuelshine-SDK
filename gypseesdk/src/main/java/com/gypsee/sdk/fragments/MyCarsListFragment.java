@@ -1,5 +1,7 @@
 package com.gypsee.sdk.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 import com.gypsee.sdk.Adapters.CarListRecyclerViewAdapter;
 import com.gypsee.sdk.R;
@@ -42,10 +45,13 @@ import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.database.DatabaseHelper;
 
 import com.gypsee.sdk.jsonParser.ResponseFromServer;
+import com.gypsee.sdk.models.GypseeThresholdValues;
 import com.gypsee.sdk.models.User;
 import com.gypsee.sdk.models.Vehiclemodel;
+import com.gypsee.sdk.network.RetrofitClient;
 import com.gypsee.sdk.serverclasses.ApiClient;
 import com.gypsee.sdk.serverclasses.ApiInterface;
+import com.gypsee.sdk.serverclasses.GypseeApiService;
 import com.gypsee.sdk.services.TripBackGroundService;
 import com.gypsee.sdk.utils.Utils;
 import okhttp3.ResponseBody;
@@ -135,8 +141,85 @@ public class MyCarsListFragment extends Fragment implements View.OnClickListener
         fetchVehiclesFromDb();
         checkCarListCount();
 
+        ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+
+        if (!vehiclemodelArrayList.isEmpty()) {
+            fetchThresholdValues();
+        }
+
 
         return view;
+    }
+
+    private void fetchThresholdValues() {
+        GypseeApiService apiService = RetrofitClient.getRetrofitInstance().create(GypseeApiService.class);
+        Call<GypseeThresholdValues> call = apiService.getThresholdValues();
+
+        call.enqueue(new Callback<GypseeThresholdValues>() {
+            @Override
+            public void onResponse(Call<GypseeThresholdValues> call, Response<GypseeThresholdValues> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    GypseeThresholdValues values = response.body();
+                    Map<String, GypseeThresholdValues.Alert> alerts = values.getAlerts();
+
+                    // Fetch all vehicles from the database
+                    ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+
+                    if (!vehiclemodelArrayList.isEmpty()) {
+                        String vehicleClass = vehiclemodelArrayList.get(0).getVehicleClass();  // Get the class of the first vehicle
+                        Log.e("Added Vehicle", "Added Vehicle is = " + vehiclemodelArrayList.get(0).getVehicleName());
+
+
+                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        boolean matchFound = false;
+
+                        for (Map.Entry<String, GypseeThresholdValues.Alert> entry : alerts.entrySet()) {
+                            String vehicleType = entry.getKey();  // "LMV-NT", "MGV", "HGMV"
+                            GypseeThresholdValues.Alert alert = entry.getValue();
+
+                            Log.d("Config Values", vehicleType + " Harsh Acceleration: " + alert.getHarshAccelaration());
+                            Log.d("Config Values", vehicleType + " Harsh Braking: " + alert.getHarshBraking());
+                            Log.d("Config Values", vehicleType + " Harsh Cornering: " + alert.getHarshCornering());
+                            Log.d("Config Values", vehicleType + " Overspeed: " + alert.getOverspeeding());
+
+                            if (vehicleClass.equals(vehicleType)) {
+                                editor.putString("harsh_acceleration", String.valueOf(alert.getHarshAccelaration()));
+                                editor.putString("harsh_braking", String.valueOf(alert.getHarshBraking()));
+                                editor.putString("overspeed", String.valueOf(alert.getOverspeeding()));
+                                matchFound = true;
+                                break;
+                            }
+                        }
+
+
+                        if (!matchFound) {
+                            GypseeThresholdValues.Alert defaultAlert = alerts.get("LMV-NT");
+                            if (defaultAlert != null) {
+                                Log.d("Config Values", "No match found, using default values for LMV-NT.");
+                                editor.putString("harsh_acceleration", String.valueOf(defaultAlert.getHarshAccelaration()));
+                                editor.putString("harsh_braking", String.valueOf(defaultAlert.getHarshBraking()));
+                                editor.putString("overspeed", String.valueOf(defaultAlert.getOverspeeding()));
+                            } else {
+                                Log.e("Config Values", "Default LMV-NT values not found in the response.");
+                            }
+                        }
+
+                        editor.apply();
+                    } else {
+                        Log.e("Config Values", "No vehicles found in the database.");
+                    }
+                } else {
+                    Log.e("Config Values", "Threshold Response was not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GypseeThresholdValues> call, Throwable t) {
+                Log.e("Config Values", "Failed to fetch threshold values", t);
+            }
+        });
     }
 
     private void callBackgroundServicetoFetchCars() {
@@ -312,6 +395,11 @@ public class MyCarsListFragment extends Fragment implements View.OnClickListener
                 showProgressView(false);
                 fetchVehiclesFromDb();
                 checkCarListCount();
+
+                ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+                if (!vehiclemodelArrayList.isEmpty()) {
+                    fetchThresholdValues();
+                }
 
             } else if (intent.getAction().equals("ShowProgress")) {
                 fetchUserVehicles();
