@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface GypseeApiService {
-    @GET("privacy/gypseeThresholdValues.json")
+    @GET("privacy/gypseeconfigv2.json")
     Call<GypseeThresholdValues> getThresholdValues();
 }

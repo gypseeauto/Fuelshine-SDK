@@ -224,6 +224,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     public void setContext(Context context) {
         this.context = context;
     }
+    private boolean isConfigCalled =false;
+
 
 
     private NetworkConnectionCallback networkCallback;
@@ -235,14 +237,13 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 //        defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 //        maxSpeed = Integer.parseInt(defaultSharedPreferences.getString(ConfigActivity.over_speed_preference, "90"));
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
-        double thresholdAcceleration = Double.parseDouble(sharedPreferences.getString("harsh_acceleration", "0"));
-        double thresholdBraking = Double.parseDouble(sharedPreferences.getString("harsh_braking", "0"));
-        double thresholdSpeed = Double.parseDouble(sharedPreferences.getString("overspeed", "0"));
+        if (harshAccelaration != null || harshDecelaration != null){
+            isConfigCalled = true;
+        }
 
-        harshAccelaration = thresholdAcceleration;
-        harshDecelaration = thresholdBraking;
-        maxSpeed = (int) thresholdSpeed;
+        if (!isConfigCalled){
+            fetchConfigValues();
+        }
 
 //        addLog("Harsh Acceleration: " + harshAccelaration);
 //        addLog("Harsh Braking: " + harshDecelaration);
@@ -859,6 +860,33 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         }, 30000);
     }
 
+    private void fetchConfigValues(){
+
+        // Get values from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
+        double thresholdAcceleration = Double.parseDouble(sharedPreferences.getString("harsh_acceleration", "0"));
+        double thresholdBraking = Double.parseDouble(sharedPreferences.getString("harsh_braking", "0"));
+        double thresholdSpeed = Double.parseDouble(sharedPreferences.getString("overspeed", "0"));
+
+        harshAccelaration = thresholdAcceleration;
+        harshDecelaration = thresholdBraking;
+        maxSpeed = (int) thresholdSpeed;
+//        maxSpeed = 25;
+
+        if(harshAccelaration != null && harshDecelaration != null && maxSpeed != 0){
+            isConfigCalled = true;
+        }
+
+//        Log.d(TAG, "Harsh Acceleration: " + harshAccelaration);
+//        Log.d(TAG, "Harsh Braking: " + harshDecelaration);
+//        Log.d(TAG, "Overspeed: " + maxSpeed);
+//
+//        addLog("Harsh Acceleration: " + harshAccelaration);
+//        addLog("Harsh Braking: " + harshDecelaration);
+//        addLog("Overspeed: " + maxSpeed);
+
+    }
+
 
     String detectedFastMovement = "We have detected fast movement and started tracking your trip.";
 
@@ -872,6 +900,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 resetAllValues(false);
                 isManualStart = true;
 
+                if (!isConfigCalled){
+                    fetchConfigValues();
+                }
+
                 showNotification(detectedFastMovement);
                 isServiceBound = true;
                 isObdConnected = false;
@@ -881,7 +913,9 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             } else {
 
                 resetAllValues(false);
-
+                if (!isConfigCalled){
+                    fetchConfigValues();
+                }
 
                 showNotification(detectedFastMovement);
                 checkBluetoothAndConnect(); // remove this method for removing bluetooth dependency

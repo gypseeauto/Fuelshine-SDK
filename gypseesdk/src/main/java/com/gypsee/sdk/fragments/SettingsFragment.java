@@ -93,7 +93,6 @@ public class SettingsFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,9 +185,6 @@ public class SettingsFragment extends Fragment {
         settingsBinding.myvehicleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
                 // Create the new fragment instance
                 MyCarsListFragment myCarsListFragment = new MyCarsListFragment();
 
