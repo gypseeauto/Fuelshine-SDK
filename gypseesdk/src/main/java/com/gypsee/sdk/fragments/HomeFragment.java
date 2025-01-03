@@ -330,7 +330,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
 
-        Log.e("userdate",user.getCreatedOn());
+//        Log.e("userdate",user.getCreatedOn());
 
 
 
@@ -1389,71 +1389,66 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void fetchThresholdValues() {
         GypseeApiService apiService = RetrofitClient.getRetrofitInstance().create(GypseeApiService.class);
-        Call<GypseeThresholdValues> call = apiService.getThresholdValues();
+        Call<ResponseBody> call = apiService.getThresholdValuesRaw();
 
-        call.enqueue(new Callback<GypseeThresholdValues>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<GypseeThresholdValues> call, Response<GypseeThresholdValues> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    GypseeThresholdValues values = response.body();
-                    Map<String, GypseeThresholdValues.Alert> alerts = values.getAlerts();
+                    try {
+                        // Parse the response as a String
+                        String jsonResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(jsonResponse);
 
-                    // Fetch all vehicles from the database
-                    ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+                        // Extract the "alerts" object
+                        JSONObject alertsObject = jsonObject.optJSONObject("alerts");
 
-                    if (!vehiclemodelArrayList.isEmpty()) {
-                        String vehicleClass = vehiclemodelArrayList.get(0).getVehicleClass();  // Get the class of the first vehicle
-                        Log.e("Added Vehicle", "Added Vehicle is = " + vehiclemodelArrayList.get(0).getVehicleName());
+                        // Fetch all vehicles from the database
+                        ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
 
+                        if (!vehiclemodelArrayList.isEmpty()) {
+                            String vehicleClass = vehiclemodelArrayList.get(0).getVehicleClass();  // Get the class of the first vehicle
+                            Log.e("Vehicle Info", "Added Vehicle is: " + vehiclemodelArrayList.get(0).getVehicleName());
 
-                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                        boolean matchFound = false;
-
-                        for (Map.Entry<String, GypseeThresholdValues.Alert> entry : alerts.entrySet()) {
-                            String vehicleType = entry.getKey();  // "LMV-NT", "MGV", "HGMV"
-                            GypseeThresholdValues.Alert alert = entry.getValue();
-
-                            Log.d("Config Values", vehicleType + " Harsh Acceleration: " + alert.getHarshAccelaration());
-                            Log.d("Config Values", vehicleType + " Harsh Braking: " + alert.getHarshBraking());
-                            Log.d("Config Values", vehicleType + " Harsh Cornering: " + alert.getHarshCornering());
-                            Log.d("Config Values", vehicleType + " Overspeed: " + alert.getOverspeeding());
-
-                            if (vehicleClass.equals(vehicleType)) {
-                                editor.putString("harsh_acceleration", String.valueOf(alert.getHarshAccelaration()));
-                                editor.putString("harsh_braking", String.valueOf(alert.getHarshBraking()));
-                                editor.putString("overspeed", String.valueOf(alert.getOverspeeding()));
-                                matchFound = true;
-                                break;
-                            }
-                        }
-
-
-                        if (!matchFound) {
-                            GypseeThresholdValues.Alert defaultAlert = alerts.get("LMV-NT");
-                            if (defaultAlert != null) {
-                                Log.d("Config Values", "No match found, using default values for LMV-NT.");
-                                editor.putString("harsh_acceleration", String.valueOf(defaultAlert.getHarshAccelaration()));
-                                editor.putString("harsh_braking", String.valueOf(defaultAlert.getHarshBraking()));
-                                editor.putString("overspeed", String.valueOf(defaultAlert.getOverspeeding()));
+                            // Check if the alertsObject contains the vehicleClass
+                            if (alertsObject.has(vehicleClass)) {
+                                JSONObject alertObject = alertsObject.optJSONObject(vehicleClass);
+                                if (alertObject != null) {
+                                    Log.d("Threshold Match", "Matching alert found for vehicle type: " + vehicleClass);
+                                    editor.putString("harsh_acceleration", alertObject.optString("harsh_acceleration", "0"));
+                                    editor.putString("harsh_braking", alertObject.optString("harsh_braking", "0"));
+                                    editor.putString("overspeed", alertObject.optString("overspeed", "0"));
+                                }
                             } else {
-                                Log.e("Config Values", "Default LMV-NT values not found in the response.");
+                                // Default to "LMV-NT" if no match is found
+                                JSONObject defaultAlert = alertsObject.optJSONObject("LMV-NT");
+                                if (defaultAlert != null) {
+                                    Log.d("Threshold Default", "No match found, using default values for LMV-NT.");
+                                    editor.putString("harsh_acceleration", defaultAlert.optString("harsh_acceleration", "0"));
+                                    editor.putString("harsh_braking", defaultAlert.optString("harsh_braking", "0"));
+                                    editor.putString("overspeed", defaultAlert.optString("overspeed", "0"));
+                                } else {
+                                    Log.e("Threshold Error", "Default LMV-NT values not found in the response.");
+                                }
                             }
+                            editor.apply();
+                        } else {
+                            Log.e("Vehicle Info", "No vehicles found in the database.");
                         }
-
-                        editor.apply();
-                    } else {
-                        Log.e("Config Values", "No vehicles found in the database.");
+                    } catch (Exception e) {
+                        Log.e("Parsing Error", "Failed to parse the threshold values", e);
                     }
                 } else {
-                    Log.e("Config Values", "Threshold Response was not successful");
+                    Log.e("Response Error", "Threshold Response was not successful.");
                 }
             }
 
             @Override
-            public void onFailure(Call<GypseeThresholdValues> call, Throwable t) {
-                Log.e("Config Values", "Failed to fetch threshold values", t);
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Network Error", "Failed to fetch threshold values", t);
             }
         });
     }

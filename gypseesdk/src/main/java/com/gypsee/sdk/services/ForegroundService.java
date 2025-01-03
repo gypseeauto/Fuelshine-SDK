@@ -99,6 +99,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.google.gson.JsonParser;
 import com.gypsee.sdk.R;
 import com.gypsee.sdk.activities.ConfigActivity;
 import com.gypsee.sdk.activities.GypseeMainActivity;
@@ -108,6 +109,8 @@ import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.config.ObdConfig;
 import com.gypsee.sdk.database.DatabaseExecutor;
 import com.gypsee.sdk.database.DatabaseHelper;
+import com.gypsee.sdk.database.DrivingAlert;
+import com.gypsee.sdk.database.TripAlert;
 import com.gypsee.sdk.database.TripDatabase;
 import com.gypsee.sdk.database.TripLatLong;
 import com.gypsee.sdk.enums.EcoSpeedEnums;
@@ -131,7 +134,6 @@ import com.gypsee.sdk.serverclasses.ApiClient;
 import com.gypsee.sdk.serverclasses.ApiInterface;
 import com.gypsee.sdk.serverclasses.GypseeApiService;
 import com.gypsee.sdk.threads.ConnectThread;
-import com.gypsee.sdk.trips.TripAlert;
 import com.gypsee.sdk.trips.TripRecord;
 import com.gypsee.sdk.utils.Constants;
 import com.gypsee.sdk.utils.FleetSocketConnection;
@@ -224,12 +226,11 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     public void setContext(Context context) {
         this.context = context;
     }
-    private boolean isConfigCalled =false;
-
 
 
     private NetworkConnectionCallback networkCallback;
     private ConnectivityManager connectivityManager;
+    private boolean isConfigCalled =false;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -245,16 +246,15 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             fetchConfigValues();
         }
 
-//        addLog("Harsh Acceleration: " + harshAccelaration);
-//        addLog("Harsh Braking: " + harshDecelaration);
-//        addLog("Overspeed: " + maxSpeed);
-
-
         myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, this);
         Log.e(TAG, ": " );
         dtcVals = getDict(R.array.dtc_keys, R.array.dtc_values);
 
         initApi = myPreferenece.getInitApi();
+
+        if (tripDatabase == null) {
+            tripDatabase = TripDatabase.getDatabase(ForegroundService.this);
+        }
 
         geofencingClient = LocationServices.getGeofencingClient(getApplicationContext());
         if (isServiceBound) {
@@ -380,7 +380,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             }
         });
     }
-
     private boolean isManualStart;
 
     public void endManualTrip() {
@@ -429,7 +428,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         }
     }
 
-        private void setupTTS() {
+
+    private void setupTTS() {
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -461,7 +461,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         });
     }
 
-        private GeofencingRequest getGeofencingRequest(LatLng centerLatLng, float radius) {
+    private GeofencingRequest getGeofencingRequest(LatLng centerLatLng, float radius) {
         String GEOFENCE_REQUEST_ID = "GEOFENCE_REQUEST_ID";
 
         // Handle the case where centerLatLng is null
@@ -661,6 +661,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1235");
                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Activity Recognition Fail");
                 FirebaseAnalytics.getInstance(getApplicationContext()).logEvent("Activity_Recognition_Fail", bundle);
+
                 Log.e(TAG, "request recognition updates failed: " + e.getMessage());
                 //Toast.makeText(getApplicationContext(), "Recognition failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 e.printStackTrace();
@@ -877,13 +878,15 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             isConfigCalled = true;
         }
 
-//        Log.d(TAG, "Harsh Acceleration: " + harshAccelaration);
-//        Log.d(TAG, "Harsh Braking: " + harshDecelaration);
-//        Log.d(TAG, "Overspeed: " + maxSpeed);
-//
-//        addLog("Harsh Acceleration: " + harshAccelaration);
-//        addLog("Harsh Braking: " + harshDecelaration);
-//        addLog("Overspeed: " + maxSpeed);
+
+        // Use these values in your service logic
+        Log.d(TAG, "Harsh Acceleration: " + harshAccelaration);
+        Log.d(TAG, "Harsh Braking: " + harshDecelaration);
+        Log.d(TAG, "Overspeed: " + maxSpeed);
+
+        addLog("Harsh Acceleration: " + harshAccelaration);
+        addLog("Harsh Braking: " + harshDecelaration);
+        addLog("Overspeed: " + maxSpeed);
 
     }
 
@@ -897,12 +900,11 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
             Log.e(TAG, "onActivityCaptured: " + "checkBluetoothAndConnect");
             if (isManualStart) {
-                resetAllValues(false);
-                isManualStart = true;
-
                 if (!isConfigCalled){
                     fetchConfigValues();
                 }
+                resetAllValues(false);
+                isManualStart = true;
 
                 showNotification(detectedFastMovement);
                 isServiceBound = true;
@@ -1252,13 +1254,13 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         if (rpm > maximumRPM)
             maximumRPM = rpm;
         if (rpm < maxEngineRPM && engineAlert != null) {
-            new DatabaseHelper(getApplicationContext()).insertTripAlert(engineAlert);
             addTripAlertToArray(engineAlert);
             engineAlert = null;
         }
         if (rpm > maxEngineRPM) {
 
-            engineAlert = engineAlert == null ? new TripAlert("High RPM", rpm + " RPM", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "") : engineAlert;
+//            engineAlert = engineAlert == null ? new TripAlert("High RPM", rpm + " RPM", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "") : engineAlert;
+            engineAlert = engineAlert == null ? new com.gypsee.sdk.database.TripAlert("High RPM", rpm + " RPM", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "",currentTrip.getId()) : engineAlert;
 
             if (rpm > Integer.parseInt(engineAlert.getAlertValue().replace(" RPM", ""))) {
                 engineAlert.setAlertValue(rpm + " RPM");
@@ -1668,7 +1670,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     private ArrayList<String> troubleCodes = new ArrayList<>();
     private ArrayList<String> temptroubleCodes = new ArrayList<>();
 
-//    int maxSpeed = 90;
+    //    int maxSpeed = 25;
     int maxSpeed;
     String maximumspeed = "01 km/hr";
     int currentRPM = 0;
@@ -1800,7 +1802,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 for (String troubleCode :
                         troubleCodes) {
                     for (int i = 0; i < vehicleAlertModelArrayList.size(); i++) {
-
                         if (vehicleAlertModelArrayList.get(i).getTroubleCode().equalsIgnoreCase(troubleCode)) {
                             vehicleAlertModelArrayList.remove(i);
                             i = i - 1;
@@ -1833,6 +1834,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
                 jsonObject.addProperty("tripId", currentTrip.getId());
                 jsonObject.add("alerts", tempdrivingAlerts);
+
+                addLog("Driving Alerts Input = "+tempdrivingAlerts);
+                Log.e("Driving Alerts Input =","Driving Alerts Input = "+tempdrivingAlerts);
+
                 call = apiService.uploadVehDetails(user.getUserAccessToken(), jsonObject);
 
                 break;
@@ -1847,6 +1852,16 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 }
                 jsonObject.addProperty("tripId", currentTrip.getId());
                 jsonObject.add("alerts", ecoSpeedAlerts);
+
+
+//                List<TripAlert>  tripAlerts =  tripDatabase.tripAlertDao().getTripAlertsByTripId(currentTrip.getId());
+
+
+//                jsonObject.addProperty("alerts");
+
+                addLog("Eco Alerts input :  "+ecoSpeedAlerts.toString());
+                Log.e("Eco Alerts input : ","Eco Alerts input : "+ecoSpeedAlerts);
+
                 call = apiService.uploadVehDetails(user.getUserAccessToken(), jsonObject);
 
                 break;
@@ -1864,7 +1879,18 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 jsonObject.addProperty("userID", user.getUserId());
                 JsonArray dataArray = new JsonArray();
 
-                tempTripLatLongArrayList.addAll(tripLatLongArrayList);
+
+//                tempTripLatLongArrayList.addAll(tripLatLongArrayList);
+
+//                if (networkCallback.isNetWorkAvailable){
+//                    tempTripLatLongArrayList.addAll(tripLatLongArrayList);
+//                }else {
+//                    tempTripLatLongArrayList.addAll(tripDatabase.tripDao().getTripsLatLongByTripId(currentTrip.getId()));
+//                }
+
+
+                tempTripLatLongArrayList.addAll(tripDatabase.tripDao().getTripsLatLongByTripId(currentTrip.getId()));
+
 
 
                 // tripDatabase.tripDao().deleteTripsByTripId(currentTrip.getId());
@@ -1877,18 +1903,53 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 addLog("Trip distance while uploading data to gps = " + tripDistanceFromGPSm + " time = " + getTime());
 //                addLog("TripLatLong tripsLatLong size : " + tripsLatlong.size() + " time = " + getTime()) ;
 
-                for (TripLatLong tripLatLongById : tempTripLatLongArrayList) {
+//                for (TripLatLong tripLatLongById : tempTripLatLongArrayList) {
+//                    JsonObject dataObj = new JsonObject();
+//                    dataObj.addProperty("latitude", tripLatLongById.getLatitude());
+//                    dataObj.addProperty("longitude", tripLatLongById.getLongitude());
+//                    dataObj.addProperty("createdOn", tripLatLongById.getTime());
+////                    addLog("Trip Update lat long = latitude = " + tripLatLongById.getLatitude() + " longitude = " + tripLatLongById.getLongitude() + " Time = " + getTime());
+//                    dataArray.add(dataObj);
+//                }
+
+                for (TripLatLong tripLatLongById : tripDatabase.tripDao().getTripsLatLongByTripId(currentTrip.getId())){
+
                     JsonObject dataObj = new JsonObject();
                     dataObj.addProperty("latitude", tripLatLongById.getLatitude());
                     dataObj.addProperty("longitude", tripLatLongById.getLongitude());
                     dataObj.addProperty("createdOn", tripLatLongById.getTime());
 //                    addLog("Trip Update lat long = latitude = " + tripLatLongById.getLatitude() + " longitude = " + tripLatLongById.getLongitude() + " Time = " + getTime());
                     dataArray.add(dataObj);
+
+                    addLog("Uploading Stored lat long = " + "latitude = " + tripLatLongById.getLatitude()  + "longitude = " + tripLatLongById.getLongitude() + "createdOn = " + tripLatLongById.getTime());
+                    Log.e("Uploading Stored lat long","Uploading Stored lat long = " + "latitude = " + tripLatLongById.getLatitude()  + "longitude = " + tripLatLongById.getLongitude() + "createdOn = " + tripLatLongById.getTime());
+
                 }
 
+
                 jsonObject.add("data", dataArray);
+
+                addLog("data Array = "+ dataArray);
+
+
+
                 //If the array size is 2, then we need to call this.
                 // So that he can atleast call the API and calcualte the distance.
+
+
+//                List<DrivingAlert> storedAlerts = tripDatabase.drivingAlertDao().getDrivingAlertsByTripId(currentTrip.getId());
+//
+//                List<TripAlert> unsyncedAlerts = tripDatabase.tripAlertDao().getTripAlertsByTripId(currentTrip.getId());
+//
+//                if (!storedAlerts.isEmpty()){
+//                    syncDataWithServer();
+//                }
+//
+//                if (!unsyncedAlerts.isEmpty()){
+//                    syncEcoAlertsDataWithServer();
+//                }
+
+
 
 
                 if (tempTripLatLongArrayList.size() > 2) {
@@ -1898,6 +1959,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     checkBackGroundLocationServiceRunningOrNot();
                     return;
                 }
+
+//                tripDatabase.tripDao().deleteTripsByTripId(currentTrip.getId());
 
                 tripLatLongArrayList.clear();
                 break;
@@ -1949,6 +2012,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
                 resetVhsParamsOnTripUpdate();
 
+
                 Log.e(TAG, "Mileage end trip: " + mileage);
                 if (purpose.equalsIgnoreCase("end trip")) {
                     if (mileage != 0) {
@@ -1990,7 +2054,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                     jsonObject.addProperty("vinAvl", true);
                 } else {
                     jsonObject.addProperty("vinAvl", false);
-
                 }
 
                /* jsonObject.addProperty("odoMeterRdg", vehiclemodel.getOdoMeterRdg());
@@ -2115,6 +2178,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 call = apiService.getUser(user.getUserAccessToken(), true);
                 break;
 
+            case 25 :
+                Log.e(TAG,"Distance Recalculate Api Called");
+                call = apiService.getDistanceRecalculation(user.getUserAccessToken(), currentTrip.getId());
+                break;
 
             default:
                 //fragmentHomeBinding.progressLayout.setVisibility(View.VISIBLE);
@@ -2171,7 +2238,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                                 String startLongitude = userTripDetails.getString("startLongitude");
                                 String startTime = userTripDetails.getString("startTime");
 
-                                currentTrip = new TripRecord(tripID, startTime, null, 0, 0, "0", "0", 0, startLatitude, startLongitude, null, null, "NA", "NA", 0, 0, 0, 0, "NA", "0", "0");
+                                currentTrip = new TripRecord(tripID, startTime, null, 0, 0, "0", "0", 0, startLatitude, startLongitude, null, null, "OnGoing Trip", "NA", 0, 0, 0, 0, "NA", "0", "0");
                                 sendMyBroadcast(0);
                                 sendMyBroadcast(3);
 
@@ -2235,7 +2302,15 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                             case 10:
                                 //Clear temporary lat long model array list.
                                 tempTripLatLongArrayList.clear();
+
+                                if (tripDatabase == null) {
+                                    tripDatabase = TripDatabase.getDatabase(ForegroundService.this);
+                                }
                                 parseGPSDistance(responseStr);
+                                tripDatabase.tripDao().deleteTripsByTripId(currentTrip.getId());
+                                tripDatabase.drivingAlertDao().deleteDrivingAlertByTripId(currentTrip.getId());
+
+
 
                                 //Parse GPS calculate for a trip.
                                 // parseFetchTripsResponse(responseStr);
@@ -2333,6 +2408,11 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                             case 24:
                                 parseLoginRegisterResponse(responseStr);
                                 break;
+                            case 25:
+                                Log.e(TAG,"Distance Recalculated Successful");
+                                addLog("Distance Recalculated Successful");
+                                break;
+
 
                         }
                     }
@@ -2771,7 +2851,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
         commandResult.put("TRIP_DISTANCE", String.valueOf(tripDistanceFromGPSm));
         currentTrip.setDistanceCovered(tripDistanceFromGPSm + "");
-
         sendMyBroadcast(3);
 
         /*if (isTriponeKmPopUpNotShown && tripDistanceFromGPSm >= 1) {
@@ -2959,12 +3038,16 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
         uploadGpCalcTimer = new Timer();
 
-        uploadGpCalcTimer.scheduleAtFixedRate(new TimerTask() {
+        uploadGpCalcTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 try {
                     if (currentTrip != null) {
-                        callServer(getString(R.string.gpsTripDistance), "Upload GPS for trip calculation", 10);
+                        if (currentTrip != null) {
+                            if (networkCallback.isNetWorkAvailable) {
+                                callServer(getString(R.string.gpsTripDistance), "Upload GPS for trip calculation", 10);
+                            }
+                        }
 
                     }
                 } catch (Exception e) {
@@ -2985,6 +3068,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         }
         if (currentTrip != null) {
             tripDatabase.tripDao().deleteTripsByTripId(currentTrip.getId());
+            tripDatabase.drivingAlertDao().deleteDrivingAlertByTripId(currentTrip.getId());
         }
         tripLatLongArrayList.clear();
         //initMyCsvWriter();
@@ -3237,7 +3321,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     public void refreshRegisteredDevices() {
 //        callServer(getString(R.string.updateRegisteredDevices).replace("userId", myPreferenece.getUser().getUserId()), "Update Registered Devices", 20);
-
         User user = myPreferenece.getUser();
         if (user != null) {
             String userId = user.getUserId();
@@ -3246,7 +3329,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         } else {
             Log.e(TAG, "User is null. Cannot refresh registered devices.");
         }
-
     }
 
 
@@ -3296,7 +3378,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     private List<Date> gpsWithIntervals = new ArrayList<>();
     private ArrayList<Integer> speeds = new ArrayList<>();
 
-    TripAlert temporaryAccAlert, tempDecAlert;
+    com.gypsee.sdk.database.TripAlert temporaryAccAlert, tempDecAlert;
 
     JsonArray drivingAlerts = new JsonArray();
     JsonArray ecoSpeedAlerts = new JsonArray();
@@ -3309,65 +3391,236 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     private Double harshAccelaration, harshDecelaration;
 
 
-    private void addTripAlertToArray(TripAlert temporaryAccAlert) {
+    private void addTripAlertToArray(com.gypsee.sdk.database.TripAlert temporaryAccAlert) {
 
-        JsonObject jsonObject = new JsonObject();
-        if (currentTrip != null && selectedvehiclemodel != null) {
-            jsonObject.addProperty("alert_Type", temporaryAccAlert.getAlertType());
-            jsonObject.addProperty("alert_value", temporaryAccAlert.getAlertValue());
-            jsonObject.addProperty("alert_description", "");
+        if (networkCallback.isNetWorkAvailable) {
+            JsonObject jsonObject = new JsonObject();
+            if (currentTrip != null && selectedvehiclemodel != null) {
+                jsonObject.addProperty("alert_Type", temporaryAccAlert.getAlertType());
+                jsonObject.addProperty("alert_value", temporaryAccAlert.getAlertValue());
+                jsonObject.addProperty("alert_description", "");
 
-            int chnageInspeed = Integer.parseInt(temporaryAccAlert.getAlertValue().replace(" RPM", "").replace(" km/hr", ""));
+                int chnageInspeed = Integer.parseInt(temporaryAccAlert.getAlertValue().replace(" RPM", "").replace(" km/hr", ""));
 
-            if (temporaryAccAlert.getAlertType().contains("Harsh")) {
-                jsonObject.addProperty("g_force", (chnageInspeed * 0.028) + "m/sec2");
+                if (temporaryAccAlert.getAlertType().contains("Harsh")) {
+                    jsonObject.addProperty("g_force", (chnageInspeed * 0.028) + "m/sec2");
 
-            } else {
-                jsonObject.addProperty("g_force", "");
+                } else {
+                    jsonObject.addProperty("g_force", "");
+                }
+                jsonObject.addProperty("time_stamp", temporaryAccAlert.getTimeStamp());
+                jsonObject.addProperty("time_interval", temporaryAccAlert.getTimeInterval());
+                jsonObject.addProperty("lat", endLocation.getLatitude());
+                jsonObject.addProperty("long", endLocation.getLongitude());
+                jsonObject.add("impact", angles);
+                currentTrip.setAlertCount(currentTrip.getAlertCount() + 1);
+                sendMyBroadcast(3);
+
             }
-            jsonObject.addProperty("time_stamp", temporaryAccAlert.getTimeStamp());
-            jsonObject.addProperty("time_interval", temporaryAccAlert.getTimeInterval());
-            jsonObject.addProperty("lat", endLocation.getLatitude());
-            jsonObject.addProperty("long", endLocation.getLongitude());
-            jsonObject.add("impact", angles);
-            currentTrip.setAlertCount(currentTrip.getAlertCount() + 1);
-            sendMyBroadcast(3);
+            drivingAlerts.add(jsonObject.toString());
+            if (currentTrip != null && drivingAlerts.size() > 0) {
 
-        }
-        drivingAlerts.add(jsonObject.toString());
-        if (currentTrip != null && drivingAlerts.size() > 0) {
+                Date timeD = new Date(temporaryAccAlert.getTimeStamp());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timeStamp = sdf.format(timeD);
+                tempdrivingAlerts.addAll(drivingAlerts);
+                drivingAlerts = new JsonArray();
 
-            Date timeD = new Date(temporaryAccAlert.getTimeStamp());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String timeStamp = sdf.format(timeD);
-            tempdrivingAlerts.addAll(drivingAlerts);
-            drivingAlerts = new JsonArray();
-            callServer(getString(R.string.addDrivingAlerturl).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Add driving alerts", 6);
+                callServer(getString(R.string.addDrivingAlerturl).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Add driving alerts", 6);
+
+                addLog("Network Available : The alert json is = " + drivingAlerts);
+            }
+
+        } else {
+            // Only store specific alert types locally when the network is unavailable
+            String alertType = temporaryAccAlert.getAlertType();
+//            if (!alertType.equals("BelowEcoSpeed") && !alertType.equals("EcoSpeed") )
+            if (alertType.equals("AboveEcoSpeed") || alertType.equals("Harsh Accelaration") || alertType.equals("Harsh Braking") || alertType.equals("Overspeed") || alertType.equals("TextAndDrive"))
+            {
+
+                int changeInSpeed = Integer.parseInt(temporaryAccAlert.getAlertValue().replace(" RPM", "").replace(" km/hr", ""));
+
+                DrivingAlert tripAlert = new DrivingAlert("", "", "", "", 0, 0, 0, "", "");
+                tripAlert.setAlertType(alertType);
+                tripAlert.setAlertValue(temporaryAccAlert.getAlertValue());
+                tripAlert.setTimeInterval(temporaryAccAlert.getTimeInterval());
+                tripAlert.setTimeStamp(temporaryAccAlert.getTimeStamp());
+                tripAlert.setLat(endLocation.getLatitude());
+                tripAlert.setTripId(currentTrip.getId());
+                tripAlert.setImpact(angles.toString());
+                tripAlert.setLng(Double.parseDouble(String.valueOf(endLocation.getLongitude())));
+                tripAlert.setgForce(alertType.contains("Harsh") ? (changeInSpeed * 0.028) + "m/sec2" : "");
+
+                addLog("Network not Available: Stored driving alert = " + temporaryAccAlert.getAlertType() + " time interval = "+temporaryAccAlert.getTimeInterval());
+
+
+                // Insert into Room database
+                new Thread(() -> {
+                    tripDatabase.drivingAlertDao().insertDrivingAlert(tripAlert);
+                    addLog("Network Unavailable: Saved driving alert locally = " + tripAlert.getAlertType());
+                }).start();
+            } else {
+//                addLog("Network Unavailable: Skipped saving alert since it doesn't match the driving alert types.");
+            }
         }
     }
 
 
-    private void addVehicleEcoSpeed(TripAlert ecoSpeedAlert) {
 
-        JsonObject jsonObject = new JsonObject();
-        if (currentTrip != null && selectedvehiclemodel != null) {
-            jsonObject.addProperty("alert_Type", ecoSpeedAlert.getAlertType());
-            jsonObject.addProperty("alert_value", ecoSpeedAlert.getAlertValue());
-            jsonObject.addProperty("alert_description", "");
-            jsonObject.addProperty("g_force", "");
-            jsonObject.addProperty("time_stamp", ecoSpeedAlert.getTimeStamp());
-            jsonObject.addProperty("time_interval", ecoSpeedAlert.getTimeInterval());
-            jsonObject.addProperty("lat", endLocation.getLatitude());
-            jsonObject.addProperty("long", endLocation.getLongitude());
-            ecoSpeedAlerts.add(jsonObject);
 
-        }
-        if (currentTrip != null) {
 
-            callServer(getString(R.string.vehicleEcoSpeedApi).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Add EcoSpeed alerts", 7);
+    private void syncDataWithServer() {
+        if (networkCallback.isNetWorkAvailable) {
+            new Thread(() -> {
+                List<DrivingAlert> storedAlerts = tripDatabase.drivingAlertDao().getDrivingAlertsByTripId(currentTrip.getId());
 
+                Gson gson = new Gson();
+                for (DrivingAlert alert : storedAlerts) {
+
+                    String alertType = alert.getAlertType();
+//                    if (!alertType.equals("BelowEcoSpeed") && !alertType.equals("EcoSpeed") )
+                    if (alertType.equals("AboveEcoSpeed") || alertType.equals("Harsh Accelaration") || alertType.equals("Harsh Braking") || alertType.equals("Overspeed") || alertType.equals("TextAndDrive"))
+                    {
+
+                        addLog("storing alert type = "+alert.getAlertType() + " alert value = " + alert.getAlertValue() );
+
+                        String impactString = alert.getImpact();
+                        JsonArray impactJsonArray = JsonParser.parseString(impactString).getAsJsonArray();
+
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("alert_Type", alert.getAlertType());
+                        jsonObject.addProperty("alert_value", alert.getAlertValue());
+                        jsonObject.addProperty("time_stamp", alert.getTimeStamp());
+                        jsonObject.addProperty("time_interval", alert.getTimeInterval());
+                        jsonObject.addProperty("lat", alert.getLat());
+                        jsonObject.add("impact", impactJsonArray);
+                        jsonObject.addProperty("long", alert.getLng());
+                        jsonObject.addProperty("g_force", alert.getgForce());
+                        currentTrip.setAlertCount(currentTrip.getAlertCount() + 1);
+                        sendMyBroadcast(3);
+
+                        drivingAlerts.add(jsonObject.toString());
+
+//                        tempdrivingAlerts.add(gson.toJson(jsonObject));
+
+                        addLog("Stored Driving alert = " + alert.getAlertType() + " time interval = "+ alert.getTimeInterval());
+                    }
+
+                }
+                tempdrivingAlerts.addAll(drivingAlerts);
+                drivingAlerts = new JsonArray();
+
+
+                // Call server for each alert
+                callServer(getString(R.string.addDrivingAlerturl).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Add driving alerts", 6);
+                // After successful sync, delete alerts from the database
+                tripDatabase.drivingAlertDao().deleteDrivingAlertByTripId(currentTrip.getId());
+                addLog("Network Available: Synced alerts with server and deleted from local storage.");
+            }).start();
+        } else {
+            addLog("No network available for syncing data with server.");
         }
     }
+
+
+
+
+
+
+    private void addVehicleEcoSpeed(com.gypsee.sdk.database.TripAlert ecoSpeedAlert) {
+
+        if (networkCallback.isNetWorkAvailable) {
+            JsonObject jsonObject = new JsonObject();
+            if (currentTrip != null && selectedvehiclemodel != null) {
+                jsonObject.addProperty("alert_Type", ecoSpeedAlert.getAlertType());
+                jsonObject.addProperty("alert_value", ecoSpeedAlert.getAlertValue());
+                jsonObject.addProperty("alert_description", "");
+                jsonObject.addProperty("g_force", "");
+                jsonObject.addProperty("time_stamp", ecoSpeedAlert.getTimeStamp());
+                jsonObject.addProperty("time_interval", ecoSpeedAlert.getTimeInterval());
+                jsonObject.addProperty("lat", endLocation.getLatitude());
+                jsonObject.addProperty("long", endLocation.getLongitude());
+                ecoSpeedAlerts.add(jsonObject);
+
+                addLog("Network Available stored eco speed alert = "+ecoSpeedAlert.getAlertType() + " time interval = " + ecoSpeedAlert.getTimeInterval());
+
+            }
+
+            if (networkCallback.isNetWorkAvailable) {
+                if (currentTrip != null) {
+                    addLog("Network is Available. The Eco Speed alert json is = " + ecoSpeedAlerts.toString());
+                    callServer(getString(R.string.vehicleEcoSpeedApi).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Add EcoSpeed alerts", 7);
+                }
+            }
+        } else {
+            // Only store specific alert types when the network is unavailable
+            String alertType = ecoSpeedAlert.getAlertType();
+            if ( alertType.equals("EcoSpeed") || alertType.equals("BelowEcoSpeed") )
+            {
+
+                // If not connected, store the data in the local database
+                storeEcoSpeedAlertLocally(ecoSpeedAlert);
+            } else {
+
+            }
+        }
+    }
+
+
+    private void storeEcoSpeedAlertLocally(TripAlert ecoSpeedAlert) {
+        com.gypsee.sdk.database.TripAlert tripAlert = new com.gypsee.sdk.database.TripAlert(ecoSpeedAlert.getAlertType(), ecoSpeedAlert.getAlertValue(), ecoSpeedAlert.getTimeInterval(), ecoSpeedAlert.getgForce(), ecoSpeedAlert.getTimeStamp(), endLocation.getLatitude(), endLocation.getLongitude(), "", currentTrip.getId());
+
+        new Thread(() -> {
+            addLog("Network is not  Available. The Eco Speed alert json is = " + tripAlert);
+//            db.tripAlertDao().insert(tripAlertEntity);
+            tripDatabase.tripAlertDao().insertTripAlert(tripAlert);
+        }).start();
+    }
+
+
+    public void syncEcoAlertsDataWithServer() {
+        new Thread(() -> {
+            List<com.gypsee.sdk.database.TripAlert> unsyncedAlerts = tripDatabase.tripAlertDao().getTripAlertsByTripId(currentTrip.getId());
+
+//            JsonObject jsonObject = new JsonObject();
+            Gson gson = new Gson();  // Using Gson to serialize objects
+            for (com.gypsee.sdk.database.TripAlert alert : unsyncedAlerts) {
+
+                String alertType = alert.getAlertType();
+                if( alertType.equals("EcoSpeed") || alertType.equals("BelowEcoSpeed") ) {
+
+                    // Create JSON object to send to the server
+                    JsonObject jsonObject = new JsonObject();
+
+                    jsonObject.addProperty("alert_Type", alert.getAlertType());
+                    jsonObject.addProperty("alert_value", alert.getAlertValue());
+                    jsonObject.addProperty("alert_description", "");
+                    jsonObject.addProperty("g_force", "");
+                    jsonObject.addProperty("time_stamp", alert.getTimeStamp());
+                    jsonObject.addProperty("time_interval", alert.getTimeInterval());
+                    jsonObject.addProperty("lat", alert.getLat());
+                    jsonObject.addProperty("long", alert.getLng());
+
+
+//                ecoSpeedAlerts.add(gson.toJson(jsonObject));
+                    ecoSpeedAlerts.add(jsonObject);
+                    addLog("Network not Available stored eco speed alert = "+alert.getAlertType() + " time interval = " + alert.getTimeInterval());
+
+//                addLog("Stored ecospeed alert gson = "+gson.toJson(jsonObject));
+                    addLog("Stored ecospeed alert json = " + jsonObject);
+                }
+                // Delete the alert after successful sync
+//                db.tripAlertDao().deleteAlertById(alert.id);
+            }
+            // Send to the server
+            if (currentTrip != null) {
+                callServer(getString(R.string.vehicleEcoSpeedApi).replace("vehicleId", selectedvehiclemodel.getUserVehicleId()), "Add EcoSpeed alerts", 7);
+            }
+            tripDatabase.tripAlertDao().deleteByTripId(currentTrip.getId());
+        }).start();
+    }
+
+
 
     private SharedPreferences sharedPreferences;
 
@@ -3452,7 +3705,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
             Log.e(TAG, "Harsh deceleration");
             if (tempDecAlert == null) {
-                tempDecAlert = new TripAlert("Harsh Braking", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.28 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
+//                tempDecAlert = new TripAlert("Harsh Braking", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.28 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
+                tempDecAlert = new com.gypsee.sdk.database.TripAlert("Harsh Braking", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.28 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "",currentTrip.getId());
                 tempDecAlert.setInitialSpeed(speed);
 
             } else {
@@ -3469,7 +3723,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
             Log.e(TAG, "Harsh Acceleration");
             showNotification(harshAccelerationDetected);
-
 
             String language = myPreferenece.getLang();
 
@@ -3506,7 +3759,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 //            }
 
             if (temporaryAccAlert == null) {
-                temporaryAccAlert = new TripAlert("Harsh Accelaration", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.028 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
+//                temporaryAccAlert = new TripAlert("Harsh Accelaration", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.028 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
+                temporaryAccAlert = new com.gypsee.sdk.database.TripAlert("Harsh Accelaration", changeInSpeed + " km/hr", TimeUtils.getTimeIndhms(timeDiff), changeInSpeed * 0.028 + " m/sec2", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(),"",currentTrip.getId());
                 temporaryAccAlert.setInitialSpeed(speed);
             } else {
                 if (TimeUtils.calcDiffTimeInSec(new Date(temporaryAccAlert.getTimeStamp()), new Date()) == 0)
@@ -3523,7 +3777,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
             //Upload harsh Accelaration data
             if (temporaryAccAlert != null) {
-                new DatabaseHelper(getApplicationContext()).insertTripAlert(temporaryAccAlert);
                 addTripAlertToArray(temporaryAccAlert);
                 temporaryAccAlert = null;
 
@@ -3532,7 +3785,6 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             }
             if (tempDecAlert != null) {
                 //Upload harsh braking data
-                new DatabaseHelper(getApplicationContext()).insertTripAlert(tempDecAlert);
                 addTripAlertToArray(tempDecAlert);
                 tempDecAlert = null;
                 /*if (fragmentHomeBinding.alertsLayout.alerts.getBackground() != null)
@@ -3588,7 +3840,8 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 showNotification(overspeeding);
             }
 
-            overSpeedAlert = overSpeedAlert == null ? new TripAlert("Overspeed", speed + " km/hr", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "") : overSpeedAlert;
+//            overSpeedAlert = overSpeedAlert == null ? new TripAlert("Overspeed", speed + " km/hr", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "") : overSpeedAlert;
+            overSpeedAlert = overSpeedAlert == null ? new com.gypsee.sdk.database.TripAlert("Overspeed", speed + " km/hr", "", "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "",currentTrip.getId()) : overSpeedAlert;
 
             if (speed > Integer.parseInt(overSpeedAlert.getAlertValue().replace(" km/hr", ""))) {
                 overSpeedAlert.setAlertValue(speed + " km/hr");
@@ -3608,9 +3861,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     //Here we are sending overspeed alert to server
     private void sendOverSpeedAlertToserver() {
-        new DatabaseHelper(getApplicationContext()).insertTripAlert(overSpeedAlert);
         addTripAlertToArray(overSpeedAlert);
-
         overSpeedAlert = null;
     }
 
@@ -3629,11 +3880,28 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             callEcoSpeedAssistant();
         }
 
-        if (ecoSpeedEnum != null && !runningEnum.name().equals(ecoSpeedEnum.name())) {
+//        if (ecoSpeedEnum != null && !runningEnum.name().equals(ecoSpeedEnum.name())) {
+//            sendTheEcoSpeedAlert();
+//            resetEcoSpeedAlerts();
+//        }
+
+        // Check the time difference for AboveEcoSpeed alert
+        int timeDiff = TimeUtils.calcDiffTimeInSec(ecoSpeedStartTime, new Date());
+
+        //  AboveEcoSpeed: send alert if time exceeds 30 seconds or if state changes
+        if (ecoSpeedEnum == EcoSpeedEnums.AboveEcoSpeed) {
+            if (!runningEnum.name().equals(ecoSpeedEnum.name()) || timeDiff > 30) {
+                sendTheEcoSpeedAlert();
+                resetEcoSpeedAlerts();
+            }
+        }
+        // normal alerts: send alert only when the state changes
+        else if (ecoSpeedEnum != null && !runningEnum.name().equals(ecoSpeedEnum.name())) {
             sendTheEcoSpeedAlert();
             resetEcoSpeedAlerts();
-
         }
+
+
     }
 
     private void callEcoSpeedAssistant() {
@@ -3704,13 +3972,12 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 .average()
                 .orElse(0.0));
         int timeDiff = TimeUtils.calcDiffTimeInSec(ecoSpeedStartTime, new Date());
-        TripAlert alert = new TripAlert(ecoSpeedEnum.name(), String.valueOf(average), TimeUtils.getTimeIndhms(timeDiff), "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
+//        TripAlert alert = new TripAlert(ecoSpeedEnum.name(), String.valueOf(average), TimeUtils.getTimeIndhms(timeDiff), "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "");
+        com.gypsee.sdk.database.TripAlert alert = new com.gypsee.sdk.database.TripAlert(ecoSpeedEnum.name(), String.valueOf(average), TimeUtils.getTimeIndhms(timeDiff), "", new Date().getTime(), endLocation.getLatitude(), endLocation.getLongitude(), "",currentTrip.getId());
 
 
-        if (ecoSpeedEnum == EcoSpeedEnums.AboveEcoSpeed) {
-            new DatabaseHelper(getApplicationContext()).insertTripAlert(alert);
+        if (ecoSpeedEnum == EcoSpeedEnums.AboveEcoSpeed){
             addTripAlertToArray(alert);
-
         } else {
             addVehicleEcoSpeed(alert);
         }
@@ -3734,7 +4001,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         return EcoSpeedEnums.BelowEcoSpeed;
     }
 
-    private TripAlert overSpeedAlert, engineAlert;
+    private com.gypsee.sdk.database.TripAlert overSpeedAlert, engineAlert;
 
     private float filter(final float prev, final float curr, final int ratio) {
         // If first time through, initialise digital filter with current values
@@ -3834,8 +4101,25 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             int timeDifference = calculateGPSTimeInterval();
 
             if (timeDifference >= 3) {
+//                String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//                Log.e(TAG, "my time stamp");
+
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+//                String utcTimeStamp = sdf.format(new Date());
+//
+
                 String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                Log.e(TAG, "my time stamp");
+
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.setTime(new Date());
+//
+//                // Add 5 hours and 30 minutes
+//                calendar.add(Calendar.HOUR_OF_DAY, 5);
+//                calendar.add(Calendar.MINUTE, 30);
+//
+//                // Format the new time
+//                String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime());
 
                 TripLatLong tripLatLong = new TripLatLong(currentTrip.getId(), location.getLatitude(), location.getLongitude(), timeStamp);
                 if (previousLocation == null) {
@@ -3843,12 +4127,12 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
                 } else {
                     double distance = DistanceCalculator.distance(new LatLng(location.getLatitude(), location.getLongitude()), new LatLng(previousLocation.getLatitude(), previousLocation.getLongitude()));
 
-                    addLog("Distance between 2 lat long: " + distance);
 
                     //Distance between 2 lat long should not exceed 500 meters
                     if (distance > 20 && distance <= 450) {
                         addLog("Added lat long distance: " + distance);
-                        tripLatLongArrayList.add(tripLatLong);
+                        insertTripLatLongtoDb(tripLatLong);
+//                        tripLatLongArrayList.add(tripLatLong);
                     }
 
                     previousLocation = location;
@@ -3931,6 +4215,35 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
 
     }
+
+    public void distanceRecalculate() {
+
+        if (networkCallback.wasDisconnected && currentTrip != null){
+            callServer(getString(R.string.gpsTripDistance), "Upload GPS for trip calculation", 10);
+            callServer(getResources().getString(R.string.distanceRecalculate).replace("{","").replace("}","").replace("tripId", currentTrip.getId()), "Distance Recalculate ", 25);
+            networkCallback.wasDisconnected = false;
+        }
+
+        if (currentTrip != null){
+
+            List<DrivingAlert> storedAlerts = tripDatabase.drivingAlertDao().getDrivingAlertsByTripId(currentTrip.getId());
+
+            List<com.gypsee.sdk.database.TripAlert> unsyncedAlerts = tripDatabase.tripAlertDao().getTripAlertsByTripId(currentTrip.getId());
+
+            if (!storedAlerts.isEmpty()){
+                syncDataWithServer();
+            }
+
+            if (!unsyncedAlerts.isEmpty()){
+                syncEcoAlertsDataWithServer();
+            }
+
+        }
+
+
+    }
+
+
 
     private void stopLiveData() {
         needToEndTrip = true;
@@ -4030,13 +4343,11 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
         int i = 0;
         if (engineAlert != null) {
-            databaseHelper.insertTripAlert(engineAlert);
             addTripAlertToArray(engineAlert);
             engineAlert = null;
             i = i + 1;
         }
         if (overSpeedAlert != null) {
-            databaseHelper.insertTripAlert(overSpeedAlert);
             addTripAlertToArray(overSpeedAlert);
             overSpeedAlert = null;
             i = i + 1;
@@ -4044,16 +4355,13 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         }
 
         if (temporaryAccAlert != null) {
-            databaseHelper.insertTripAlert(temporaryAccAlert);
             addTripAlertToArray(temporaryAccAlert);
             temporaryAccAlert = null;
             i = i + 1;
 
         }
         if (tempDecAlert != null) {
-            databaseHelper.insertTripAlert(tempDecAlert);
             addTripAlertToArray(tempDecAlert);
-
             tempDecAlert = null;
             i = i + 1;
 
@@ -4173,4 +4481,5 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
 
 }
+
 

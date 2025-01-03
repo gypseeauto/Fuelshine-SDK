@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.gypsee.sdk.R;
 
@@ -42,7 +43,7 @@ public class SingleDayTripAdapter extends RecyclerView.Adapter<SingleDayTripAdap
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SingleDayTripAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         SingleDayTripRowLayoutBinding singleDayTripRowLayoutBinding = DataBindingUtil.inflate(layoutInflater, R.layout.single_day_trip_row_layout, parent, false);
@@ -50,7 +51,7 @@ public class SingleDayTripAdapter extends RecyclerView.Adapter<SingleDayTripAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull SingleDayTripAdapter.MyViewHolder holder, final int position) {
 
         SingleDayTripRowLayoutBinding singleDayTripRowLayoutBinding = holder.singleDayTripRowLayoutBinding;
 
@@ -78,11 +79,30 @@ public class SingleDayTripAdapter extends RecyclerView.Adapter<SingleDayTripAdap
 
 
         String source = tripRecord.getStartLocationName().length() <= 60 ? tripRecord.getStartLocationName() : tripRecord.getStartLocationName().substring(0, 60);
+
+
+
+
         try {
             if (tripRecord.getEndDate() == null) {
 
+//                String[] sourceParts = source.split(", ");
+//                String sourceAddress = String.join(", ", Arrays.copyOfRange(sourceParts, 0, 2));
+//
+//                Log.e("Source",sourceAddress.toString());
+
                 String[] sourceParts = source.split(", ");
-                String sourceAddress = String.join(", ", Arrays.copyOfRange(sourceParts, 0, 2));
+
+// Filter out any "null" values
+                List<String> filteredParts = Arrays.stream(sourceParts)
+                        .filter(part -> !part.equalsIgnoreCase("null")) // Remove "null"
+                        .collect(Collectors.toList());
+
+// Join the filtered parts
+                String sourceAddress = String.join(", ", filteredParts);
+
+                Log.e("Source", sourceAddress);
+
 
                 singleDayTripRowLayoutBinding.sourceDestinationTv.setText(sourceAddress);
 //                singleDayTripRowLayoutBinding.tripDescriptionTv.setText(TimeUtils.parseDatehm(tripRecord.getStartDate()) +
@@ -90,7 +110,7 @@ public class SingleDayTripAdapter extends RecyclerView.Adapter<SingleDayTripAdap
 //                        " • Driving Alerts : " + tripRecord.getAlertCount());
                 singleDayTripRowLayoutBinding.tripDescriptionTv.setText(
                         ""
-                    );
+                );
 
 
                 String dateString = tripRecord.getStartDate();
@@ -106,8 +126,8 @@ public class SingleDayTripAdapter extends RecyclerView.Adapter<SingleDayTripAdap
 
 
 
-               singleDayTripRowLayoutBinding.tripDistance.setText("");
-               singleDayTripRowLayoutBinding.time.setText("");
+                singleDayTripRowLayoutBinding.tripDistance.setText("");
+                singleDayTripRowLayoutBinding.time.setText("");
 
             } else {
                 String destination = tripRecord.getDestinationName().length() <= 60 ? tripRecord.getDestinationName() : tripRecord.getDestinationName().substring(0, 60);
@@ -219,6 +239,4 @@ public class SingleDayTripAdapter extends RecyclerView.Adapter<SingleDayTripAdap
 
 
 }
-
-    
 

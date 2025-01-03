@@ -107,6 +107,7 @@ android {
         def wallet = project.properties['wallet'] ?: "wallet"
         def performance = project.properties['performance'] ?: "performance"
         def fuelPrice = project.properties['fuelPrice'] ?: "fuelPrice"
+        def distanceRecalculate = project.properties['distanceRecalculate'] ?: "distanceRecalculate"
 
 
         resValue "string", "ACCESS_KEY", ACCESS_KEY
@@ -192,6 +193,7 @@ android {
         resValue "string", "wallet", wallet
         resValue "string", "performance", performance
         resValue "string", "fuelPrice", fuelPrice
+        resValue "string", "distanceRecalculate", distanceRecalculate
     }
 
     buildTypes {

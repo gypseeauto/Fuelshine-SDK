@@ -206,6 +206,9 @@ public interface ApiInterface {
     @GET(".")
     Call<ResponseBody> getObdDevice(@Header("authorization") String authorization);
 
+    @POST(".")
+    Call<ResponseBody> getDistanceRecalculation(@Header("authorization") String authorization, @Query("tripId") String userId);
+
     @GET(".")
     Call<ResponseBody> getVehicleAlertsForTrip(@Header("authorization") String authorization);
 
