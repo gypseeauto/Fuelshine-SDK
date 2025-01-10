@@ -162,14 +162,11 @@ public class MyCarsListFragment extends Fragment implements View.OnClickListener
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     try {
-                        // Parse the response as a String
                         String jsonResponse = response.body().string();
                         JSONObject jsonObject = new JSONObject(jsonResponse);
 
-                        // Extract the "alerts" object
                         JSONObject alertsObject = jsonObject.optJSONObject("alerts");
 
-                        // Fetch all vehicles from the database
                         ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
 
                         if (!vehiclemodelArrayList.isEmpty()) {
@@ -179,28 +176,25 @@ public class MyCarsListFragment extends Fragment implements View.OnClickListener
                             SharedPreferences sharedPreferences = requireContext().getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            // Check if the alertsObject contains the vehicleClass
+                            JSONObject alertObject;
                             if (alertsObject.has(vehicleClass)) {
-                                JSONObject alertObject = alertsObject.optJSONObject(vehicleClass);
-                                if (alertObject != null) {
-                                    Log.d("Threshold Match", "Matching alert found for vehicle type: " + vehicleClass);
-                                    editor.putString("harsh_acceleration", alertObject.optString("harsh_acceleration", "0"));
-                                    editor.putString("harsh_braking", alertObject.optString("harsh_braking", "0"));
-                                    editor.putString("overspeed", alertObject.optString("overspeed", "0"));
-                                }
+                                alertObject = alertsObject.optJSONObject(vehicleClass);
+                                Log.d("Threshold Match", "Matching alert found for vehicle type: " + vehicleClass);
                             } else {
                                 // Default to "LMV-NT" if no match is found
-                                JSONObject defaultAlert = alertsObject.optJSONObject("LMV-NT");
-                                if (defaultAlert != null) {
-                                    Log.d("Threshold Default", "No match found, using default values for LMV-NT.");
-                                    editor.putString("harsh_acceleration", defaultAlert.optString("harsh_acceleration", "0"));
-                                    editor.putString("harsh_braking", defaultAlert.optString("harsh_braking", "0"));
-                                    editor.putString("overspeed", defaultAlert.optString("overspeed", "0"));
-                                } else {
-                                    Log.e("Threshold Error", "Default LMV-NT values not found in the response.");
-                                }
+                                alertObject = alertsObject.optJSONObject("LMV-NT");
+                                Log.d("Threshold Default", "No match found, using default values for LMV-NT.");
                             }
-                            editor.apply();
+
+                            if (alertObject != null) {
+                                editor.putString("harsh_acceleration", alertObject.optString("HarshAccelaration", "0"));
+                                editor.putString("harsh_braking", alertObject.optString("harshBraking", "0"));
+                                editor.putString("harsh_cornering", alertObject.optString("HarshCornering", "0"));
+                                editor.putString("overspeed", alertObject.optString("overspeeding", "0"));
+                                editor.apply();
+                            } else {
+                                Log.e("Threshold Error", "Alert object for vehicle class or default LMV-NT is null.");
+                            }
                         } else {
                             Log.e("Vehicle Info", "No vehicles found in the database.");
                         }

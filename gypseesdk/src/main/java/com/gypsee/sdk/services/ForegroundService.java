@@ -230,13 +230,15 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
     private NetworkConnectionCallback networkCallback;
     private ConnectivityManager connectivityManager;
-    private boolean isConfigCalled =false;
+    private boolean isConfigCalled = false;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 //        defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 //        maxSpeed = Integer.parseInt(defaultSharedPreferences.getString(ConfigActivity.over_speed_preference, "90"));
+
+        Log.e(TAG,"Is Config Called = "+ isConfigCalled);
 
         if (harshAccelaration != null || harshDecelaration != null){
             isConfigCalled = true;
