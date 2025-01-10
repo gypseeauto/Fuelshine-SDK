@@ -93,7 +93,6 @@ public class SettingsFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,7 +172,6 @@ public class SettingsFragment extends Fragment {
         ((GypseeMainActivity) requireActivity()).showBottomNav();
 
 
-
         try {
             pInfo = requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
@@ -182,14 +180,11 @@ public class SettingsFragment extends Fragment {
 
         String versionName = pInfo.versionName;
 
-        settingsBinding.version.setText(getString(R.string.fuelshine_version)+versionName);
+        settingsBinding.version.setText(getString(R.string.fuelshine_version)+getString(R.string.sdk_version));
         
         settingsBinding.myvehicleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
                 // Create the new fragment instance
                 MyCarsListFragment myCarsListFragment = new MyCarsListFragment();
 

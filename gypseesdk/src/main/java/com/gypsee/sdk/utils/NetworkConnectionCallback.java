@@ -18,6 +18,7 @@ public class NetworkConnectionCallback extends ConnectivityManager.NetworkCallba
     private final ConnectivityManager connectivityManager;
     ForegroundService foregroundService;
     public boolean isNetWorkAvailable = true;
+    public boolean  wasDisconnected = false;
     public NetworkConnectionCallback(ConnectivityManager connectivityManager, ForegroundService foregroundService) {
         this.connectivityManager = connectivityManager;
         this.foregroundService = foregroundService;
@@ -28,7 +29,7 @@ public class NetworkConnectionCallback extends ConnectivityManager.NetworkCallba
         super.onAvailable(network);
         // Handle network available
         Log.e("Network", "onAvailable: " );
-      checkOnlineOrNot();
+        checkOnlineOrNot();
     }
 
     private void checkOnlineOrNot() {
@@ -37,6 +38,8 @@ public class NetworkConnectionCallback extends ConnectivityManager.NetworkCallba
             // Internet is available
             isNetWorkAvailable = true;
             foregroundService.checkNeedToEndTrip();
+            foregroundService.distanceRecalculate();
+            wasDisconnected = false;
 
         }else{
             isNetWorkAvailable = false;
@@ -58,6 +61,7 @@ public class NetworkConnectionCallback extends ConnectivityManager.NetworkCallba
         Log.e("Network", "onLost: " );
         // Handle network lost
         checkOnlineOrNot();
+        wasDisconnected = true;
 
     }
 

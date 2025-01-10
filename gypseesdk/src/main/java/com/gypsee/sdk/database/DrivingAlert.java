@@ -3,8 +3,8 @@ package com.gypsee.sdk.database;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "trip_alerts")
-public class TripAlert {
+@Entity(tableName = "driving_alerts")
+public class DrivingAlert {
 
     public String lon;
     @PrimaryKey(autoGenerate = true)
@@ -20,9 +20,7 @@ public class TripAlert {
     private String tripId;
     private int initialSpeed;
 
-
-
-    public TripAlert(String alertType, String alertValue, String timeInterval, String gForce, long timeStamp, double lat, double lng, String impact, String tripId) {
+    public DrivingAlert(String alertType, String alertValue, String timeInterval, String gForce, long timeStamp, double lat, double lng, String impact, String tripId) {
         this.alertType = alertType;
         this.alertValue = alertValue;
         this.timeInterval = timeInterval;
@@ -69,10 +67,6 @@ public class TripAlert {
     public String getGForce() {
         return gForce;
     }
-
-//    public void setGForce(String gForce) {
-//        this.gForce = gForce;
-//    }
 
     public long getTimeStamp() {
         return timeStamp;
@@ -122,7 +116,6 @@ public class TripAlert {
         this.initialSpeed = initialSpeed;
     }
 
-
     public String getgForce() {
         return gForce;
     }
@@ -130,5 +123,6 @@ public class TripAlert {
     public void setgForce(String gForce) {
         this.gForce = gForce;
     }
-
 }
+
+

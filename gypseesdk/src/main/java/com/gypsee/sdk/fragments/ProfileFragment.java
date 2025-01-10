@@ -1,43 +1,92 @@
-package com.gypsee.sdk.activities;
+package com.gypsee.sdk.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonObject;
 import com.gypsee.sdk.R;
+import com.gypsee.sdk.activities.GypseeMainActivity;
+import com.gypsee.sdk.activities.ProfileActivity;
 import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.models.User;
 import com.gypsee.sdk.models.Vehiclemodel;
-import com.gypsee.sdk.network.NetworkActivity;
-import com.gypsee.sdk.network.RetrofitHelper;
-
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.JsonObject;
-
+import com.gypsee.sdk.serverclasses.ApiClient;
+import com.gypsee.sdk.serverclasses.ApiInterface;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.gypsee.sdk.serverclasses.ApiClient;
-import com.gypsee.sdk.serverclasses.ApiInterface;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ProfileFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ProfileFragment extends Fragment implements View.OnClickListener,View.OnTouchListener{
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public ProfileFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ProfileFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ProfileFragment newInstance(String param1, String param2) {
+        ProfileFragment fragment = new ProfileFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
     MyPreferenece preferenece;
     User user;
     TextInputEditText vehicleRegistrationNo, customerName, vehBrandName, mobileNumber, purchaseDateEt, vehName, vehicleModelTv;
@@ -45,54 +94,72 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     // NetworkActivity networkActivity;
 
     LinearLayout linearLayout;
-
+    ConstraintLayout backBtnLayout;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        preferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        preferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, requireContext());
         user = preferenece.getUser();
-        initViews();
 
-        //networkActivity = new RetrofitHelper().getNetworkActivity();
+        ((GypseeMainActivity) requireActivity()).hideBottomNav();
 
-        save.setOnClickListener(this);
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViews(view);
     }
 
     ArrayList<Vehiclemodel> vehiclemodels = new ArrayList<>();
 
-    private void initViews() {
+    private void initViews(View view) {
 
-        vehBrandName = findViewById(R.id.veh_brandname);
-        customerName = findViewById(R.id.tv_customer_name);
-        vehicleRegistrationNo = findViewById(R.id.tv_vehicle_reg);
-        mobileNumber = findViewById(R.id.tv_phone);
-        purchaseDateEt = findViewById(R.id.tv_purchase_date);
-        vehName = findViewById(R.id.tv_vehicle_name);
-        vehicleModelTv = findViewById(R.id.tv_vehicle_model);
-        save = findViewById(R.id.btn_save);
+        vehBrandName = view.findViewById(R.id.veh_brandname);
+        customerName = view.findViewById(R.id.tv_customer_name);
+        vehicleRegistrationNo = view.findViewById(R.id.tv_vehicle_reg);
+        mobileNumber = view.findViewById(R.id.tv_phone);
+        purchaseDateEt = view.findViewById(R.id.tv_purchase_date);
+        vehName = view.findViewById(R.id.tv_vehicle_name);
+        vehicleModelTv = view.findViewById(R.id.tv_vehicle_model);
+        save = view.findViewById(R.id.btn_save);
         purchaseDateEt.setOnTouchListener(this);
-        linearLayout = findViewById(R.id.ll_progress);
+        linearLayout = view.findViewById(R.id.ll_progress);
+        backBtnLayout = view.findViewById(R.id.back_button_layout);
 
-        customerName.setText(user.getUserFullName());
-        mobileNumber.setText(user.getUserPhoneNumber());
+
+//        // Assuming user is already initialized
+        if (user != null) {
+            customerName.setText(user.getUserFullName());
+            mobileNumber.setText(user.getUserPhoneNumber());
+        }
+//
         mobileNumber.setEnabled(false);
         customerName.setEnabled(false);
-        Toolbar toolbar =  findViewById (R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.back_button);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        if (toolbar != null) {
+//            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//            toolbar.setNavigationIcon(R.drawable.back_button);
+//            toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+//        }
+
+        backBtnLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
 
 
-    }
 
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -147,7 +214,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         final Calendar c = Calendar.getInstance();
@@ -156,7 +222,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override
@@ -174,6 +240,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         return false;
     }
 
+
     private void saveAndExit() {
         preferenece.setCustomerName(customerName.getText().toString());
         preferenece.setCustomerPhone(mobileNumber.getText().toString());
@@ -184,7 +251,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         setInputState(false);
     }
 
-    String TAG = ProfileActivity.class.getSimpleName();
+    String TAG = ProfileFragment.class.getSimpleName();
 
     private void callServerToAddVehdetails(String url, String purpose,final int value) {
 
@@ -233,7 +300,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 Log.e(TAG, "Response :" + responseStr);
                                 //parseCheckAppversionResponse(responseStr);
                                 //user.setUserVehicles(jsonResponse.getString("userVehicles"));
-                                new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, ProfileActivity.this).storeUser(user);
+                                new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, requireContext()).storeUser(user);
                                 break;
                         }
 
@@ -278,6 +345,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        ((GypseeMainActivity) requireActivity()).showBottomNav();
     }
 
 }

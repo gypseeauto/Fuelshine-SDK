@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -113,19 +114,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.e("TripMileage",Mileage);
         Log.e("singleTripRecord",tripRecord.toString());
 
-        fragmentTripdetailsBinding.recenterButton.setOnClickListener(v -> {
-            if (!routeCoordinates.isEmpty()) {
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                for (LatLng latLng : routeCoordinates) {
-                    builder.include(latLng);
-                }
-                LatLngBounds bounds = builder.build();
-                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-            } else {
-                Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
 //        fragmentTripdetailsBinding.kmValue2.setText(tripRecord.getDistanceCovered());
 //        fragmentTripdetailsBinding.kmValue2.setText(tripRecord.getDistanceCovered());
@@ -150,6 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 isFuelPriceVisible = true;
             }
         });
+
 
 
         fragmentTripdetailsBinding.property3.setOnClickListener(view -> {
@@ -267,6 +256,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        fragmentTripdetailsBinding.recenterButton.setOnClickListener(v -> {
+            if(isLoaded){
+
+                if (!routeCoordinates.isEmpty()) {
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                    for (LatLng latLng : routeCoordinates) {
+                        builder.include(latLng);
+                    }
+                    LatLngBounds bounds = builder.build();
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                } else {
+                    Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
+                }
+
+            }else {
+                Toast.makeText(MapsActivity.this, "Route not available", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
+    }
+
+    boolean isLoaded = false;
+
     private void showFeedbackDialog() {
         try {
             if (tripRecord == null || tripRecord.getId() == null) {
@@ -301,9 +319,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //    }
 
     private void initGoogleMap() {
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getView().setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    v.getParent().requestDisallowInterceptTouchEvent(true); // Prevent parent from intercepting touch events
+                    return false; // Let the map handle the touch event
+                }
+            });
+        }
         mapFragment.getMapAsync(this);
+
     }
 
 
@@ -469,6 +500,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         switch (value) {
                             case 0:
                                 parselatLngOfTrip(responseStr);
+                                isLoaded = true;
                                 break;
                             case 1:
                                 parseFetchDrivingALerts(responseStr);
@@ -682,7 +714,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             fragmentTripdetailsBinding.fuelValue.setText(" ₹" + amount);
-            fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getMileageObtained()));
+            fragmentTripdetailsBinding.tripKmValue.setText(String.valueOf(tripMileage.getAdjustedMileageWithPenality()));
             fragmentTripdetailsBinding.kmValue.setText(String.valueOf(tripMileage.getEpaArAiMileage()));
 
         } catch (JSONException e) {
@@ -704,16 +736,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-        // Enable built-in zoom controls
+//        // Enable built-in zoom controls
+//        mMap.getUiSettings().setZoomControlsEnabled(true);
+//        mMap.getUiSettings().setZoomGesturesEnabled(true);
+//
+//
+//
+//        //We will zoom more if the distance covered is less than 5 KM.
+//
+//        mMap.setMinZoomPreference(Double.parseDouble(tripRecord.getDistanceCovered()) < 5 ? 14.0f : 11.0f);
+//        mMap.setMaxZoomPreference(Double.parseDouble(tripRecord.getDistanceCovered()) < 5 ? 16.0f : 14.0f);
+
+        // Enable zoom controls and gestures
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
 
+// Set a wider zoom range or remove zoom restrictions completely
+        mMap.resetMinMaxZoomPreference(); // Alternatively, set a wider range
 
+// Alternatively, adjust zoom based on distance covered
+//        double distanceCovered = Double.parseDouble(tripRecord.getDistanceCovered());
+//        if (distanceCovered < 5) {
+//            mMap.setMinZoomPreference(12.0f);  // More flexibility
+//            mMap.setMaxZoomPreference(18.0f);
+//        } else {
+//            mMap.setMinZoomPreference(8.0f);   // More flexibility
+//            mMap.setMaxZoomPreference(16.0f);
+//        }
 
-        //We will zoom more if the distance covered is less than 5 KM.
+        double distanceCovered = Double.parseDouble(tripRecord.getDistanceCovered());
+        if (distanceCovered < 5) {
+            // Set the zoom range to allow only a 3x zoom when distance is less than 5 km
+            mMap.setMinZoomPreference(14.0f);  // Start zoom level
+            mMap.setMaxZoomPreference(17.0f);  // Max zoom level, allowing only a 3x zoom
+        } else {
+            // Set the zoom range to allow only a 3x zoom when distance is greater than or equal to 5 km
+            mMap.setMinZoomPreference(10.0f);  // Start zoom level
+            mMap.setMaxZoomPreference(13.0f);  // Max zoom level, allowing only a 3x zoom
+        }
 
-        mMap.setMinZoomPreference(Double.parseDouble(tripRecord.getDistanceCovered()) < 5 ? 14.0f : 11.0f);
-        mMap.setMaxZoomPreference(Double.parseDouble(tripRecord.getDistanceCovered()) < 5 ? 16.0f : 14.0f);
 
 
         drawMapUsingLatLngOfTrip();
@@ -1213,6 +1274,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Log.e(TAG, "Alert Type: " + alertType);
             Log.e(TAG, "Alert Value from server: " + alertValue);
+            Log.e(TAG, "Alert time from server: " + timeInterval);
+
+            if (alertType.equals("AboveEcoSpeed")){
+                alertType = "FuelBurnMode";
+            }
 
             // Add marker to map
             LatLng latLng = new LatLng(lat, lng);
@@ -1246,7 +1312,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (alerType) {
             case "High RPM":
                 break;
-
             case "Harsh Braking":
                 drawable = R.drawable.ic_map_harshbraking;
                 break;
@@ -1255,6 +1320,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case "Overspeed":
                 drawable = R.drawable.ic_map_overspeed;
+                break;
+            default:
+                drawable = R.drawable.fuel_burn_mode;
                 break;
         }
 

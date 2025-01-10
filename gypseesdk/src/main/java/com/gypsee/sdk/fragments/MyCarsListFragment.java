@@ -1,5 +1,7 @@
 package com.gypsee.sdk.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,12 +29,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 import com.gypsee.sdk.Adapters.CarListRecyclerViewAdapter;
 import com.gypsee.sdk.R;
@@ -42,10 +47,13 @@ import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.database.DatabaseHelper;
 
 import com.gypsee.sdk.jsonParser.ResponseFromServer;
+import com.gypsee.sdk.models.GypseeThresholdValues;
 import com.gypsee.sdk.models.User;
 import com.gypsee.sdk.models.Vehiclemodel;
+import com.gypsee.sdk.network.RetrofitClient;
 import com.gypsee.sdk.serverclasses.ApiClient;
 import com.gypsee.sdk.serverclasses.ApiInterface;
+import com.gypsee.sdk.serverclasses.GypseeApiService;
 import com.gypsee.sdk.services.TripBackGroundService;
 import com.gypsee.sdk.utils.Utils;
 import okhttp3.ResponseBody;
@@ -135,9 +143,76 @@ public class MyCarsListFragment extends Fragment implements View.OnClickListener
         fetchVehiclesFromDb();
         checkCarListCount();
 
+        ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+
+        if (!vehiclemodelArrayList.isEmpty()) {
+            fetchThresholdValues();
+        }
+
 
         return view;
     }
+
+    private void fetchThresholdValues() {
+        GypseeApiService apiService = RetrofitClient.getRetrofitInstance().create(GypseeApiService.class);
+        Call<ResponseBody> call = apiService.getThresholdValuesRaw();
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        String jsonResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                        JSONObject alertsObject = jsonObject.optJSONObject("alerts");
+
+                        ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+
+                        if (!vehiclemodelArrayList.isEmpty()) {
+                            String vehicleClass = vehiclemodelArrayList.get(0).getVehicleClass();  // Get the class of the first vehicle
+                            Log.e("Vehicle Info", "Added Vehicle is: " + vehiclemodelArrayList.get(0).getVehicleName());
+
+                            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            JSONObject alertObject;
+                            if (alertsObject.has(vehicleClass)) {
+                                alertObject = alertsObject.optJSONObject(vehicleClass);
+                                Log.d("Threshold Match", "Matching alert found for vehicle type: " + vehicleClass);
+                            } else {
+                                // Default to "LMV-NT" if no match is found
+                                alertObject = alertsObject.optJSONObject("LMV-NT");
+                                Log.d("Threshold Default", "No match found, using default values for LMV-NT.");
+                            }
+
+                            if (alertObject != null) {
+                                editor.putString("harsh_acceleration", alertObject.optString("HarshAccelaration", "0"));
+                                editor.putString("harsh_braking", alertObject.optString("harshBraking", "0"));
+                                editor.putString("harsh_cornering", alertObject.optString("HarshCornering", "0"));
+                                editor.putString("overspeed", alertObject.optString("overspeeding", "0"));
+                                editor.apply();
+                            } else {
+                                Log.e("Threshold Error", "Alert object for vehicle class or default LMV-NT is null.");
+                            }
+                        } else {
+                            Log.e("Vehicle Info", "No vehicles found in the database.");
+                        }
+                    } catch (Exception e) {
+                        Log.e("Parsing Error", "Failed to parse the threshold values", e);
+                    }
+                } else {
+                    Log.e("Response Error", "Threshold Response was not successful.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Network Error", "Failed to fetch threshold values", t);
+            }
+        });
+    }
+
 
     private void callBackgroundServicetoFetchCars() {
         Intent intent = new Intent(context, TripBackGroundService.class);
@@ -312,6 +387,11 @@ public class MyCarsListFragment extends Fragment implements View.OnClickListener
                 showProgressView(false);
                 fetchVehiclesFromDb();
                 checkCarListCount();
+
+                ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+                if (!vehiclemodelArrayList.isEmpty()) {
+                    fetchThresholdValues();
+                }
 
             } else if (intent.getAction().equals("ShowProgress")) {
                 fetchUserVehicles();

@@ -90,6 +90,9 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.gypsee.sdk.models.GypseeThresholdValues;
+import com.gypsee.sdk.network.RetrofitClient;
+import com.gypsee.sdk.serverclasses.GypseeApiService;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import org.json.JSONArray;
@@ -262,6 +265,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private WorkManager mWorkManager;
 
+    public void showEndTripBox(){
+        fragmentHomeBinding.wrapTripBox.setVisibility(View.VISIBLE);
+        Animation rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate);
+        fragmentHomeBinding.renewIcon.startAnimation(rotateAnimation);
+        fragmentHomeBinding.startTripBtn.setEnabled(false);
+
+//        fragmentHomeBinding.startTripBtn.setBackgroundColor();
+
+        Log.e("WrapTxt","Show WrapUp Text");
+    }
+
+    public void hideEndTripBox(){
+        fragmentHomeBinding.wrapTripBox.setVisibility(View.GONE);
+        fragmentHomeBinding.renewIcon.clearAnimation();
+        fragmentHomeBinding.startTripBtn.setEnabled(true);
+
+        Log.e("WrapTxt","Hide WrapUp Text");
+
+    }
 
 
 
@@ -308,7 +330,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
 
-        Log.e("userdate",user.getCreatedOn());
+//        Log.e("userdate",user.getCreatedOn());
 
 
 
@@ -326,6 +348,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //initVehicleHealthOps();
         getUserVehicles();
         getEmergencyContacts();
+        fetchThresholdValues();
 
         Log.e(TAG, "inTrainingMode here: " + user.isInTrainingMode());
 
@@ -370,39 +393,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    public void showEndTripBox(){
-        fragmentHomeBinding.wrapTripBox.setVisibility(View.VISIBLE);
-        Animation rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate);
-        fragmentHomeBinding.renewIcon.startAnimation(rotateAnimation);
-        fragmentHomeBinding.startTripBtn.setEnabled(false);
-
-//        fragmentHomeBinding.startTripBtn.setBackgroundColor();
-
-        Log.e("WrapTxt","Show WrapUp Text");
-    }
-
-    public void hideEndTripBox(){
-        fragmentHomeBinding.wrapTripBox.setVisibility(View.GONE);
-        fragmentHomeBinding.renewIcon.clearAnimation();
-        fragmentHomeBinding.startTripBtn.setEnabled(true);
-
-        Log.e("WrapTxt","Hide WrapUp Text");
-
-    }
-
     private void checkForeServiceInitializedOrNot() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (((GypseeMainActivity) requireActivity()).checkServiceRunning())
-                {
+                if (isAdded() && ((GypseeMainActivity) requireActivity()).checkServiceRunning()) {
                     connectWithForegroundService();
-                }else {
+                } else if (isAdded()) {
+                    // Re-run the check if the fragment is still attached
                     checkForeServiceInitializedOrNot();
                 }
             }
-        },3000L);
+        }, 3000L);
     }
+
+
+//    private void checkForeServiceInitializedOrNot() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (((MainActivity) requireActivity()).checkServiceRunning())
+//                {
+//                    connectWithForegroundService();
+//                }else {
+//                    checkForeServiceInitializedOrNot();
+//                }
+//            }
+//        },3000L);
+//    }
 
 
     private void showEndTripConfirmationDialog() {
@@ -645,7 +663,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 call = apiService.getFuelSavings(user.getUserAccessToken(), periodFrom, periodTo);
                 break;
 
-                //fetch init items
+            //fetch init items
             case 0:
                 //fetch product list
 //                loadNext = false;
@@ -809,7 +827,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         JSONObject gameLevelObj = jsonObject.getJSONObject("gameLevel");
 
-        String level = gameLevelObj.has("gameLevel") ?gameLevelObj.getString("gameLevel"):"";
+        String level = gameLevelObj.has("gameLevel") ?gameLevelObj.getString("gameLevel"):"0";
         String totalSafePercent = gameLevelObj.getString("totalSafeKmPercent");
         String totalSafeKm = gameLevelObj.getString("totalSafeKms");
 
@@ -841,7 +859,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fragmentHomeBinding.kmDrivenTv.setText(totalSafeKm);
         fragmentHomeBinding.safeKmPercent.setText(totalSafePercent + "%");
 
-        }
+    }
 
 
 
@@ -884,7 +902,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             MixpanelAPI.People people = mixpanelAPI.getPeople();
             PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
 
-            JSONObject initProperties = new JSONObject(); //set properties once
+            JSONObject initProperties = new JSONObject();
             initProperties.put(MixpanelUtils.USER_NAME, user.getUserFullName());
             initProperties.put(MixpanelUtils.USER_EMAIL, user.getUserEmail());
             initProperties.put(MixpanelUtils.USER_PHONE, user.getUserPhoneNumber());
@@ -894,7 +912,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             updateProperties.put(MixpanelUtils.USER_TRAINING_MODE, user.isInTrainingMode());
 
             JSONArray deniedPermissionJSONArray = new JSONArray();
-
             for (String item : fetchDeniedPermissions()) {
                 deniedPermissionJSONArray.put(item);
             }
@@ -902,16 +919,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             updateProperties.put(MixpanelUtils.USER_DENIED_PHONE_PERMISSIONS, deniedPermissionJSONArray);
             updateProperties.put(MixpanelUtils.USER_BATTERY_OPTIMIZATION_DISABLED, powerManager.isIgnoringBatteryOptimizations(context.getPackageName()));
 
+            Log.d("Mixpanel", "initProperties: " + initProperties.toString());
+            Log.d("Mixpanel", "updateProperties: " + updateProperties.toString());
+
             people.setOnce(initProperties);
             people.set(updateProperties);
             mixpanelAPI.flush();
 
-
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (UnsupportedOperationException e) {
+            Log.e("Mixpanel", "UnsupportedOperationException: " + e.getMessage());
         }
-
-
     }
 
 
@@ -1314,7 +1333,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void loadRecyclerView() {
 //        if (fragmentHomeBinding.status.getBackground() == null) {
-            return;
+        return;
 //        }
 //        driveDetailsRecyclerAdapter = new DriveDetailsRecyclerAdapter(context, driveDetailsModelClasses);
 //        fragmentHomeBinding.driveDetailsRecyclerview.setAdapter(driveDetailsRecyclerAdapter);
@@ -1338,16 +1357,95 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fragmentHomeBinding.setOdbDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.obd_disconnected, null));
 
         ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(context).fetchAllVehicles();
+//        if (vehiclemodelArrayList.size() == 0) {
+//            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()));
+//        } else {
+//            Vehiclemodel tempVehiclemodel = vehiclemodelArrayList.get(0);
+//            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()) + "\n" + StringFormater.capitalizeWord(tempVehiclemodel.getVehicleBrand().trim() + " " + tempVehiclemodel.getVehicleModel().trim()));
+//        }
+
         if (vehiclemodelArrayList.size() == 0) {
-            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()));
+            String userFullName = user.getUserFullName();
+            String displayName = (userFullName != null) ? StringFormater.capitalizeWord(userFullName) : "User";
+            fragmentHomeBinding.setUserName("Hola, " + displayName);
         } else {
             Vehiclemodel tempVehiclemodel = vehiclemodelArrayList.get(0);
-            fragmentHomeBinding.setUserName("Hola, " + StringFormater.capitalizeWord(user.getUserFullName()) + "\n" + StringFormater.capitalizeWord(tempVehiclemodel.getVehicleBrand().trim() + " " + tempVehiclemodel.getVehicleModel().trim()));
+
+            String userFullName = user.getUserFullName();
+            String vehicleBrand = tempVehiclemodel.getVehicleBrand();
+            String vehicleModel = tempVehiclemodel.getVehicleModel();
+
+            String displayName = (userFullName != null) ? StringFormater.capitalizeWord(userFullName) : "User";
+            String vehicleBrandName = (vehicleBrand != null) ? StringFormater.capitalizeWord(vehicleBrand.trim()) : "Unknown Brand";
+            String vehicleModelName = (vehicleModel != null) ? StringFormater.capitalizeWord(vehicleModel.trim()) : "Unknown Model";
+
+            fragmentHomeBinding.setUserName("Hola, " + displayName + "\n" + vehicleBrandName + " " + vehicleModelName);
         }
 
-       fetchTodayDateAndFetchTrips();
+
+        fetchTodayDateAndFetchTrips();
 
     }
+
+    private void fetchThresholdValues() {
+        GypseeApiService apiService = RetrofitClient.getRetrofitInstance().create(GypseeApiService.class);
+        Call<ResponseBody> call = apiService.getThresholdValuesRaw();
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        String jsonResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                        JSONObject alertsObject = jsonObject.optJSONObject("alerts");
+
+                        ArrayList<Vehiclemodel> vehiclemodelArrayList = new DatabaseHelper(requireContext()).fetchAllVehicles();
+
+                        if (!vehiclemodelArrayList.isEmpty()) {
+                            String vehicleClass = vehiclemodelArrayList.get(0).getVehicleClass();  // Get the class of the first vehicle
+                            Log.e("Vehicle Info", "Added Vehicle is: " + vehiclemodelArrayList.get(0).getVehicleName());
+
+                            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("ThresholdPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            JSONObject alertObject;
+                            if (alertsObject.has(vehicleClass)) {
+                                alertObject = alertsObject.optJSONObject(vehicleClass);
+                                Log.d("Threshold Match", "Matching alert found for vehicle type: " + vehicleClass);
+                            } else {
+                                alertObject = alertsObject.optJSONObject("LMV-NT");
+                                Log.d("Threshold Default", "No match found, using default values for LMV-NT.");
+                            }
+
+                            if (alertObject != null) {
+                                editor.putString("harsh_acceleration", alertObject.optString("HarshAccelaration", "0"));
+                                editor.putString("harsh_braking", alertObject.optString("harshBraking", "0"));
+                                editor.putString("harsh_cornering", alertObject.optString("HarshCornering", "0"));
+                                editor.putString("overspeed", alertObject.optString("overspeeding", "0"));
+                                editor.apply();
+                            } else {
+                                Log.e("Threshold Error", "Alert object for vehicle class or default LMV-NT is null.");
+                            }
+                        } else {
+                            Log.e("Vehicle Info", "No vehicles found in the database.");
+                        }
+                    } catch (Exception e) {
+                        Log.e("Parsing Error", "Failed to parse the threshold values", e);
+                    }
+                } else {
+                    Log.e("Response Error", "Threshold Response was not successful.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Network Error", "Failed to fetch threshold values", t);
+            }
+        });
+    }
+
 
     private void fetchTodayDateAndFetchTrips() {
 
@@ -1385,7 +1483,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             LocalDate sevenDaysAgo = currentDate.minusDays(7);
 
             // Format the date string
-             dateString = sevenDaysAgo.format(formatter);
+            dateString = sevenDaysAgo.format(formatter);
 
             callGameServer(getResources().getString(R.string.gameLevel).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get Game Level",dateString,formattedDate,1);
 
@@ -1671,7 +1769,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //            fetchTrips();
 //            fetchTripsAndDisplay();
 
-           fetchTodayDateAndFetchTrips();
+            fetchTodayDateAndFetchTrips();
 
 
             fragmentHomeBinding.today.setBackground(getResources().getDrawable(R.drawable.hoy));
@@ -1692,7 +1790,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             General_RulesFragment rulesFragment = new General_RulesFragment();
 
-           requireActivity().getSupportFragmentManager().beginTransaction()
+            requireActivity().getSupportFragmentManager().beginTransaction()
                     .add(R.id.mainFrameLayout, rulesFragment)
                     .addToBackStack("General_RulesFragment")  // Optional: Add transaction to the back stack
                     .commit();
@@ -1724,7 +1822,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             } else {
                 // Bluetooth is enabled
-               // Toast.makeText(requireContext(), "Bluetooth is already enabled", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(requireContext(), "Bluetooth is already enabled", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -1739,8 +1837,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-//    List<TripRecord> records ;
-List<TripRecord> records = new ArrayList<>();
+    //    List<TripRecord> records ;
+    List<TripRecord> records = new ArrayList<>();
     private void fetchTripsAndDisplay() {
         records = new DatabaseHelper(context).fetchAllTripRecords();
 //If the current trip is not null,we will add the trip to the list.
@@ -2016,7 +2114,7 @@ List<TripRecord> records = new ArrayList<>();
                             instructionsArray.getJSONObject(0).getString("imageUrl"),
                             deviceName,
                             instructions
-                            );
+                    );
                 } else {
                     informationModel = new DeviceInformationModel("", "", "", instructions);
                 }
@@ -2243,7 +2341,7 @@ List<TripRecord> records = new ArrayList<>();
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             foregroundService = ((ForegroundService.ForegroundServiceBinder) service).getService();
-           checkStartTripButton();
+            checkStartTripButton();
         }
 
         @Override
@@ -3871,7 +3969,7 @@ List<TripRecord> records = new ArrayList<>();
 
 
 //            TripRecord tripRecord = new TripRecord(tripId, startDate, endDate, engineRpmMax, speed, engineRuntime, distanceCovered, alertsCount, startLat, startLong, endLat, endLong, startLocationName, destinationName, vhsScore, mileage, tripDuration, safeKm, lastUpdatedOn);
-             tripRecord = new TripRecord(tripId, startDate, endDate, engineRpmMax, speed, engineRuntime, distanceCovered, alertsCount, startLat, startLong, endLat, endLong, startLocationName, destinationName, vhsScore, mileage, tripDuration, safeKm, lastUpdatedOn,tripSavedAmount,tripSavingsCommission);
+            tripRecord = new TripRecord(tripId, startDate, endDate, engineRpmMax, speed, engineRuntime, distanceCovered, alertsCount, startLat, startLong, endLat, endLong, startLocationName, destinationName, vhsScore, mileage, tripDuration, safeKm, lastUpdatedOn,tripSavedAmount,tripSavingsCommission);
 
             new DatabaseHelper(context).insertTripRecord(tripRecord);
 
@@ -3879,7 +3977,7 @@ List<TripRecord> records = new ArrayList<>();
         }
 
 
-            fetchTripsAndDisplay();
+        fetchTripsAndDisplay();
     }
 
 
@@ -4116,7 +4214,7 @@ List<TripRecord> records = new ArrayList<>();
         JSONObject userJsonObject = jsonResponse.getJSONObject("user");
 
         String userId, userName, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken, userImg, userDeviceMac,
-                userTypes, referCode, createdOn, lastUpdatedOn;
+                userTypes, referCode, createdOn, lastUpdatedOn, userAddresses;
 
         JSONObject userWallet = userJsonObject.has("userWallet")? userJsonObject.getJSONObject("userWallet") : null;
 
@@ -4137,6 +4235,7 @@ List<TripRecord> records = new ArrayList<>();
         referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
         createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
         lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
+        userAddresses = userJsonObject.has("userAddresses") ? userJsonObject.getString("userAddresses") : "";
         approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
         locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
         signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
@@ -4151,31 +4250,31 @@ List<TripRecord> records = new ArrayList<>();
         }
         if(subJsonObject != null){
 
-                boolean active = subJsonObject.has("active") && subJsonObject.getBoolean("active");
-                String couponCode = subJsonObject.has("couponCode") ? subJsonObject.getString("couponCode") : "";
-                String endDate = subJsonObject.has("endDate") ? subJsonObject.getString("endDate") : "";
-                String id = subJsonObject.has("id") ? subJsonObject.getString("id") : "";
-                String subLastUpdatedOn = subJsonObject.has("lastUpdatedOn") ? subJsonObject.getString("lastUpdatedOn") : "";
-                String startDate = subJsonObject.has("startDate") ? subJsonObject.getString("startDate") : "";
-                double paidAmount = subJsonObject.has("paidAmount") ? subJsonObject.getDouble("paidAmount") : 0;
-                double subscriptionAmount = subJsonObject.has("subscriptionAmount") ? subJsonObject.getDouble("subscriptionAmount") : 0;
-                double discountAmount = subJsonObject.has("discountAmount") ? subJsonObject.getDouble("discountAmount") : 0;
+            boolean active = subJsonObject.has("active") && subJsonObject.getBoolean("active");
+            String couponCode = subJsonObject.has("couponCode") ? subJsonObject.getString("couponCode") : "";
+            String endDate = subJsonObject.has("endDate") ? subJsonObject.getString("endDate") : "";
+            String id = subJsonObject.has("id") ? subJsonObject.getString("id") : "";
+            String subLastUpdatedOn = subJsonObject.has("lastUpdatedOn") ? subJsonObject.getString("lastUpdatedOn") : "";
+            String startDate = subJsonObject.has("startDate") ? subJsonObject.getString("startDate") : "";
+            double paidAmount = subJsonObject.has("paidAmount") ? subJsonObject.getDouble("paidAmount") : 0;
+            double subscriptionAmount = subJsonObject.has("subscriptionAmount") ? subJsonObject.getDouble("subscriptionAmount") : 0;
+            double discountAmount = subJsonObject.has("discountAmount") ? subJsonObject.getDouble("discountAmount") : 0;
 
-                if (!id.equals("")) {
+            if (!id.equals("")) {
 
-                    subscriptionModel = new SubscriptionModel(
-                            active,
-                            couponCode,
-                            createdOn,
-                            endDate,
-                            id,
-                            subLastUpdatedOn,
-                            startDate,
-                            discountAmount,
-                            subscriptionAmount,
-                            paidAmount
-                    );
-                }
+                subscriptionModel = new SubscriptionModel(
+                        active,
+                        couponCode,
+                        createdOn,
+                        endDate,
+                        id,
+                        subLastUpdatedOn,
+                        startDate,
+                        discountAmount,
+                        subscriptionAmount,
+                        paidAmount
+                );
+            }
 
         }
 
@@ -4294,4 +4393,5 @@ List<TripRecord> records = new ArrayList<>();
 
 
 }
+
 

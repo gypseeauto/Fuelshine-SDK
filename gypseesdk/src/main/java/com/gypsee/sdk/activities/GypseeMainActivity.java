@@ -50,11 +50,13 @@ import com.gypsee.sdk.database.DatabaseHelper;
 import com.gypsee.sdk.databinding.GypseeActivityMainBinding;
 import com.gypsee.sdk.dialogs.ReferralCodeDialogFragment;
 import com.gypsee.sdk.dialogs.SubscribeDialog;
+import com.gypsee.sdk.fragments.AlertsConfigurationFragment;
 import com.gypsee.sdk.fragments.ConnectedDeviceAdapter;
 import com.gypsee.sdk.fragments.HomeFragment;
 
 
 import com.gypsee.sdk.fragments.NewVehiclePerformanceFragment;
+import com.gypsee.sdk.fragments.ProfileFragment;
 import com.gypsee.sdk.fragments.SettingsFragment;
 import com.gypsee.sdk.fragments.WalletFragment;
 import com.gypsee.sdk.helpers.BluetoothHelperClass;
@@ -465,28 +467,38 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
         return true;
     }
 
-
     private void initTopAppBar() {
-
         User user = myPreferenece.getUser();
-        Log.e(TAG, "Firebasetoken : " + myPreferenece.getStringData(MyPreferenece.FCM_TOKEN));
-//        latLongModelArrayList.clear();
-        // calling new triplist
+
+        // Log Firebase token
+        Log.e(TAG, "Firebase token : " + myPreferenece.getStringData(MyPreferenece.FCM_TOKEN));
 
         user = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, getApplicationContext()).getUser();
 
-        if (user.getUserImg().contains("http"))
+        // Check if user is not null and has a valid image URL
+        if (user != null && user.getUserImg() != null && user.getUserImg().contains("http")) {
             Glide
                     .with(getApplicationContext())
                     .load(user.getUserImg())
                     .placeholder(R.drawable.ic_profile)
                     .centerInside()
                     .into(activityMainBinding.topBar.profileImage);
-
+        } else {
+            Log.e(TAG, "User or user image is null");
+            activityMainBinding.topBar.profileImage.setImageResource(R.drawable.ic_profile);
+        }
         activityMainBinding.topBar.profileImgHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        startActivity(new Intent(GypseeMainActivity.this, ProfileActivity.class));
+//                startActivity(new Intent(GypseeMainActivity.this, ProfileActivity.class));
+
+                ProfileFragment profileFragment = new ProfileFragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.mainFrameLayout, profileFragment, ProfileFragment.class.getSimpleName())
+                        .addToBackStack(ProfileFragment.class.getSimpleName())
+                        .commit();
+
             }
         });
     }
@@ -762,6 +774,12 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
     private void callServerTogetAppversions(JsonObject jsonObject, final int value, final String purpose) {
         ApiInterface apiService = ApiClient.getRetrofitInstance(GypseeMainActivity.this).create(ApiInterface.class);
         User user = myPreferenece.getUser();
+
+        if (user == null) {
+            Log.e(TAG, "User is null. Cannot proceed with API call.");
+            return;
+        }
+
         Call<ResponseBody> call;
         Log.e(TAG, purpose + " input : " + jsonObject.toString());
         switch (value) {
@@ -1742,10 +1760,18 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
 
     public void replaceAlertFragment(Fragment fragment) {
 //        fragment.setArguments(args); // Set the arguments before replacing the fragment
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.mainFrameLayout, fragment)
-                .addToBackStack(null)
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.mainFrameLayout, fragment)
+//                .addToBackStack(null)
+//                .commit();
+
+        AlertsConfigurationFragment alertsConfigurationFragment = new AlertsConfigurationFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.mainFrameLayout, alertsConfigurationFragment, AlertsConfigurationFragment.class.getSimpleName())
+                .addToBackStack(AlertsConfigurationFragment.class.getSimpleName())
                 .commit();
+
     }
 
     public void replaceFragment(Fragment fragment, Bundle args) {

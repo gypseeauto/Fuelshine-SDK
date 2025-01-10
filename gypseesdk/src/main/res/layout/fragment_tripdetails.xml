@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,71 +9,7 @@
     </data>
 
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/main_ll"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_marginBottom="50dp"-->
-<!--            android:orientation="vertical"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
-
-<!--            <include-->
-<!--                android:id="@+id/toolbarlayout"-->
-<!--                layout="@layout/toolbar_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content" />-->
-
-<!--            <include-->
-<!--                android:id="@+id/tripdetails_card_one"-->
-<!--                layout="@layout/tripdetails_card_one"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="7dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginEnd="7dp" />-->
-
-<!--            <include-->
-<!--                layout="@layout/tripdetails_card_two"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="15dp"-->
-<!--                android:visibility="gone" />-->
-
-<!--            <fragment-->
-<!--                android:id="@+id/map"-->
-<!--                android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                tools:context=".MapsActivity" />-->
-<!--        </LinearLayout>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/tripFeedbackBtn"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="2dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:background="@drawable/round_button"-->
-<!--            android:backgroundTint="@color/colorPrimary"-->
-<!--            android:fontFamily="@font/lato_bold"-->
-<!--            android:text="Share Feedback"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="#FFFFFF"-->
-<!--            android:textSize="17dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/main_ll" />-->
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <ScrollView
+    <com.gypsee.sdk.CustomScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/whiteBack"
@@ -1772,7 +1709,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.gypsee.sdk.CustomScrollView>
 
 
 
