@@ -438,7 +438,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .show();
     }
 
-    private void showHideProgressLayout(boolean showProgressBar, boolean isEndTrip) {
+    public void showHideProgressLayout(boolean showProgressBar, boolean isEndTrip) {
 
         String text= context.getString(R.string.waiting_for_gps);
         if(isEndTrip)
@@ -1479,19 +1479,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
 
-            // Calculate the date 7 days ago
-            LocalDate sevenDaysAgo = currentDate.minusDays(7);
-
-            // Format the date string
-            dateString = sevenDaysAgo.format(formatter);
-
-            callGameServer(getResources().getString(R.string.gameLevel).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get Game Level",dateString,formattedDate,1);
+            String userCreatedOn = user.getCreatedOn();
 
 
-            callGameServer(getResources().getString(R.string.fuelSavings).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get Fuel Savings",formattedPeriodFromDate,formattedDate,2);
+            // Define the input format
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            // Define the output format
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            try {
+                Date date = inputFormat.parse(userCreatedOn);
+
+                String userCreatedDate = outputFormat.format(date);
 
 
-            callWallet(getResources().getString(R.string.wallet).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get wallet Transactions",false,formattedPeriodFromDate,formattedDate);
+
+
+
+                // Calculate the date 7 days ago
+                LocalDate sevenDaysAgo = currentDate.minusDays(7);
+
+                // Format the date string
+                dateString = sevenDaysAgo.format(formatter);
+
+                callGameServer(getResources().getString(R.string.gameLevel).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get Game Level",userCreatedDate,formattedDate,1);
+
+
+                callGameServer(getResources().getString(R.string.fuelSavings).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get Fuel Savings",userCreatedDate,formattedDate,2);
+
+
+                callWallet(getResources().getString(R.string.wallet).replace("{","").replace("}","").replace("userId",user.getUserId()),"Get wallet Transactions",false,userCreatedDate,formattedDate);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
         }else{
 
@@ -3963,8 +3985,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             mileage = jsonObject.has("mileage") ? jsonObject.getDouble("mileage") : 0;
             tripDuration = jsonObject.has("tripDuration") ? jsonObject.getLong("tripDuration") : 0;
             safeKm = jsonObject.has("safeKm") ? jsonObject.getInt("safeKm") : 0;
-            lastUpdatedOn = jsonObject.getJSONArray("tripDevices").length()>0?
-                    jsonObject.getJSONArray("tripDevices").getJSONObject(0).getString("lastUpdatedOn") : "NA";
+            lastUpdatedOn = jsonObject.getJSONArray("tripDevices").length()>0? jsonObject.getJSONArray("tripDevices").getJSONObject(0).getString("lastUpdatedOn") : "NA";
 //            Log.e("147852", String.valueOf(jsonObject));
 
 

@@ -70,6 +70,13 @@ public class Constants {
     public static String tripEndedMsgHindi = "यात्रा समाप्त हो गई है। फ्यूल शाइन पर अपने ईंधन की बचत की जांच करें।";
     public static String initialMsg = "Ready to drive fuel-efficiently and safely with Fuel Shine.";
 
+    // nudges
+    public static String hindiNudge1 = "आपके ईको-ड्राइव रिवार्ड्स इंतजार कर रहे हैं! ऐप खोलें और ट्रिप शुरू करें।";
+    public static String hindiNudge2 = "स्मार्ट ड्राइव करें, समझदारी से बचत करें! फ्यूलशाइन खोलें और सुझाव पाएं।";
+    public static String hindiNudge3 = "फ्यूल की लागत ज्यादा? फ्यूलशाइन के साथ स्मार्ट ड्राइव करें। ऐप खोलें और बचत शुरू करें!";
+    public static String hindiNudge4 = "फ्यूल पर 30% तक बचत करें! फ्यूलशाइन खोलें और आज ही बचत शुरू करें।";
+    public static String hindiNudge5 = "स्मार्ट ड्राइविंग, बड़ी बचत। फ्यूलशाइन खोलें और अपनी यात्रा शुरू करें!";
+
     public static String tracking = "Tracking...";
     public static String fuelSaveMode= "Fuel save mode";
     public static String fuelBurnMode = "FuelBurn Mode";

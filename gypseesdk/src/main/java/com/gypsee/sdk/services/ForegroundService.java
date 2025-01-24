@@ -39,6 +39,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -105,6 +106,7 @@ import com.gypsee.sdk.activities.ConfigActivity;
 import com.gypsee.sdk.activities.GypseeMainActivity;
 import com.gypsee.sdk.activities.SplashActivity;
 import com.gypsee.sdk.broadcastreceivers.GeofenceBroadcastReceiver;
+import com.gypsee.sdk.broadcastreceivers.NotificationReceiver;
 import com.gypsee.sdk.config.MyPreferenece;
 import com.gypsee.sdk.config.ObdConfig;
 import com.gypsee.sdk.database.DatabaseExecutor;
@@ -184,6 +186,11 @@ import static com.gypsee.sdk.utils.Constants.fuelBurnMode;
 import static com.gypsee.sdk.utils.Constants.fuelSaveMode;
 import static com.gypsee.sdk.utils.Constants.harshAccelerationDetected;
 import static com.gypsee.sdk.utils.Constants.harshBrakingDetected;
+import static com.gypsee.sdk.utils.Constants.hindiNudge1;
+import static com.gypsee.sdk.utils.Constants.hindiNudge2;
+import static com.gypsee.sdk.utils.Constants.hindiNudge3;
+import static com.gypsee.sdk.utils.Constants.hindiNudge4;
+import static com.gypsee.sdk.utils.Constants.hindiNudge5;
 import static com.gypsee.sdk.utils.Constants.initialMsg;
 import static com.gypsee.sdk.utils.Constants.notRewarded;
 import static com.gypsee.sdk.utils.Constants.overspeeding;
@@ -232,6 +239,9 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     private ConnectivityManager connectivityManager;
     private boolean isConfigCalled = false;
 
+    private BroadcastReceiver startTripReceiver;
+
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -246,6 +256,23 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
 
         if (!isConfigCalled){
             fetchConfigValues();
+        }
+
+        // Create a BroadcastReceiver to handle starting the trip
+        startTripReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Check if the broadcast is the start trip intent
+                if ("com.example.start_trip".equals(intent.getAction())) {
+                    startManualTrip(true);
+                }
+            }
+        };
+
+        // Register the receiver to listen for the start_trip broadcast
+        IntentFilter filter = new IntentFilter("com.example.start_trip");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(startTripReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         }
 
         myPreferenece = new MyPreferenece(MyPreferenece.GYPSEE_PREFERENCES, this);
@@ -747,6 +774,23 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
     }
 
 
+    private static final String CHANNEL_ID = "NotificationServiceChannel";
+    private static final int NOTIFICATION_ID_BASE = 1000;
+    private static final long DELAY = 600000; // 10 minutes in milliseconds
+//    private static final long DELAY = 60000; // 1 minutes in milliseconds
+
+    private Handler handler;
+    private boolean notificationSent = false;
+    private boolean shouldSendNotifications = true;
+
+    private String[] notificationMessages = {
+            "Your eco-drive rewards are waiting! Open the app and start your trip.",
+            "Drive better, save smarter! Start Fuelshine for fuel-efficient tips.",
+            "Fuel costs high? Drive smart with Fuelshine. Open the app to start Savings!",
+            "Save up to 30% on fuel! Open Fuelshine and start saving today.",
+            "Smart driving. Big savings. Open Fuelshine to begin your journey!"
+    };
+
     public ArrayList<BluetoothDeviceModel> getConnectedRegisteredDevices(ArrayList<BluetoothDeviceModel> deviceList) {
         ArrayList<BluetoothDevice> connectedDevices = getConnectedDevices();
         HashSet<String> deviceSet = new HashSet<>();
@@ -755,12 +799,23 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             for (int i = 0; i < deviceList.size(); i++) {
                 deviceList.get(i).setNowConnected(false);
             }
+            notificationSent = false;
         } else {
             for (int i = 0; i < deviceList.size(); i++) {
                 for (BluetoothDevice device : connectedDevices) {
                     if (device.getAddress().equals(deviceList.get(i).getMacAddress())) {
                         deviceList.get(i).setNowConnected(true);
                         deviceSet.add(device.getAddress());
+                        Log.e(TAG,"Connected Device Now = "+device.getName());
+
+                        if (!notificationSent && shouldSendNotifications && currentTrip == null) {
+                            handler = new Handler(Looper.getMainLooper());
+                            sendNotificationsOneByOne();
+                            notificationSent = true;  // Set the flag to true after sending notification
+                        }
+
+//                        handler.post(notificationRunnable);
+
                     } else if (!deviceSet.contains(deviceList.get(i).getMacAddress())) {
                         deviceList.get(i).setNowConnected(false);
                     }
@@ -768,6 +823,92 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
             }
         }
         return deviceList;
+    }
+
+    private void sendNotificationsOneByOne() {
+
+        if (!shouldSendNotifications && currentTrip == null) {
+            return;
+        }
+
+        for (int i = 0; i < notificationMessages.length; i++) {
+            final int notificationIndex = i;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (shouldSendNotifications && currentTrip == null) {
+                        sendNotification(notificationIndex);
+                    }
+                }
+            }, DELAY * (notificationIndex + 1)); // Delay for each notification (1, 2, 3,... minute delay)
+        }
+    }
+
+
+    private void sendNotification(int notificationIndex) {
+        if (!shouldSendNotifications) {
+            return;  // Stop sending notifications if flag is set to false
+        }
+
+        String language = myPreferenece.getLang();
+        textToSpeech.stop();
+
+        // Define the Hindi nudge messages
+        String[] hindiNudges = {hindiNudge1, hindiNudge2, hindiNudge3, hindiNudge4, hindiNudge5};
+
+        // Check the notification index bounds
+        if (notificationIndex < 0 || notificationIndex >= notificationMessages.length) {
+            Log.e(TAG, "Invalid notification index: " + notificationIndex);
+            return;
+        }
+
+        // Determine the message to call the speaker
+        String messageToSpeak;
+        if ("hi".equals(language)) {
+            messageToSpeak = hindiNudges[notificationIndex]; // Get the corresponding Hindi message
+        } else {
+            messageToSpeak = notificationMessages[notificationIndex]; // Default to English message
+        }
+        callSpeaker(messageToSpeak);
+
+        // Create and send the notification
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        Intent intent = new Intent(this, NotificationReceiver.class); // Broadcast receiver
+        intent.putExtra("notification_id", NOTIFICATION_ID_BASE + notificationIndex);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, notificationIndex, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Fuelshine")
+                .setContentText(notificationMessages[notificationIndex]) // Use the message from the array
+                .setSmallIcon(R.drawable.notif_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.new_app_icon))
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build();
+
+        // Show the notification
+        if (notificationManager != null) {
+            notificationManager.notify(NOTIFICATION_ID_BASE + notificationIndex, notification);
+        }
+    }
+
+    public void stopSendingNotifications() {
+        shouldSendNotifications = false;  // Set flag to stop notifications
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Notification Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            if (manager != null) {
+                manager.createNotificationChannel(serviceChannel);
+            }
+        }
     }
 
     private void updateDevicesDatabase() {

@@ -3,6 +3,7 @@ package com.gypsee.sdk.activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -290,6 +291,9 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
             foregroundService.setActivity(GypseeMainActivity.this);
             foregroundService.setContext(GypseeMainActivity.this);
 
+            registeredDevices = foregroundService.fetchRegisteredDevices();
+            registeredDevices = foregroundService.getConnectedRegisteredDevices(registeredDevices);
+
             if(!isServiceTripStarted && foregroundService.currentTrip==null){
                 unbindService(foregroundServiceConnection);
                 foregroundService.stopSelf();
@@ -304,6 +308,7 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
         }
     };
 
+    private boolean showDialogOnResume = false; // Flag to show the dialog on resume
 
 
     @Override
@@ -319,6 +324,13 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
         discoveredAdapter = new ArrayAdapter<>(GypseeMainActivity.this, R.layout.available_bluetooth_devices_layout, R.id.available_devices);
 //        fetchbluetooth();
         registerBluettothBroadcastReceiver();
+
+
+        registerReceiver(mReceiver, new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED));
+
+        handleIntent(getIntent());
+
+
 
         initializeBluetooth();
         getCurrentLocation();
@@ -439,6 +451,83 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
 
 
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (intent.getBooleanExtra("show_dialog", false)) {
+            showDialogOnResume = true;  // Set the flag to show dialog on resume
+        }
+    }
+
+    // Call this method whenever you want to call showHideProgressLayout
+    public void callShowHideProgressLayout(boolean showProgressBar, boolean isEndTrip) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        HomeFragment homeFragment = (HomeFragment) fragmentManager.findFragmentById(R.id.mainFrameLayout);
+
+        if (homeFragment != null) {
+            homeFragment.showHideProgressLayout(showProgressBar, isEndTrip);
+        }
+    }
+
+    private void showDialog() {
+        // Show dialog when the app opens
+        AlertDialog.Builder builder = new AlertDialog.Builder(GypseeMainActivity.this);
+        builder.setTitle("Start Trip")
+                .setMessage("Save fuel and earn rewards! Ready to start your journey with Fuelshine?")
+                .setPositiveButton("Let's Go!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if (foregroundService != null){
+
+                            if (foregroundService.currentTrip == null) {
+                                Log.e(TAG,"foregroundService currentTrip = " +foregroundService.currentTrip );
+                                callShowHideProgressLayout(true,false);
+                                foregroundService.startManualTrip(true);
+                                foregroundService.stopSendingNotifications();
+                            }
+
+
+                        }
+
+                        // Dismiss all notifications
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        if (notificationManager != null) {
+                            notificationManager.cancelAll();
+                        }
+
+                    }
+                })
+                .setNegativeButton("No Later", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Dismiss all notifications
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        if (notificationManager != null) {
+                            notificationManager.cancelAll();
+                        }
+
+                        if (foregroundService != null){
+                            foregroundService.stopSendingNotifications();
+                        }
+
+
+                    }
+                })
+                .setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
 
     public Boolean checkServiceRunning() {
         // Check if the service is running
@@ -1098,6 +1187,12 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (showDialogOnResume) {
+            showDialog();
+            showDialogOnResume = false;  // Reset the flag after showing the dialog
+        }
+
         fetchbluetooth();
         activityMainBinding.bottomNavigationView.setSelectedItemId(R.id.nav_drive);
         String extras = getIntent().getStringExtra("action");
@@ -1787,7 +1882,7 @@ public class GypseeMainActivity extends AppCompatActivity implements GpsUtils.on
 
     @Override
     protected void onDestroy() {
-        unbindService(foregroundServiceConnection);
+//        unbindService(foregroundServiceConnection);
         super.onDestroy();
     }
 }
