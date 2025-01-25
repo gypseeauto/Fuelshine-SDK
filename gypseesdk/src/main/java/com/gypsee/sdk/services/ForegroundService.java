@@ -1493,6 +1493,10 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(activityRecognitionBroadcastReceiver);
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(locationBroadcastReceiver);
 
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+
         Log.d("MyForegroundService", "Service destroyed");
         super.onDestroy();
     }
