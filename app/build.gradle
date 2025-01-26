@@ -66,13 +66,13 @@ dependencies {
 
     // Inject the multiDex and gypsee sdk in your gradle
     implementation libs.multidex
-//   implementation project(':gypseesdk')
+   implementation project(':gypseesdk')
 
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     //implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
 
-   implementation 'com.github.gypseeauto:Fuelshine-SDK:1.0.8.8'
+   //implementation 'com.github.gypseeauto:Fuelshine-SDK:1.0.8.8'
 
 }
