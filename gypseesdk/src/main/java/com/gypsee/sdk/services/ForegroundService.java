@@ -1490,7 +1490,7 @@ public class ForegroundService extends Service implements SharedPreferences.OnSh
         connectivityManager.unregisterNetworkCallback(networkCallback);
         stopLocationService();
         stopService(new Intent(getApplicationContext(), FloatingWidgetService.class));
-        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(activityRecognitionBroadcastReceiver);
+//        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(activityRecognitionBroadcastReceiver);
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(locationBroadcastReceiver);
 
         if (handler != null) {
