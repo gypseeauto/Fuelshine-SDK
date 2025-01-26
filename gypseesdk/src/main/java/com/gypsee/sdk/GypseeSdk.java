@@ -12,7 +12,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
 import com.gypsee.sdk.activities.GypseeMainActivity;
 import com.gypsee.sdk.activities.SplashActivity;
 import com.gypsee.sdk.config.MyPreferenece;
@@ -79,12 +78,8 @@ public class GypseeSdk {
                 String status = jsonResponse.getString("status");
                 String message = jsonResponse.getString("message");
                 if (status.equals("200")) {
-                    JSONObject userJsonObject = jsonResponse.getJSONObject("user");
 
-                    Gson gson = new Gson();
-                    User loggedInUser = gson.fromJson(userJsonObject.toString(),User.class);
-
-                    myPreferenece.storeUser(loggedInUser);
+                    parseUserJson(jsonResponse,context,myPreferenece);
 
                     checkPermissionsAndNavigate(context,myPreferenece);
                 }else {
@@ -149,39 +144,8 @@ public class GypseeSdk {
                 String status = jsonResponse.getString("status");
                 String message = jsonResponse.getString("message");
                 if (status.equals("200")) {
-                    JSONObject userJsonObject = jsonResponse.getJSONObject("user");
 
-                    String userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn;
-
-                    boolean approved, locked, signUpBonusCredited, referCodeApplied;
-
-                    JSONObject userWallet = userJsonObject.has("userWallet")? userJsonObject.getJSONObject("userWallet") : null;
-
-                    int walletAmount;
-
-                    userId = userJsonObject.has("userId") ? userJsonObject.getString("userId") : "";
-                    userName1 = userJsonObject.has("userName") ? userJsonObject.getString("userName") : "";
-                    userFullName = userJsonObject.has("userFullName") ? userJsonObject.getString("userFullName") : "";
-                    userEmail = userJsonObject.has("userEmail") ? userJsonObject.getString("userEmail") : "";
-                    userPhoneNumber = userJsonObject.has("userPhoneNumber") ? userJsonObject.getString("userPhoneNumber") : "";
-                    userAccessToken = userJsonObject.has("userAccessToken") ? userJsonObject.getString("userAccessToken") : "";
-                    fcmToken1 = userJsonObject.has("fcmToken") ? userJsonObject.getString("fcmToken") : "";
-                    userImg = userJsonObject.has("userImg") ? userJsonObject.getString("userImg") : "";
-                    userDeviceMac = userJsonObject.has("userDeviceMac") ? userJsonObject.getString("userDeviceMac") : "";
-                    userTypes = userJsonObject.has("userTypes") ? userJsonObject.getString("userTypes") : "";
-                    referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
-                    createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
-                    lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
-                    approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
-                    locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
-                    signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
-                    referCodeApplied = userJsonObject.has("referCodeApplied") && userJsonObject.getBoolean("referCodeApplied");
-
-                    walletAmount = (userWallet != null) ? (userWallet.has("loyaltyPoints") ? userWallet.getInt("loyaltyPoints") : 0) : 0;
-
-                    myPreferenece.storeUser(new User(userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
-                            userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
+                    parseUserJson(jsonResponse,context,myPreferenece);
                     //updating inTraining mode in HomeFragment on fresh install
                     checkPermissionsAndNavigate(context,myPreferenece);
 
@@ -195,7 +159,44 @@ public class GypseeSdk {
                 "regerror", context.getResources().getString(R.string.registerApi), "Register with username and password");
     }
 
-   public static String googleClientId;
+    private static void parseUserJson(JSONObject jsonResponse, Context context, MyPreferenece myPreferenece) throws JSONException {
+
+        JSONObject userJsonObject = jsonResponse.getJSONObject("user");
+
+        String userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
+                userTypes, referCode, createdOn, lastUpdatedOn;
+
+        boolean approved, locked, signUpBonusCredited, referCodeApplied;
+
+        JSONObject userWallet = userJsonObject.has("userWallet")? userJsonObject.getJSONObject("userWallet") : null;
+
+        int walletAmount;
+
+        userId = userJsonObject.has("userId") ? userJsonObject.getString("userId") : "";
+        userName1 = userJsonObject.has("userName") ? userJsonObject.getString("userName") : "";
+        userFullName = userJsonObject.has("userFullName") ? userJsonObject.getString("userFullName") : "";
+        userEmail = userJsonObject.has("userEmail") ? userJsonObject.getString("userEmail") : "";
+        userPhoneNumber = userJsonObject.has("userPhoneNumber") ? userJsonObject.getString("userPhoneNumber") : "";
+        userAccessToken = userJsonObject.has("userAccessToken") ? userJsonObject.getString("userAccessToken") : "";
+        fcmToken1 = userJsonObject.has("fcmToken") ? userJsonObject.getString("fcmToken") : "";
+        userImg = userJsonObject.has("userImg") ? userJsonObject.getString("userImg") : "";
+        userDeviceMac = userJsonObject.has("userDeviceMac") ? userJsonObject.getString("userDeviceMac") : "";
+        userTypes = userJsonObject.has("userTypes") ? userJsonObject.getString("userTypes") : "";
+        referCode = userJsonObject.has("referCode") ? userJsonObject.getString("referCode") : "";
+        createdOn = userJsonObject.has("createdOn") ? userJsonObject.getString("createdOn") : "";
+        lastUpdatedOn = userJsonObject.has("lastUpdatedOn") ? userJsonObject.getString("lastUpdatedOn") : "";
+        approved = userJsonObject.has("approved") && userJsonObject.getBoolean("approved");
+        locked = userJsonObject.has("locked") && userJsonObject.getBoolean("locked");
+        signUpBonusCredited = userJsonObject.has("signUpBonusCredited") && userJsonObject.getBoolean("signUpBonusCredited");
+        referCodeApplied = userJsonObject.has("referCodeApplied") && userJsonObject.getBoolean("referCodeApplied");
+
+        walletAmount = (userWallet != null) ? (userWallet.has("loyaltyPoints") ? userWallet.getInt("loyaltyPoints") : 0) : 0;
+
+        myPreferenece.storeUser(new User(userId, userName1, userFullName, userEmail, userPhoneNumber, userAccessToken, fcmToken1, userImg, userDeviceMac,
+                userTypes, referCode, createdOn, lastUpdatedOn, approved, locked, signUpBonusCredited, referCodeApplied, false, String.valueOf(walletAmount)));
+    }
+
+    public static String googleClientId;
 
      public static void setClientId(String clientId) {
       googleClientId = clientId;

@@ -445,7 +445,6 @@ public class MyPreferenece {
     //Save Login User Data
     public void storeUser(User user) {
 
-      Log.e("Storing the details", "User ID - " + user.getUserId());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(UserID, user.getUserId());
         editor.putString(userName, user.getUserName());
